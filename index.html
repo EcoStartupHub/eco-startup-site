@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Start-up Club | Sənaye və Texnologiya Kolleci</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* STK Official Palette + Eco Accent (Light Theme) */
+            --stk-navy: #0b2341;
+            --stk-navy-light: #16365d;
+            --stk-gold: #f1b812;
+            --stk-gold-hover: #d9a30a;
+            --eco-green: #2e7d32;
+            --eco-green-light: #4caf50;
+            --eco-bg: #e8f5e9;
+            
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --role-bg: #f1f5f9;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --hero-overlay: rgba(11, 35, 65, 0.88);
+        }
+
+        /* Dark Theme Variables */
+        body.dark-theme {
+            --stk-navy: #071527;
+            --stk-navy-light: #0f2746;
+            --stk-gold: #f1b812;
+            --stk-gold-hover: #e0aa0b;
+            --eco-green: #4caf50;
+            --eco-green-light: #81c784;
+            --eco-bg: #112e18;
+            
+            --bg-color: #0b111e;
+            --card-bg: #131d31;
+            --text-color: #f1f5f9;
+            --text-light: #94a3b8;
+            --border-color: #1e293b;
+            --role-bg: #1e293b;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.5);
+            --hero-overlay: rgba(7, 21, 39, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* TOP BANNER */
+        .top-bar {
+            background: var(--stk-navy);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.82rem;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-bar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-info {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            background: var(--stk-navy-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            border-bottom: 3px solid var(--stk-gold);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.85));
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .nav-right-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--stk-gold);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--stk-gold);
+            color: var(--stk-navy);
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.92rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--stk-gold);
+        }
+
+        .lang-select {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 3px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 3px 9px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .lang-btn.active {
+            background: var(--stk-gold);
+            color: var(--stk-navy);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .btn-gold {
+            background-color: var(--stk-gold);
+            color: var(--stk-navy);
+            border: 1px solid var(--stk-gold);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--stk-gold-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            background: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            padding: 90px 20px;
+            text-align: center;
+            color: #ffffff;
+            border-bottom: 4px solid var(--eco-green);
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(241, 184, 18, 0.15);
+            border: 1px solid var(--stk-gold);
+            color: var(--stk-gold);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--stk-gold);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* SECTIONS COMMON */
+        .section-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--stk-navy);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body.dark-theme .section-title {
+            color: var(--stk-gold);
+        }
+
+        .section-title i {
+            color: var(--eco-green);
+        }
+
+        /* GALLERY GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-img-placeholder {
+            height: 180px;
+            background: linear-gradient(135deg, var(--stk-navy-light), var(--eco-green));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 600;
+            gap: 10px;
+        }
+
+        .gallery-img-placeholder i {
+            font-size: 2.2rem;
+            color: var(--stk-gold);
+        }
+
+        .gallery-content {
+            padding: 18px;
+        }
+
+        .gallery-content h3 {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+            color: var(--text-color);
+        }
+
+        .gallery-content p {
+            font-size: 0.88rem;
+            color: var(--text-light);
+        }
+
+        /* CATALOG STYLE */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .catalog-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .catalog-header {
+            font-size: 1.15rem;
+            color: var(--stk-navy);
+            font-weight: 800;
+            border-bottom: 2px solid var(--eco-bg);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body.dark-theme .catalog-header {
+            color: var(--stk-gold);
+            border-bottom-color: var(--border-color);
+        }
+
+        .catalog-header i {
+            color: var(--eco-green);
+        }
+
+        .catalog-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .catalog-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border-left: 3px solid var(--eco-green);
+        }
+
+        .catalog-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .catalog-role {
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--role-bg);
+            color: var(--text-light);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--stk-navy);
+            color: #ffffff;
+            padding: 40px 20px 20px;
+            border-top: 4px solid var(--stk-gold);
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        @media (max-width: 992px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--stk-navy-light);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 25px;
+                gap: 20px;
+                border-bottom: 3px solid var(--stk-gold);
+                box-shadow: var(--shadow-md);
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+            }
+
+            .nav-actions {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STK Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div class="top-info">
+                <span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span>
+            </div>
+            <div>
+                <span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand-logo-group">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-up Club Logo" class="logo-img">
+                <div class="brand-text">
+                    <span class="brand-title">ECO START-UP CLUB</span>
+                </div>
+            </a>
+
+            <div class="nav-right-wrapper">
+                <button class="theme-toggle-btn" id="themeToggle" title="Rejimi Dəyiş">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <div class="hamburger" id="hamburger">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="#home" data-tr="nav-home">Ana Səhifə</a></li>
+                    <li><a href="#about" data-tr="nav-about">Haqqımızda</a></li>
+                    <li><a href="#activities" data-tr="nav-activities">Fəaliyyətlər</a></li>
+                    <li><a href="#team" data-tr="nav-team">İdarə Heyəti</a></li>
+                </ul>
+
+                <!-- Dil Seçimi -->
+                <div class="lang-select">
+                    <button class="lang-btn active" onclick="changeLanguage('az')">AZ</button>
+                    <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                    <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
+                </div>
+
+                <!-- Standart Düymələr -->
+                <div class="nav-actions">
+                    <a href="#" class="btn btn-gold"><i class="fa-solid fa-user-plus"></i> <span data-tr="btn-join">Üzv Ol</span></a>
+                    <a href="#" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket"></i> <span data-tr="btn-login">Giriş</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <i class="fa-solid fa-leaf"></i> <span data-tr="hero-badge">Gələcəyin Ekoloji Start-up'ları</span>
+            </div>
+            <h1 data-tr="hero-title">Peşəkar Gələcək, <span>Yaşıl Təşəbbüslər</span></h1>
+            <p data-tr="hero-desc">
+                Azərbaycan Dövlət Neft və Sənaye Universitetinin (ADNSU) nəzdində Sənaye və Texnologiya Kollecinin tərkibində yaradılmış, ekoloji problemləri həll etmək üçün Start-up'ları dəstəkləyən və formalaşdıran innovativ tələbə platforması.
+            </p>
+            <div class="hero-buttons">
+                <a href="#team" class="btn btn-gold" style="padding: 12px 28px; font-size: 0.95rem;">
+                    <i class="fa-solid fa-users"></i> <span data-tr="btn-team">İdarə Heyətimiz</span>
+                </a>
+                <a href="#about" class="btn btn-outline" style="padding: 12px 28px; font-size: 0.95rem;">
+                    <i class="fa-solid fa-circle-info"></i> <span data-tr="btn-about">Haqqımızda</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fəaliyyətlər / Qalereya -->
+    <section class="section-container" id="activities">
+        <div class="section-header">
+            <h2 class="section-title"><i class="fa-solid fa-camera-retro"></i> <span data-tr="sec-activities">Fəaliyyət və Seminarlar</span></h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <div class="gallery-img-placeholder">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>Eco Pitching Day 2026</span>
+                </div>
+                <div class="gallery-content">
+                    <h3 data-tr="act1-title">Eco-Start-up İdeya Müsabiqəsi</h3>
+                    <p data-tr="act1-desc">Tələbələrin ekoloji problemlərə yönəlmiş start-up layihələrinin təqdimatı və qiymətləndirilməsi.</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <div class="gallery-img-placeholder">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Inovasiya Təlimləri</span>
+                </div>
+                <div class="gallery-content">
+                    <h3 data-tr="act2-title">Yaşıl Texnologiyalar Seminari</h3>
+                    <p data-tr="act2-desc">Sənaye və ekologiyanın simbiozu mövzusunda mütəxəssislərlə interaktiv panel müzakirəsi.</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <div class="gallery-img-placeholder">
+                    <i class="fa-solid fa-handshake-angle"></i>
+                    <span>Komanda Görüşləri</span>
+                </div>
+                <div class="gallery-content">
+                    <h3 data-tr="act3-title">Şəbəkələşmə və Tərəfdaşlıq</h3>
+                    <p data-tr="act3-desc">Klub üzvləri arasında komanda işinin gücləndirilməsi və yeni layihələrin planlaşdırılması.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- İdarə Heyəti və Departamentlər -->
+    <section class="section-container" id="team">
+        <div class="section-header">
+            <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> <span data-tr="sec-team">İdarə Heyəti və Departamentlər</span></h2>
+        </div>
+
+        <div class="catalog-grid">
+            
+            <div class="catalog-card">
+                <div class="catalog-header">
+                    <i class="fa-solid fa-crown"></i> <span data-tr="dept-mgmt">Klub Rəhbərliyi</span>
+                </div>
+                <ul class="catalog-list">
+                    <li class="catalog-item">
+                        <span class="catalog-name">Alpaşayev İbrahim</span>
+                        <span class="catalog-role" data-tr="role-chair">Klub Sədri</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Şükürova Günel</span>
+                        <span class="catalog-role" data-tr="role-curator">Klub Kuratoru</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Nəsirova Fatimə</span>
+                        <span class="catalog-role" data-tr="role-vice">Sədr Müavini</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Alizadə Aytac</span>
+                        <span class="catalog-role" data-tr="role-sec">Katib</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="catalog-card">
+                <div class="catalog-header">
+                    <i class="fa-solid fa-rocket"></i> <span data-tr="dept-proj">Startup və Layihələr Departamenti</span>
+                </div>
+                <ul class="catalog-list">
+                    <li class="catalog-item">
+                        <span class="catalog-name">Quliyeva Laləzər</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Nurlana Dəmirli</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="catalog-card">
+                <div class="catalog-header">
+                    <i class="fa-solid fa-calendar-check"></i> <span data-tr="dept-events">Tədbirlər və İnkişaf Departamenti</span>
+                </div>
+                <ul class="catalog-list">
+                    <li class="catalog-item">
+                        <span class="catalog-name">Məmmədova Mədinə</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Azər Dəniz</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="catalog-card">
+                <div class="catalog-header">
+                    <i class="fa-solid fa-laptop-code"></i> <span data-tr="dept-it">IT Departamenti</span>
+                </div>
+                <ul class="catalog-list">
+                    <li class="catalog-item">
+                        <span class="catalog-name">Məcidli Cahandar</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Axundov Zaur</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="catalog-card">
+                <div class="catalog-header">
+                    <i class="fa-solid fa-bullhorn"></i> <span data-tr="dept-pr">İctimai Əlaqələr və Tərəfdaşlıq</span>
+                </div>
+                <ul class="catalog-list">
+                    <li class="catalog-item">
+                        <span class="catalog-name">Əliyeva Könül</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Məmmədzadə Röya</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="catalog-card">
+                <div class="catalog-header">
+                    <i class="fa-solid fa-palette"></i> <span data-tr="dept-design">Dizayn Departamenti</span>
+                </div>
+                <ul class="catalog-list">
+                    <li class="catalog-item">
+                        <span class="catalog-name">Həmidzadə Pərvanə</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                    <li class="catalog-item">
+                        <span class="catalog-name">Kərimova Mətanət</span>
+                        <span class="catalog-role" data-tr="role-coord">Koordinator</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-up Club Logo" style="width: 40px; height: 40px; object-fit: contain; filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.85));">
+                <div>
+                    <h4 style="color: #ffffff; font-size: 1.05rem;">Eco Start-up Club</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Sənaye və Texnologiya Kolleci</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; font-size: 1.2rem;">
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-tr="footer-rights">&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobil Menyu Açılıb-Bağlanması
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Tünd / İşıqlı Rejim Dəyişdiricisi
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Çoxlu Dil Dəstəyi (AZ, EN, RU) - Müəssisə adları düzgün qorunur
+        const translations = {
+            az: {
+                "nav-home": "Ana Səhifə",
+                "nav-about": "Haqqımızda",
+                "nav-activities": "Fəaliyyətlər",
+                "nav-team": "İdarə Heyəti",
+                "btn-join": "Üzv Ol",
+                "btn-login": "Giriş",
+                "hero-badge": "Gələcəyin Ekoloji Start-up'ları",
+                "hero-title": "Peşəkar Gələcək, <span>Yaşıl Təşəbbüslər</span>",
+                "hero-desc": "Azərbaycan Dövlət Neft və Sənaye Universitetinin (ADNSU) nəzdində Sənaye və Texnologiya Kollecinin tərkibində yaradılmış, ekoloji problemləri həll etmək üçün Start-up'ları dəstəkləyən və formalaşdıran innovativ tələbə platforması.",
+                "btn-team": "İdarə Heyətimiz",
+                "btn-about": "Haqqımızda",
+                "sec-activities": "Fəaliyyət və Seminarlar",
+                "act1-title": "Eco-Start-up İdeya Müsabiqəsi",
+                "act1-desc": "Tələbələrin ekoloji problemlərə yönəlmiş start-up layihələrinin təqdimatı və qiymətləndirilməsi.",
+                "act2-title": "Yaşıl Texnologiyalar Seminari",
+                "act2-desc": "Sənaye və ekologiyanın simbiozu mövzusunda mütəxəssislərlə interaktiv panel müzakirəsi.",
+                "act3-title": "Şəbəkələşmə və Tərəfdaşlıq",
+                "act3-desc": "Klub üzvləri arasında komanda işinin gücləndirilməsi və yeni layihələrin planlaşdırılması.",
+                "sec-team": "İdarə Heyəti və Departamentlər",
+                "dept-mgmt": "Klub Rəhbərliyi",
+                "role-chair": "Klub Sədri",
+                "role-curator": "Klub Kuratoru",
+                "role-vice": "Sədr Müavini",
+                "role-sec": "Katib",
+                "dept-proj": "Startup və Layihələr Departamenti",
+                "dept-events": "Tədbirlər və İnkişaf Departamenti",
+                "dept-it": "IT Departamenti",
+                "dept-pr": "İctimai Əlaqələr və Tərəfdaşlıq",
+                "dept-design": "Dizayn Departamenti",
+                "role-coord": "Koordinator",
+                "footer-rights": "&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur."
+            },
+            en: {
+                "nav-home": "Home",
+                "nav-about": "About Us",
+                "nav-activities": "Activities",
+                "nav-team": "Board",
+                "btn-join": "Join Us",
+                "btn-login": "Login",
+                "hero-badge": "Eco Start-ups of the Future",
+                "hero-title": "Professional Future, <span>Green Initiatives</span>",
+                "hero-desc": "An innovative student platform established under the Industrial and Technology College under Azerbaijan State Oil and Industry University (ADNSU), supporting and shaping start-ups to solve ecological problems.",
+                "btn-team": "Our Board",
+                "btn-about": "About Us",
+                "sec-activities": "Activities & Workshops",
+                "act1-title": "Eco-Start-up Idea Competition",
+                "act1-desc": "Presentation and evaluation of student start-up projects addressing environmental issues.",
+                "act2-title": "Green Technologies Seminar",
+                "act2-desc": "Interactive panel discussion with experts on the symbiosis of industry and ecology.",
+                "act3-title": "Networking & Partnership",
+                "act3-desc": "Strengthening teamwork among club members and planning new projects.",
+                "sec-team": "Board & Departments",
+                "dept-mgmt": "Club Management",
+                "role-chair": "Club Chairman",
+                "role-curator": "Club Curator",
+                "role-vice": "Vice Chairman",
+                "role-sec": "Secretary",
+                "dept-proj": "Startup & Projects Department",
+                "dept-events": "Events & Development Department",
+                "dept-it": "IT Department",
+                "dept-pr": "Public Relations & Partnership",
+                "dept-design": "Design Department",
+                "role-coord": "Coordinator",
+                "footer-rights": "&copy; 2026 Industrial and Technology College - Eco Start-up Club. All rights reserved."
+            },
+            ru: {
+                "nav-home": "Главная",
+                "nav-about": "О нас",
+                "nav-activities": "Деятельность",
+                "nav-team": "Руководство",
+                "btn-join": "Вступить",
+                "btn-login": "Войти",
+                "hero-badge": "Экологические стартапы будущего",
+                "hero-title": "Профессиональное будущее, <span>Зеленые инициативы</span>",
+                "hero-desc": "Инновационная студенческая платформа, созданная при Колледже промышленности и технологий Азербайджанского государственного университета нефти и промышленности (ADNSU), поддерживающая стартапы для решения экологических проблем.",
+                "btn-team": "Наше руководство",
+                "btn-about": "О нас",
+                "sec-activities": "Мероприятия и семинары",
+                "act1-title": "Конкурс идей эко-стартапов",
+                "act1-desc": "Презентация и оценка студенческих стартап-проектов, направленных на экологические проблемы.",
+                "act2-title": "Семинар по зеленым технологиям",
+                "act2-desc": "Интерактивная панельная дискуссия с экспертами по симбиозу промышленности и экологии.",
+                "act3-title": "Нетворкинг и партнерство",
+                "act3-desc": "Укрепление командной работы среди участников клуба и планирование новых проектов.",
+                "sec-team": "Руководство и отделы",
+                "dept-mgmt": "Руководство клуба",
+                "role-chair": "Председатель клуба",
+                "role-curator": "Куратор клуба",
+                "role-vice": "Заместитель председателя",
+                "role-sec": "Секретарь",
+                "dept-proj": "Отдел стартапов и проектов",
+                "dept-events": "Отдел мероприятий и развития",
+                "dept-it": "ИТ-отдел",
+                "dept-pr": "Связи с общественностью и партнерство",
+                "dept-design": "Отдел дизайна",
+                "role-coord": "Координатор",
+                "footer-rights": "© 2026 Колледж промышленности и технологий - Eco Start-up Club. Все права защищены."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                const key = el.getAttribute('data-tr');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
