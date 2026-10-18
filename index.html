@@ -303,30 +303,41 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        // İstifadəçi siyahısı, şifrələri və rolları (Buradan dəyişə bilərsiniz)
-        const allowedUsers = {
-            "admin": { pass: "eco2026!", name: "İbrahim Alpaşayev", role: "admin" },
-            "curator": { pass: "curator2026", name: "Günel Şükürova", role: "admin" },
-            "user1": { pass: "member2026", name: "Klub Üzvü", role: "user" }
+    <!-- Firebase və Əsas JavaScript Modulu -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
+            authDomain: "eco-startup-site.firebaseapp.com",
+            projectId: "eco-startup-site",
+            storageBucket: "eco-startup-site.firebasestorage.app",
+            messagingSenderId: "177745640190",
+            appId: "1:177745640190:web:f8096c55e42224befa43af",
+            measurementId: "G-MSG6DJE36D"
         };
 
-        // Mobil Menyu Açılıb-Bağlanması
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Mobil Menyu
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = hamburger.querySelector('i');
-            if (navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            } else {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
-        });
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                const icon = hamburger.querySelector('i');
+                if (navMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
 
         // Login Modal İdarəetməsi
         const loginModal = document.getElementById('loginModal');
@@ -356,42 +367,61 @@
             });
         }
 
-        // Giriş Yoxlanışı və Yönləndirmə
-        function handleCustomLogin(e) {
+        // Firebase ilə Ad Əsaslı Giriş Funksiyası
+        window.handleCustomLogin = async function(e) {
             e.preventDefault();
             const userVal = document.getElementById('loginUsername').value.trim().toLowerCase();
             const passVal = document.getElementById('loginPassword').value.trim();
 
-            if (allowedUsers[userVal] && allowedUsers[userVal].pass === passVal) {
-                const userData = allowedUsers[userVal];
+            // İstifadəçi adını avtomatik olaraq Firebase e-poçt formatına çeviririk
+            const generatedEmail = `${userVal}@eco-startup-site.firebaseapp.com`;
+
+            try {
+                await signInWithEmailAndPassword(auth, generatedEmail, passVal);
                 
+                // Rol təyinatı və Adlar
+                let role = "user";
+                let fullName = userVal;
+
+                if (userVal === "admin" || userVal === "curator" || userVal === "cmecidli") {
+                    role = "admin";
+                    if (userVal === "admin") fullName = "İbrahim Alpaşayev";
+                    else if (userVal === "curator") fullName = "Günel Şükürova";
+                    else if (userVal === "cmecidli") fullName = "Cahandar Məcidli";
+                } else {
+                    fullName = "Klub Üzvü";
+                }
+
                 localStorage.setItem('currentUser', JSON.stringify({
                     username: userVal,
-                    name: userData.name,
-                    role: userData.role
+                    name: fullName,
+                    role: role
                 }));
 
                 loginModal.classList.remove('active');
                 window.location.href = 'dashboard.html';
-            } else {
+
+            } catch (error) {
+                console.error("Giriş xətası:", error.message);
                 if (loginError) loginError.style.display = 'block';
             }
-        }
+        };
 
-        // Tünd / İşıqlı Rejim Dəyişdiricisi
+        // Tünd / İşıqlı Rejim
         const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
-
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            if (document.body.classList.contains('dark-theme')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            }
-        });
+        if (themeToggle) {
+            const themeIcon = themeToggle.querySelector('i');
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                if (document.body.classList.contains('dark-theme')) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            });
+        }
 
         // Çoxlu Dil Dəstəyi (AZ, EN, RU)
         const translations = {
@@ -514,9 +544,11 @@
             }
         };
 
-        function changeLanguage(lang) {
+        window.changeLanguage = function(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
 
             document.querySelectorAll('[data-tr]').forEach(el => {
                 const key = el.getAttribute('data-tr');
@@ -524,7 +556,7 @@
                     el.innerHTML = translations[lang][key];
                 }
             });
-        }
+        };
     </script>
 </body>
 </html>
