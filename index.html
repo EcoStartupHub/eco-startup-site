@@ -7,6 +7,7 @@
     <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Xarici CSS Faylı -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,7 +27,7 @@
     <!-- Header / Navbar -->
     <header>
         <div class="nav-container">
-            <a href="#" class="brand-logo-group">
+            <a href="index.html" class="brand-logo-group">
                 <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-up Club Logo" class="logo-img">
                 <div class="brand-text">
                     <span class="brand-title">ECO START-UP CLUB</span>
@@ -45,7 +46,7 @@
 
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
-                    <li><a href="#home" data-tr="nav-home">Ana Səhifə</a></li>
+                    <li><a href="index.html" class="active" data-tr="nav-home">Ana Səhifə</a></li>
                     <li><a href="about.html" data-tr="nav-about">Haqqımızda</a></li>
                     <li><a href="#activities" data-tr="nav-activities">Fəaliyyətlər</a></li>
                     <li><a href="#team" data-tr="nav-team">İdarə Heyəti</a></li>
@@ -60,8 +61,8 @@
 
                 <!-- Standart Düymələr -->
                 <div class="nav-actions">
-                    <a href="#" class="btn btn-gold"><i class="fa-solid fa-user-plus"></i> <span data-tr="btn-join">Üzv Ol</span></a>
-                    <a href="#" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket"></i> <span data-tr="btn-login">Giriş</span></a>
+                    <a href="#team" class="btn btn-gold"><i class="fa-solid fa-user-plus"></i> <span data-tr="btn-join">Üzv Ol</span></a>
+                    <a href="#" class="btn btn-outline" id="loginBtn"><i class="fa-solid fa-right-to-bracket"></i> <span data-tr="btn-login">Giriş</span></a>
                 </div>
             </div>
         </div>
@@ -266,8 +267,51 @@
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-title-group">
+                <div class="modal-icon">
+                    <i class="fa-solid fa-user-lock"></i>
+                </div>
+                <h3 data-tr="login-modal-title">Klub Hesabına Giriş</h3>
+                <p data-tr="login-modal-sub">Təyin olunmuş istifadəçi məlumatlarınızı daxil edin</p>
+            </div>
+
+            <div class="auth-error-msg" id="loginError" data-tr="login-err-msg">
+                İstifadəçi adı və ya şifrə yanlışdır!
+            </div>
+            
+            <form id="customLoginForm" onsubmit="handleCustomLogin(event)">
+                <div class="form-group">
+                    <label data-tr="login-user-label">İstifadəçi Adı</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="loginUsername" placeholder="İstifadəçi adınızı yazın" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label data-tr="login-pass-label">Şifrə</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Şifrənizi yazın" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-gold login-submit-btn" data-tr="login-btn-text">Daxil Ol</button>
+            </form>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script>
+        // İstifadəçi siyahısı, şifrələri və rolları (Buradan dəyişə bilərsiniz)
+        const allowedUsers = {
+            "admin": { pass: "eco2026!", name: "İbrahim Alpaşayev", role: "admin" },
+            "curator": { pass: "curator2026", name: "Günel Şükürova", role: "admin" },
+            "user1": { pass: "member2026", name: "Klub Üzvü", role: "user" }
+        };
+
         // Mobil Menyu Açılıb-Bağlanması
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
@@ -284,6 +328,56 @@
             }
         });
 
+        // Login Modal İdarəetməsi
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const closeModal = document.getElementById('closeModal');
+        const loginError = document.getElementById('loginError');
+
+        if (loginBtn) {
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.classList.add('active');
+                if (loginError) loginError.style.display = 'none';
+            });
+        }
+
+        if (closeModal) {
+            closeModal.addEventListener('click', () => {
+                loginModal.classList.remove('active');
+            });
+        }
+
+        if (loginModal) {
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                }
+            });
+        }
+
+        // Giriş Yoxlanışı və Yönləndirmə
+        function handleCustomLogin(e) {
+            e.preventDefault();
+            const userVal = document.getElementById('loginUsername').value.trim().toLowerCase();
+            const passVal = document.getElementById('loginPassword').value.trim();
+
+            if (allowedUsers[userVal] && allowedUsers[userVal].pass === passVal) {
+                const userData = allowedUsers[userVal];
+                
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: userVal,
+                    name: userData.name,
+                    role: userData.role
+                }));
+
+                loginModal.classList.remove('active');
+                window.location.href = 'dashboard.html';
+            } else {
+                if (loginError) loginError.style.display = 'block';
+            }
+        }
+
         // Tünd / İşıqlı Rejim Dəyişdiricisi
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
@@ -299,7 +393,7 @@
             }
         });
 
-        // Çoxlu Dil Dəstəyi (AZ, EN, RU) - Müəssisə adları düzgün qorunur
+        // Çoxlu Dil Dəstəyi (AZ, EN, RU)
         const translations = {
             az: {
                 "nav-home": "Ana Səhifə",
@@ -332,6 +426,12 @@
                 "dept-pr": "İctimai Əlaqələr və Tərəfdaşlıq",
                 "dept-design": "Dizayn Departamenti",
                 "role-coord": "Koordinator",
+                "login-modal-title": "Klub Hesabına Giriş",
+                "login-modal-sub": "Təyin olunmuş istifadəçi məlumatlarınızı daxil edin",
+                "login-user-label": "İstifadəçi Adı",
+                "login-pass-label": "Şifrə",
+                "login-btn-text": "Daxil Ol",
+                "login-err-msg": "İstifadəçi adı və ya şifrə yanlışdır!",
                 "footer-rights": "&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur."
             },
             en: {
@@ -365,6 +465,12 @@
                 "dept-pr": "Public Relations & Partnership",
                 "dept-design": "Design Department",
                 "role-coord": "Coordinator",
+                "login-modal-title": "Club Account Login",
+                "login-modal-sub": "Enter your assigned user credentials",
+                "login-user-label": "Username",
+                "login-pass-label": "Password",
+                "login-btn-text": "Sign In",
+                "login-err-msg": "Incorrect username or password!",
                 "footer-rights": "&copy; 2026 Industrial and Technology College - Eco Start-up Club. All rights reserved."
             },
             ru: {
@@ -398,6 +504,12 @@
                 "dept-pr": "Связи с общественностью и партнерство",
                 "dept-design": "Отдел дизайна",
                 "role-coord": "Координатор",
+                "login-modal-title": "Вход в аккаунт клуба",
+                "login-modal-sub": "Введите ваши назначенные учетные данные",
+                "login-user-label": "Имя пользователя",
+                "login-pass-label": "Пароль",
+                "login-btn-text": "Войти",
+                "login-err-msg": "Неверное имя пользователя или пароль!",
                 "footer-rights": "© 2026 Колледж промышленности и технологий - Eco Start-up Club. Все права защищены."
             }
         };
