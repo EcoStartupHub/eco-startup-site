@@ -196,115 +196,200 @@
     </div>
 
     <!-- JavaScript -->
-    <!-- Firebase və Dashboard JavaScript Modulu -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
-            authDomain: "eco-startup-site.firebaseapp.com",
-            projectId: "eco-startup-site",
-            storageBucket: "eco-startup-site.firebasestorage.app",
-            messagingSenderId: "177745640190",
-            appId: "1:177745640190:web:f8096c55e42224befa43af",
-            measurementId: "G-MSG6DJE36D"
+    <script>
+        const allowedUsers = {
+            "admin": { pass: "eco2026!", name: "İbrahim Alpaşayev", role: "admin" },
+            "curator": { pass: "curator2026", name: "Günel Şükürova", role: "admin" },
+            "user1": { pass: "member2026", name: "Klub Üzvü", role: "user" }
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
 
-        // Sessiya və Rol Yoxlanışı
-        const userSession = JSON.parse(localStorage.getItem('currentUser'));
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
 
-        if (!userSession) {
-            alert('Lütfən öncə sistemə daxil olun!');
-            window.location.href = 'index.html';
-        } else {
-            const userNameElem = document.getElementById('displayUserName');
-            const roleBadge = document.getElementById('displayUserRole');
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const closeModal = document.getElementById('closeModal');
+        const loginError = document.getElementById('loginError');
 
-            if (userNameElem) userNameElem.innerText = `Xoş gəldiniz, ${userSession.name}!`;
-            
-            if (roleBadge) {
-                if (userSession.role === 'admin') {
-                    roleBadge.innerText = 'Admin / İdarə Heyəti';
-                    roleBadge.classList.add('admin');
-                    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
-                } else {
-                    roleBadge.innerText = 'Klub Üzvü';
-                    roleBadge.classList.add('user');
-                    document.querySelectorAll('.user-only').forEach(el => el.style.display = 'block');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.classList.add('active');
+                if (loginError) loginError.style.display = 'none';
+            });
+        }
+
+        if (closeModal) {
+            closeModal.addEventListener('click', () => {
+                loginModal.classList.remove('active');
+            });
+        }
+
+        if (loginModal) {
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
                 }
-            }
-        }
-
-        // Ilkin Nümunə Elanlar
-        let announcements = JSON.parse(localStorage.getItem('clubAnnouncements')) || [
-            {
-                title: "Klub İclasının Vaxtı Təyin Olundu",
-                body: "Gələn həftənin 2-ci günü Sənaye və Texnologiya Kollecinin akt zalında ümumi görüşümüz keçiriləcək.",
-                date: "18 Oktyabr 2026"
-            }
-        ];
-
-        function renderAnnouncements() {
-            const container = document.getElementById('announcementList');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            announcements.forEach((ann) => {
-                container.innerHTML += `
-                    <div class="announcement-box">
-                        <h4>${ann.title}</h4>
-                        <p>${ann.body}</p>
-                        <span class="date"><i class="fa-regular fa-clock"></i> ${ann.date}</span>
-                    </div>
-                `;
             });
         }
 
-        // Admin Tərəfindən Elan Paylaşılması
-        window.publishAnnouncement = function(e) {
+        function handleCustomLogin(e) {
             e.preventDefault();
-            const titleElem = document.getElementById('annTitle');
-            const bodyElem = document.getElementById('annBody');
+            const userVal = document.getElementById('loginUsername').value.trim().toLowerCase();
+            const passVal = document.getElementById('loginPassword').value.trim();
 
-            if (!titleElem || !bodyElem) return;
+            if (allowedUsers[userVal] && allowedUsers[userVal].pass === passVal) {
+                const userData = allowedUsers[userVal];
+                
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: userVal,
+                    name: userData.name,
+                    role: userData.role
+                }));
 
-            const title = titleElem.value;
-            const body = bodyElem.value;
-            const date = new Date().toLocaleDateString('az-AZ');
-
-            announcements.unshift({ title, body, date });
-            localStorage.setItem('clubAnnouncements', JSON.stringify(announcements));
-            
-            titleElem.value = '';
-            bodyElem.value = '';
-            renderAnnouncements();
-            alert('Elan uğurla paylaşıldı!');
-        };
-
-        // Çıxış Funksiyası
-        window.logout = async function() {
-            try {
-                await signOut(auth);
-            } catch (err) {
-                console.error("Çıxış xətası:", err);
+                loginModal.classList.remove('active');
+                window.location.href = 'dashboard.html';
+            } else {
+                if (loginError) loginError.style.display = 'block';
             }
-            localStorage.removeItem('currentUser');
-            window.location.href = 'index.html';
-        };
-
-        // Tünd Rejim Dəyişdiricisi
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('dark-theme');
-            });
         }
 
-        renderAnnouncements();
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        const translations = {
+            az: {
+                "nav-home": "Ana Səhifə",
+                "nav-about": "Haqqımızda",
+                "nav-activities": "Fəaliyyətlər",
+                "nav-team": "İdarə Heyəti",
+                "btn-join": "Üzv Ol",
+                "btn-login": "Giriş",
+                "about-title": "Bizimlə Tanış Olun: <span>Haqqımızda</span>",
+                "about-subtitle": "Sənaye və Texnologiya Kollecinin ekoloji və innovativ tələbə platforması haqqında ətraflı məlumat.",
+                "card1-title": "Missiyamız",
+                "card1-desc": "Tələbələr arasında ekoloji şüuru artırmaq, sənaye və texnologiya sahələrində yaşıl innovasiyaları təşviq etmək və ekoloji problemlərə yönəlmiş start-up layihələrini dəstəkləməkdir.",
+                "card2-title": "Vizyonumuz",
+                "card2-desc": "Kollec tələbələrinin hazırladığı ekoloji texnologiya və davamlı start-up ideyalarının ölkə səviyyəsində tətbiq olunmasını təmin edən aparıcı tələbə platforması olmaqdır.",
+                "card3-title": "Nə Edirik?",
+                "card3-desc": "İdeya müsabiqələri (Pitching Days), ekoloji sahədə təlim və seminarlar, ekspertlərlə panel müzakirələri və komanda daxilində şəbəkələşmə tədbirləri təşkil edirik.",
+                "val-main-title": "Əsas Dəyərlərimiz",
+                "v1-title": "İnnovativlik",
+                "v1-desc": "Klassik problemlərə müasir texnoloji və yaradıcı həllər tapırıq.",
+                "v2-title": "Dayanıqlılıq",
+                "v2-desc": "Təbiətə və ətraf mühitə qayğı göstərərək uzunmüddətli təsir yaradırıq.",
+                "v3-title": "Komanda Ruhu",
+                "v3-desc": "Birlikdə öyrənir, inkişaf edir və ümumi məqsədlərə çatmaq üçün çalışırıq.",
+                "v4-title": "Liderlik",
+                "v4-desc": "Gənclərin potensialını üzə çıxararaq onlara rəhbərlik bacarıqları qazandırırıq.",
+                "login-modal-title": "Klub Hesabına Giriş",
+                "login-modal-sub": "Təyin olunmuş istifadəçi məlumatlarınızı daxil edin",
+                "login-user-label": "İstifadəçi Adı",
+                "login-pass-label": "Şifrə",
+                "login-btn-text": "Daxil Ol",
+                "login-err-msg": "İstifadəçi adı və ya şifrə yanlışdır!",
+                "footer-rights": "&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur."
+            },
+            en: {
+                "nav-home": "Home",
+                "nav-about": "About Us",
+                "nav-activities": "Activities",
+                "nav-team": "Board",
+                "btn-join": "Join Us",
+                "btn-login": "Login",
+                "about-title": "Get to Know Us: <span>About Us</span>",
+                "about-subtitle": "Detailed information about the ecological and innovative student platform of the Industrial and Technology College.",
+                "card1-title": "Our Mission",
+                "card1-desc": "To raise environmental awareness among students, promote green innovations in industry and technology, and support start-up projects aimed at ecological issues.",
+                "card2-title": "Our Vision",
+                "card2-desc": "To become a leading student platform ensuring the national application of eco-technology and sustainable start-up ideas created by college students.",
+                "card3-title": "What We Do",
+                "card3-desc": "We organize idea competitions (Pitching Days), environmental workshops, panel discussions with experts, and networking events.",
+                "val-main-title": "Core Values",
+                "v1-title": "Innovation",
+                "v1-desc": "Finding modern technological and creative solutions to classic problems.",
+                "v2-title": "Sustainability",
+                "v2-desc": "Creating long-term impact by caring for nature and the environment.",
+                "v3-title": "Team Spirit",
+                "v3-desc": "Learning, developing together, and working to achieve common goals.",
+                "v4-title": "Leadership",
+                "v4-desc": "Unlocking the potential of youth and empowering them with leadership skills.",
+                "login-modal-title": "Club Account Login",
+                "login-modal-sub": "Enter your assigned user credentials",
+                "login-user-label": "Username",
+                "login-pass-label": "Password",
+                "login-btn-text": "Sign In",
+                "login-err-msg": "Incorrect username or password!",
+                "footer-rights": "&copy; 2026 Industrial and Technology College - Eco Start-up Club. All rights reserved."
+            },
+            ru: {
+                "nav-home": "Главная",
+                "nav-about": "О нас",
+                "nav-activities": "Деятельность",
+                "nav-team": "Руководство",
+                "btn-join": "Вступить",
+                "btn-login": "Войти",
+                "about-title": "Познакомьтесь с нами: <span>О нас</span>",
+                "about-subtitle": "Подробная информация об экологической и инновационной студенческой платформе Колледжа промышленности и технологий.",
+                "card1-title": "Наша Миссия",
+                "card1-desc": "Повышение экологической осведомленности студентов, продвижение зеленых инноваций в промышленности и технологии, а также поддержка стартап-проектов.",
+                "card2-title": "Наше Видение",
+                "card2-desc": "Стать ведущей студенческой платформой, обеспечивающей внедрение экотехнологий и устойчивых стартап-идей студентов колледжа.",
+                "card3-title": "Что Мы Делаем?",
+                "card3-desc": "Организуем конкурсы идей (Pitching Days), экологические семинары, панельные дискуссии с экспертами и нетворкинг-мероприятия.",
+                "val-main-title": "Основные Ценности",
+                "v1-title": "Инновации",
+                "v1-desc": "Нахождение современных технологических и творческих решений классических проблем.",
+                "v2-title": "Устойчивость",
+                "v2-desc": "Создание долгосрочного эффекта за счет заботы о природе и окружающей среде.",
+                "v3-title": "Командный Дух",
+                "v3-desc": "Обучение, совместное развитие и работа для достижения общих целей.",
+                "v4-title": "Лидерство",
+                "v4-desc": "Раскрытие потенциала молодежи и наделение их лидерскими навыками.",
+                "login-modal-title": "Вход в аккаунт клуба",
+                "login-modal-sub": "Введите ваши назначенные учетные данные",
+                "login-user-label": "Имя пользователя",
+                "login-pass-label": "Пароль",
+                "login-btn-text": "Войти",
+                "login-err-msg": "Неверное имя пользователя или пароль!",
+                "footer-rights": "© 2026 Колледж промышленности и технологий - Eco Start-up Club. Все права защищены."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                const key = el.getAttribute('data-tr');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
     </script>
 </body>
 </html>
