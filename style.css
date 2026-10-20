@@ -586,102 +586,59 @@ body.dark-theme .values-title {
     line-height: 1.5;
 }
 
-/* LOGIN MODAL STYLES (POP-UP) */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(5px);
+/* LOGIN PAGE STYLES */
+.login-page-wrapper {
+    min-height: calc(100vh - 220px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 40px 20px;
 }
 
-.modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal-content {
+.login-card {
     background: var(--card-bg);
     color: var(--text-color);
     width: 100%;
-    max-width: 400px;
-    padding: 32px 28px;
+    max-width: 420px;
+    padding: 35px 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     position: relative;
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
-    margin: 0 15px;
 }
 
-.modal-overlay.active .modal-content {
-    transform: translateY(0);
-}
-
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: transparent;
-    border: none;
-    color: var(--text-light);
-    font-size: 1.2rem;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-close:hover {
-    background: var(--role-bg);
-    color: var(--text-color);
-}
-
-.modal-title-group {
+.login-title-group {
     text-align: center;
     margin-bottom: 25px;
 }
 
-.modal-icon {
-    width: 50px;
-    height: 50px;
+.login-icon {
+    width: 55px;
+    height: 55px;
     background: rgba(241, 184, 18, 0.15);
     color: var(--stk-gold);
-    border-radius: 12px;
+    border-radius: 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 12px;
 }
 
-.modal-title-group h3 {
-    font-size: 1.25rem;
+.login-title-group h3 {
+    font-size: 1.35rem;
     color: var(--stk-navy);
     font-weight: 800;
 }
 
-body.dark-theme .modal-title-group h3 {
+body.dark-theme .login-title-group h3 {
     color: var(--stk-gold);
 }
 
-.modal-title-group p {
-    font-size: 0.85rem;
+.login-title-group p {
+    font-size: 0.88rem;
     color: var(--text-light);
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 .form-group {
@@ -728,8 +685,8 @@ body.dark-theme .modal-title-group h3 {
 .login-submit-btn {
     width: 100%;
     justify-content: center;
-    padding: 11px;
-    font-size: 0.92rem;
+    padding: 12px;
+    font-size: 0.95rem;
     margin-top: 10px;
 }
 
