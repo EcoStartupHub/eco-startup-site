@@ -267,7 +267,7 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
+    <!-- Login Modal (Pop-up) -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-content">
             <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
@@ -304,14 +304,11 @@
     </div>
 
     <!-- Firebase və Əsas JavaScript Modulu -->
-    <!-- Firebase və Əsas JavaScript Modulu -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // İnterfeys və Modal idarəetməsi
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobil Menyu
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('navMenu');
 
@@ -329,7 +326,6 @@
                 });
             }
 
-            // Login Modal (Pop-up) İdarəetməsi
             const loginModal = document.getElementById('loginModal');
             const loginBtn = document.getElementById('loginBtn');
             const closeModal = document.getElementById('closeModal');
@@ -338,18 +334,14 @@
             if (loginBtn) {
                 loginBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (loginModal) {
-                        loginModal.classList.add('active');
-                    }
+                    if (loginModal) loginModal.classList.add('active');
                     if (loginError) loginError.style.display = 'none';
                 });
             }
 
             if (closeModal) {
                 closeModal.addEventListener('click', () => {
-                    if (loginModal) {
-                        loginModal.classList.remove('active');
-                    }
+                    if (loginModal) loginModal.classList.remove('active');
                 });
             }
 
@@ -361,7 +353,6 @@
                 });
             }
 
-            // Tünd / İşıqlı Rejim
             const themeToggle = document.getElementById('themeToggle');
             if (themeToggle) {
                 const themeIcon = themeToggle.querySelector('i');
@@ -382,7 +373,6 @@
             }
         });
 
-        // Firebase Konfiqurasiyası
         const firebaseConfig = {
             apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
             authDomain: "eco-startup-site.firebaseapp.com",
@@ -396,14 +386,12 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Firebase ilə Giriş Funksiyası (Yalnız ad yazmaq kifayətdir)
         window.handleCustomLogin = async function(e) {
             e.preventDefault();
             const userVal = document.getElementById('loginUsername').value.trim().toLowerCase();
             const passVal = document.getElementById('loginPassword').value.trim();
             const loginError = document.getElementById('loginError');
 
-            // Arxa planda avtomatik olaraq e-poçt formatına çevrilir
             const generatedEmail = `${userVal}@eco-startup-site.firebaseapp.com`;
 
             try {
@@ -440,7 +428,6 @@
             }
         };
 
-        // Çoxlu Dil Dəstəyi (AZ, EN, RU)
         const translations = {
             az: {
                 "nav-home": "Ana Səhifə",
