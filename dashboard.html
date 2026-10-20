@@ -194,7 +194,7 @@
                 </form>
             </div>
 
-            <!-- HƏM ADMİN, HƏM USER: Departament Keçmişi və Arxiv -->
+            <!-- HƏM ADMIN, HƏM USER: Arxiv və Sənədlər -->
             <div class="dash-card">
                 <div class="dash-card-header">
                     <i class="fa-solid fa-folder-open" style="color: var(--stk-navy);"></i> Arxiv və Sənədlər
@@ -204,7 +204,7 @@
                 </ul>
             </div>
 
-            <!-- HƏM ADMİN, HƏM USER: Elanlar Kanalı (Redaktə və Silmə dəstəyi ilə) -->
+            <!-- HƏM ADMIN, HƏM USER: Elanlar Kanalı -->
             <div class="dash-card">
                 <div class="dash-card-header">
                     <i class="fa-solid fa-scroll" style="color: var(--stk-gold);"></i> Elanlar və Bildirişlər
@@ -220,8 +220,8 @@
 
     <!-- Firebase və Dashboard JavaScript Modulu -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
@@ -238,7 +238,6 @@
 
         let currentUserSession = null;
 
-        // Firebase Sessiya Yoxlanışı
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 localStorage.removeItem('currentUser');
@@ -268,7 +267,6 @@
             }
         });
 
-        // Elanlar İdarəetməsi
         let announcements = JSON.parse(localStorage.getItem('clubAnnouncements')) || [
             {
                 title: "Klub İclasının Vaxtı Təyin Olundu",
@@ -342,7 +340,6 @@
             }
         };
 
-        // Arxiv Faylları İdarəetməsi
         let archiveFiles = JSON.parse(localStorage.getItem('clubArchives')) || [
             { name: "2025-2026 İdarəetmə Hesabatı.pdf", url: "#" },
             { name: "Sədr və Kurator Protokolu.docx", url: "#" }
@@ -388,7 +385,6 @@
             }
         };
 
-        // Çıxış Funksiyası
         window.logout = async function() {
             try {
                 await signOut(auth);
@@ -399,7 +395,6 @@
             window.location.replace('index.html');
         };
 
-        // Tünd Rejim Dəyişdiricisi
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             themeToggle.addEventListener('click', () => {
