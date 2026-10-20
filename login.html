@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş | Eco Start-up Club</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Xarici CSS Faylı -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- STK Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div class="top-info">
+                <span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span>
+            </div>
+            <div>
+                <span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo-group">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-up Club Logo" class="logo-img">
+                <div class="brand-text">
+                    <span class="brand-title">ECO START-UP CLUB</span>
+                </div>
+            </a>
+
+            <div class="nav-right-wrapper">
+                <button class="theme-toggle-btn" id="themeToggle" title="Rejimi Dəyiş">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Content Wrapper -->
+    <main class="login-page-wrapper">
+        <div class="login-card">
+            <div class="login-title-group">
+                <div class="login-icon">
+                    <i class="fa-solid fa-user-lock"></i>
+                </div>
+                <h3>Klub Hesabına Giriş</h3>
+                <p>Təyin olunmuş istifadəçi adınızı və şifrənizi daxil edin</p>
+            </div>
+
+            <div class="auth-error-msg" id="loginError">
+                İstifadəçi adı və ya şifrə yanlışdır!
+            </div>
+            
+            <form id="customLoginForm" onsubmit="handleCustomLogin(event)">
+                <div class="form-group">
+                    <label>İstifadəçi Adı</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="loginUsername" placeholder="İstifadəçi adınızı yazın (məs: admin)" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Şifrə</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Şifrənizi yazın" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-gold login-submit-btn">Daxil Ol</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="color: var(--text-light); text-decoration: none; font-size: 0.85rem;"><i class="fa-solid fa-arrow-left"></i> Ana Səhifəyə Qayıt</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-up Club Logo" style="width: 40px; height: 40px; object-fit: contain; filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.85));">
+                <div>
+                    <h4 style="color: #ffffff; font-size: 1.05rem;">Eco Start-up Club</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Sənaye və Texnologiya Kolleci</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase və Giriş Skripti -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                const themeIcon = themeToggle.querySelector('i');
+                themeToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('dark-theme');
+                    if (document.body.classList.contains('dark-theme')) {
+                        if (themeIcon) {
+                            themeIcon.classList.remove('fa-moon');
+                            themeIcon.classList.add('fa-sun');
+                        }
+                    } else {
+                        if (themeIcon) {
+                            themeIcon.classList.remove('fa-sun');
+                            themeIcon.classList.add('fa-moon');
+                        }
+                    }
+                });
+            }
+        });
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
+            authDomain: "eco-startup-site.firebaseapp.com",
+            projectId: "eco-startup-site",
+            storageBucket: "eco-startup-site.firebasestorage.app",
+            messagingSenderId: "177745640190",
+            appId: "1:177745640190:web:f8096c55e42224befa43af",
+            measurementId: "G-MSG6DJE36D"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        window.handleCustomLogin = async function(e) {
+            e.preventDefault();
+            const userVal = document.getElementById('loginUsername').value.trim().toLowerCase();
+            const passVal = document.getElementById('loginPassword').value.trim();
+            const loginError = document.getElementById('loginError');
+
+            const generatedEmail = `${userVal}@eco-startup-site.firebaseapp.com`;
+
+            try {
+                await signInWithEmailAndPassword(auth, generatedEmail, passVal);
+                
+                let role = "user";
+                let fullName = userVal;
+
+                if (userVal === "admin" || userVal === "curator" || userVal === "cmecidli") {
+                    role = "admin";
+                    if (userVal === "admin") fullName = "İbrahim Alpaşayev";
+                    else if (userVal === "curator") fullName = "Günel Şükürova";
+                    else if (userVal === "cmecidli") fullName = "Cahandar Məcidli";
+                } else {
+                    fullName = "Klub Üzvü";
+                }
+
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: userVal,
+                    name: fullName,
+                    role: role
+                }));
+
+                window.location.href = 'dashboard.html';
+
+            } catch (error) {
+                console.error("Giriş xətası:", error.message);
+                if (loginError) {
+                    loginError.innerText = "İstifadəçi adı və ya şifrə yanlışdır!";
+                    loginError.style.display = 'block';
+                }
+            }
+        };
+    </script>
+</body>
+</html>
