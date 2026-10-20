@@ -114,28 +114,20 @@
             display: block;
         }
 
-        .post-form textarea {
+        .post-form textarea, .post-form input {
             width: 100%;
             padding: 10px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--bg-color);
             color: var(--text-color);
-            resize: vertical;
-            min-height: 80px;
             margin-bottom: 10px;
             outline: none;
         }
 
-        .post-form input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-color);
-            margin-bottom: 10px;
-            outline: none;
+        .post-form textarea {
+            resize: vertical;
+            min-height: 80px;
         }
 
         .admin-only, .user-only {
@@ -190,31 +182,29 @@
                 </form>
             </div>
 
-            <!-- ADMIN-ONLY: Departament Keçmişi -->
+            <!-- ADMIN-ONLY: Arxivə Fayl Əlavə Etmə -->
             <div class="dash-card admin-only">
                 <div class="dash-card-header">
-                    <i class="fa-solid fa-folder-open" style="color: var(--stk-navy);"></i> Departament Keçmişi və Arxiv
+                    <i class="fa-solid fa-file-circle-plus" style="color: var(--eco-green);"></i> Arxivə Fayl Əlavə Et
                 </div>
-                <ul style="list-style: none; font-size: 0.9rem; color: var(--text-light); line-height: 1.8;">
-                    <li><i class="fa-solid fa-file-pdf" style="color: #e53935;"></i> 2025-2026 İdarəetmə Hesabatı.pdf</li>
-                    <li><i class="fa-solid fa-file-word" style="color: #1e88e5;"></i> Sədr və Kurator Protokolu.docx</li>
-                    <li><i class="fa-solid fa-users-gear" style="color: var(--eco-green);"></i> Departament Strukturu v2.1</li>
+                <form class="post-form" onsubmit="addArchiveFile(event)">
+                    <input type="text" id="fileTitle" placeholder="Faylın adı (məsələn: Hesabat.pdf)" required>
+                    <input type="url" id="fileUrl" placeholder="Faylın linki (Google Drive və s.)" required>
+                    <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center;"><i class="fa-solid fa-upload"></i> Faylı Əlavə Et</button>
+                </form>
+            </div>
+
+            <!-- HƏM ADMİN, HƏM USER: Departament Keçmişi və Arxiv -->
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-folder-open" style="color: var(--stk-navy);"></i> Arxiv və Sənədlər
+                </div>
+                <ul id="archiveList" style="list-style: none; font-size: 0.9rem; color: var(--text-light); line-height: 1.8;">
+                    <!-- Dinamik arxiv faylları bura yüklənəcək -->
                 </ul>
             </div>
 
-            <!-- ADMIN-ONLY: Fəaliyyət Planı -->
-            <div class="dash-card admin-only">
-                <div class="dash-card-header">
-                    <i class="fa-solid fa-calendar-check" style="color: var(--eco-green);"></i> Fəaliyyət Planı (Admin)
-                </div>
-                <ul style="list-style: none; font-size: 0.88rem; line-height: 1.8;">
-                    <li><i class="fa-solid fa-check" style="color: var(--eco-green);"></i> Semestr üzrə planlama iclası</li>
-                    <li><i class="fa-solid fa-spinner" style="color: var(--stk-gold);"></i> Eco Pitching Day təşkilatçılığı</li>
-                    <li><i class="fa-solid fa-clock" style="color: var(--text-light);"></i> Tərəfdaşlıq görüşlərinin keçirilməsi</li>
-                </ul>
-            </div>
-
-            <!-- HƏM ADMİN, HƏM USER: Elanlar Kanalı (Announcement) -->
+            <!-- HƏM ADMİN, HƏM USER: Elanlar Kanalı (Redaktə və Silmə dəstəyi ilə) -->
             <div class="dash-card">
                 <div class="dash-card-header">
                     <i class="fa-solid fa-scroll" style="color: var(--stk-gold);"></i> Elanlar və Bildirişlər
@@ -224,23 +214,11 @@
                 </div>
             </div>
 
-            <!-- USER-ONLY: Gələcək Tədbirlər Xülasəsi -->
-            <div class="dash-card user-only">
-                <div class="dash-card-header">
-                    <i class="fa-solid fa-calendar-day" style="color: var(--eco-green);"></i> Gələcək Tədbirlər Xülasəsi
-                </div>
-                <div class="announcement-box" style="border-left-color: var(--eco-green);">
-                    <h4>Eco Start-up Pitching Day</h4>
-                    <p>Tələbələrin ekoloji layihələrinin təqdimat günü. Müsabiqədə iştirak üçün qeydiyyat tezliklə açılacaq.</p>
-                    <span class="date"><i class="fa-regular fa-clock"></i> Tarix: Noyabr 2026</span>
-                </div>
-            </div>
-
         </div>
 
     </main>
 
-    <!-- Firebase və Dashboard JavaScript Modulu (Dövrə xətasını aradan qaldıran onAuthStateChanged ilə) -->
+    <!-- Firebase və Dashboard JavaScript Modulu -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
         import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
@@ -258,23 +236,23 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Firebase Sessiya Yoxlanışı (Sonsuz dövrənin qarşısını alır)
+        let currentUserSession = null;
+
+        // Firebase Sessiya Yoxlanışı
         onAuthStateChanged(auth, (user) => {
             if (!user) {
-                // Əgər Firebase-də aktiv sessiya yoxdursa, bir dəfə yönləndir
                 localStorage.removeItem('currentUser');
                 window.location.replace('index.html');
             } else {
-                // Sessiya mövcuddur, localStorage-dən rolları oxuyub interfeysi qururuq
-                const userSession = JSON.parse(localStorage.getItem('currentUser'));
-                if (userSession) {
+                currentUserSession = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUserSession) {
                     const userNameElem = document.getElementById('displayUserName');
                     const roleBadge = document.getElementById('displayUserRole');
 
-                    if (userNameElem) userNameElem.innerText = `Xoş gəldiniz, ${userSession.name}!`;
+                    if (userNameElem) userNameElem.innerText = `Xoş gəldiniz, ${currentUserSession.name}!`;
                     
                     if (roleBadge) {
-                        if (userSession.role === 'admin') {
+                        if (currentUserSession.role === 'admin') {
                             roleBadge.innerText = 'Admin / İdarə Heyəti';
                             roleBadge.classList.add('admin');
                             document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
@@ -284,11 +262,13 @@
                             document.querySelectorAll('.user-only').forEach(el => el.style.display = 'block');
                         }
                     }
+                    renderAnnouncements();
+                    renderArchives();
                 }
             }
         });
 
-        // İlkin Nümunə Elanlar
+        // Elanlar İdarəetməsi
         let announcements = JSON.parse(localStorage.getItem('clubAnnouncements')) || [
             {
                 title: "Klub İclasının Vaxtı Təyin Olundu",
@@ -297,23 +277,30 @@
             }
         ];
 
-        function renderAnnouncements() {
+        window.renderAnnouncements = function() {
             const container = document.getElementById('announcementList');
             if (!container) return;
             container.innerHTML = '';
             
-            announcements.forEach((ann) => {
+            announcements.forEach((ann, index) => {
+                const isAdmin = currentUserSession && currentUserSession.role === 'admin';
                 container.innerHTML += `
                     <div class="announcement-box">
                         <h4>${ann.title}</h4>
                         <p>${ann.body}</p>
                         <span class="date"><i class="fa-regular fa-clock"></i> ${ann.date}</span>
+                        
+                        ${isAdmin ? `
+                            <div style="margin-top: 10px; display: flex; gap: 8px;">
+                                <button onclick="editAnnouncement(${index})" class="btn btn-outline" style="padding: 2px 8px; font-size: 0.75rem; color: var(--stk-gold); border-color: var(--stk-gold);">Redaktə</button>
+                                <button onclick="deleteAnnouncement(${index})" class="btn btn-outline" style="padding: 2px 8px; font-size: 0.75rem; color: #e53935; border-color: #e53935;">Sil</button>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             });
-        }
+        };
 
-        // Admin Tərəfindən Elan Paylaşılması
         window.publishAnnouncement = function(e) {
             e.preventDefault();
             const titleElem = document.getElementById('annTitle');
@@ -334,6 +321,73 @@
             alert('Elan uğurla paylaşıldı!');
         };
 
+        window.deleteAnnouncement = function(index) {
+            if (confirm("Bu elanı silmək istədiyinizə əminsiniz?")) {
+                announcements.splice(index, 1);
+                localStorage.setItem('clubAnnouncements', JSON.stringify(announcements));
+                renderAnnouncements();
+            }
+        };
+
+        window.editAnnouncement = function(index) {
+            const ann = announcements[index];
+            const newTitle = prompt("Yeni başlığı daxil edin:", ann.title);
+            const newBody = prompt("Yeni mətnini daxil edin:", ann.body);
+
+            if (newTitle !== null && newBody !== null) {
+                announcements[index].title = newTitle.trim();
+                announcements[index].body = newBody.trim();
+                localStorage.setItem('clubAnnouncements', JSON.stringify(announcements));
+                renderAnnouncements();
+            }
+        };
+
+        // Arxiv Faylları İdarəetməsi
+        let archiveFiles = JSON.parse(localStorage.getItem('clubArchives')) || [
+            { name: "2025-2026 İdarəetmə Hesabatı.pdf", url: "#" },
+            { name: "Sədr və Kurator Protokolu.docx", url: "#" }
+        ];
+
+        window.renderArchives = function() {
+            const listContainer = document.getElementById('archiveList');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            
+            archiveFiles.forEach((file, index) => {
+                const isAdmin = currentUserSession && currentUserSession.role === 'admin';
+                listContainer.innerHTML += `
+                    <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <a href="${file.url}" target="_blank" style="color: var(--text-light); text-decoration: none;">
+                            <i class="fa-solid fa-file-pdf" style="color: #e53935;"></i> ${file.name}
+                        </a>
+                        ${isAdmin ? `<button onclick="deleteArchive(${index})" style="background:transparent; border:none; color:#e53935; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    </li>
+                `;
+            });
+        };
+
+        window.addArchiveFile = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('fileTitle').value;
+            const url = document.getElementById('fileUrl').value;
+
+            archiveFiles.unshift({ name, url });
+            localStorage.setItem('clubArchives', JSON.stringify(archiveFiles));
+            
+            document.getElementById('fileTitle').value = '';
+            document.getElementById('fileUrl').value = '';
+            alert('Fayl arxivə əlavə olundu!');
+            renderArchives();
+        };
+
+        window.deleteArchive = function(index) {
+            if (confirm("Bu faylı arxivdən silmək istədiyinizə əminsiniz?")) {
+                archiveFiles.splice(index, 1);
+                localStorage.setItem('clubArchives', JSON.stringify(archiveFiles));
+                renderArchives();
+            }
+        };
+
         // Çıxış Funksiyası
         window.logout = async function() {
             try {
@@ -352,8 +406,6 @@
                 document.body.classList.toggle('dark-theme');
             });
         }
-
-        renderAnnouncements();
     </script>
 </body>
 </html>
