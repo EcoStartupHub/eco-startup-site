@@ -241,7 +241,7 @@
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 localStorage.removeItem('currentUser');
-                window.location.replace('index.html');
+                window.location.replace('login.html');
             } else {
                 currentUserSession = JSON.parse(localStorage.getItem('currentUser'));
                 if (currentUserSession) {
@@ -392,7 +392,7 @@
                 console.error("Çıxış xətası:", err);
             }
             localStorage.removeItem('currentUser');
-            window.location.replace('index.html');
+            window.location.replace('login.html');
         };
 
         const themeToggle = document.getElementById('themeToggle');
