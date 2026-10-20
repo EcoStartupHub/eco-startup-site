@@ -62,7 +62,7 @@
                 <!-- Standart Düymələr -->
                 <div class="nav-actions">
                     <a href="#team" class="btn btn-gold"><i class="fa-solid fa-user-plus"></i> <span data-tr="btn-join">Üzv Ol</span></a>
-                    <a href="#" class="btn btn-outline" id="loginBtn"><i class="fa-solid fa-right-to-bracket"></i> <span data-tr="btn-login">Giriş</span></a>
+                    <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket"></i> <span data-tr="btn-login">Giriş</span></a>
                 </div>
             </div>
         </div>
@@ -267,47 +267,8 @@
         </div>
     </footer>
 
-    <!-- Login Modal (Pop-up) -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-title-group">
-                <div class="modal-icon">
-                    <i class="fa-solid fa-user-lock"></i>
-                </div>
-                <h3 data-tr="login-modal-title">Klub Hesabına Giriş</h3>
-                <p data-tr="login-modal-sub">Təyin olunmuş istifadəçi məlumatlarınızı daxil edin</p>
-            </div>
-
-            <div class="auth-error-msg" id="loginError" data-tr="login-err-msg">
-                İstifadəçi adı və ya şifrə yanlışdır!
-            </div>
-            
-            <form id="customLoginForm" onsubmit="handleCustomLogin(event)">
-                <div class="form-group">
-                    <label data-tr="login-user-label">İstifadəçi Adı</label>
-                    <div class="input-box">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="text" id="loginUsername" placeholder="İstifadəçi adınızı yazın" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label data-tr="login-pass-label">Şifrə</label>
-                    <div class="input-box">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="loginPassword" placeholder="Şifrənizi yazın" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-gold login-submit-btn" data-tr="login-btn-text">Daxil Ol</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Firebase və Əsas JavaScript Modulu -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
+    <!-- JavaScript -->
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('navMenu');
@@ -322,33 +283,6 @@
                     } else {
                         icon.classList.remove('fa-xmark');
                         icon.classList.add('fa-bars');
-                    }
-                });
-            }
-
-            const loginModal = document.getElementById('loginModal');
-            const loginBtn = document.getElementById('loginBtn');
-            const closeModal = document.getElementById('closeModal');
-            const loginError = document.getElementById('loginError');
-
-            if (loginBtn) {
-                loginBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (loginModal) loginModal.classList.add('active');
-                    if (loginError) loginError.style.display = 'none';
-                });
-            }
-
-            if (closeModal) {
-                closeModal.addEventListener('click', () => {
-                    if (loginModal) loginModal.classList.remove('active');
-                });
-            }
-
-            if (loginModal) {
-                loginModal.addEventListener('click', (e) => {
-                    if (e.target === loginModal) {
-                        loginModal.classList.remove('active');
                     }
                 });
             }
@@ -372,61 +306,6 @@
                 });
             }
         });
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
-            authDomain: "eco-startup-site.firebaseapp.com",
-            projectId: "eco-startup-site",
-            storageBucket: "eco-startup-site.firebasestorage.app",
-            messagingSenderId: "177745640190",
-            appId: "1:177745640190:web:f8096c55e42224befa43af",
-            measurementId: "G-MSG6DJE36D"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        window.handleCustomLogin = async function(e) {
-            e.preventDefault();
-            const userVal = document.getElementById('loginUsername').value.trim().toLowerCase();
-            const passVal = document.getElementById('loginPassword').value.trim();
-            const loginError = document.getElementById('loginError');
-
-            const generatedEmail = `${userVal}@eco-startup-site.firebaseapp.com`;
-
-            try {
-                await signInWithEmailAndPassword(auth, generatedEmail, passVal);
-                
-                let role = "user";
-                let fullName = userVal;
-
-                if (userVal === "admin" || userVal === "curator" || userVal === "cmecidli") {
-                    role = "admin";
-                    if (userVal === "admin") fullName = "İbrahim Alpaşayev";
-                    else if (userVal === "curator") fullName = "Günel Şükürova";
-                    else if (userVal === "cmecidli") fullName = "Cahandar Məcidli";
-                } else {
-                    fullName = "Klub Üzvü";
-                }
-
-                localStorage.setItem('currentUser', JSON.stringify({
-                    username: userVal,
-                    name: fullName,
-                    role: role
-                }));
-
-                const loginModal = document.getElementById('loginModal');
-                if (loginModal) loginModal.classList.remove('active');
-                window.location.href = 'dashboard.html';
-
-            } catch (error) {
-                console.error("Giriş xətası:", error.message);
-                if (loginError) {
-                    loginError.innerText = "İstifadəçi adı və ya şifrə yanlışdır!";
-                    loginError.style.display = 'block';
-                }
-            }
-        };
 
         const translations = {
             az: {
@@ -460,12 +339,6 @@
                 "dept-pr": "İctimai Əlaqələr və Tərəfdaşlıq",
                 "dept-design": "Dizayn Departamenti",
                 "role-coord": "Koordinator",
-                "login-modal-title": "Klub Hesabına Giriş",
-                "login-modal-sub": "Təyin olunmuş istifadəçi məlumatlarınızı daxil edin",
-                "login-user-label": "İstifadəçi Adı",
-                "login-pass-label": "Şifrə",
-                "login-btn-text": "Daxil Ol",
-                "login-err-msg": "İstifadəçi adı və ya şifrə yanlışdır!",
                 "footer-rights": "&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur."
             },
             en: {
@@ -499,12 +372,6 @@
                 "dept-pr": "Public Relations & Partnership",
                 "dept-design": "Design Department",
                 "role-coord": "Coordinator",
-                "login-modal-title": "Club Account Login",
-                "login-modal-sub": "Enter your assigned user credentials",
-                "login-user-label": "Username",
-                "login-pass-label": "Password",
-                "login-btn-text": "Sign In",
-                "login-err-msg": "Incorrect username or password!",
                 "footer-rights": "&copy; 2026 Industrial and Technology College - Eco Start-up Club. All rights reserved."
             },
             ru: {
@@ -538,12 +405,6 @@
                 "dept-pr": "Связи с общественностью и партнерство",
                 "dept-design": "Отдел дизайна",
                 "role-coord": "Координатор",
-                "login-modal-title": "Вход в аккаунт клуба",
-                "login-modal-sub": "Введите ваши назначенные учетные данные",
-                "login-user-label": "Имя пользователя",
-                "login-pass-label": "Пароль",
-                "login-btn-text": "Войти",
-                "login-err-msg": "Неверное имя пользователя или пароль!",
                 "footer-rights": "© 2026 Колледж промышленности и технологий - Eco Start-up Club. Все права защищены."
             }
         };
