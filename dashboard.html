@@ -4,149 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İdarə Paneli | Eco Start-up Club</title>
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     
     <style>
-        .dashboard-container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .user-welcome-card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 25px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 30px;
-        }
-
-        .user-info h2 {
-            font-size: 1.4rem;
-            color: var(--stk-navy);
-        }
-
-        body.dark-theme .user-info h2 {
-            color: var(--stk-gold);
-        }
-
-        .role-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
-        .role-badge.admin {
-            background: rgba(241, 184, 18, 0.2);
-            color: var(--stk-gold);
-            border: 1px solid var(--stk-gold);
-        }
-
-        .role-badge.user {
-            background: rgba(46, 125, 50, 0.2);
-            color: var(--eco-green);
-            border: 1px solid var(--eco-green);
-        }
-
-        .dash-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .dash-card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .dash-card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--stk-navy);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 18px;
-        }
-
-        body.dark-theme .dash-card-header {
-            color: var(--stk-gold);
-        }
-
-        .announcement-box {
-            background: var(--bg-color);
-            border-left: 4px solid var(--stk-gold);
-            padding: 14px;
-            border-radius: 6px;
-            margin-bottom: 12px;
-        }
-
-        .announcement-box h4 {
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-        }
-
-        .announcement-box p {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        .announcement-box .date {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-top: 6px;
-            display: block;
-        }
-
-        .post-form textarea, .post-form input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-color);
-            margin-bottom: 10px;
-            outline: none;
-        }
-
-        .post-form textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .admin-only, .user-only {
-            display: none;
-        }
+        .dashboard-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .user-welcome-card { background: var(--card-bg); border-radius: 14px; padding: 25px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); margin-bottom: 30px; }
+        .user-info h2 { font-size: 1.4rem; color: var(--stk-navy); }
+        body.dark-theme .user-info h2 { color: var(--stk-gold); }
+        .role-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-top: 5px; }
+        .role-badge.tier1 { background: rgba(241, 184, 18, 0.2); color: var(--stk-gold); border: 1px solid var(--stk-gold); }
+        .role-badge.tier2 { background: rgba(217, 163, 10, 0.15); color: var(--stk-gold-hover); border: 1px solid var(--stk-gold-hover); }
+        .role-badge.tier3 { background: rgba(46, 125, 50, 0.2); color: var(--eco-green); border: 1px solid var(--eco-green); }
+        .role-badge.tier4 { background: rgba(100, 116, 139, 0.2); color: var(--text-light); border: 1px solid var(--border-color); }
+        
+        .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .dash-card { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border-color); padding: 25px; box-shadow: var(--shadow-sm); }
+        .dash-card-header { display: flex; align-items: center; justify-content: space-between; font-size: 1.15rem; font-weight: 700; color: var(--stk-navy); border-bottom: 2px solid var(--border-color); padding-bottom: 12px; margin-bottom: 18px; }
+        body.dark-theme .dash-card-header { color: var(--stk-gold); }
+        
+        .announcement-box { background: var(--bg-color); border-left: 4px solid var(--stk-gold); padding: 14px; border-radius: 6px; margin-bottom: 12px; }
+        .announcement-box h4 { font-size: 0.95rem; margin-bottom: 4px; display: flex; justify-content: space-between; }
+        .announcement-box p { font-size: 0.85rem; color: var(--text-light); }
+        .announcement-box .meta { font-size: 0.75rem; color: var(--text-light); margin-top: 6px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .post-form textarea, .post-form input, .post-form select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); margin-bottom: 10px; outline: none; }
+        .post-form textarea { resize: vertical; min-height: 80px; }
+        .writer-only { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="brand-logo-group">
                 <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" class="logo-img">
-                <div class="brand-text">
-                    <span class="brand-title">ECO START-UP CLUB</span>
-                </div>
+                <div class="brand-text"><span class="brand-title">ECO START-UP CLUB</span></div>
             </a>
-
             <div class="nav-right-wrapper">
                 <button class="theme-toggle-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
                 <button class="btn btn-gold" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Çıxış</button>
@@ -155,70 +50,87 @@
     </header>
 
     <main class="dashboard-container">
-        
-        <!-- İstifadəçi Məlumat Kartı -->
         <div class="user-welcome-card">
             <div class="user-info">
                 <h2 id="displayUserName">Xoş gəldiniz!</h2>
-                <span class="role-badge" id="displayUserRole">İstifadəçi</span>
+                <span class="role-badge tier4" id="displayUserRole">Üzv</span>
             </div>
-            <div>
-                <a href="index.html" class="btn btn-outline" style="color: var(--text-color); border-color: var(--border-color);"><i class="fa-solid fa-house"></i> Ana Səhifəyə Qayıt</a>
-            </div>
+            <div><a href="index.html" class="btn btn-outline" style="color: var(--text-color); border-color: var(--border-color);"><i class="fa-solid fa-house"></i> Ana Səhifə</a></div>
         </div>
 
-        <!-- DASHBOARD GRID -->
         <div class="dash-grid">
-
-            <!-- ADMIN-ONLY: Yeni Elan Paylaşma Bölməsi -->
-            <div class="dash-card admin-only">
-                <div class="dash-card-header">
-                    <i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Yeni Elan Paylaş
-                </div>
+            <!-- YAZMAQ ÜÇÜN FORMA (Tier 1, 2, 3) -->
+            <div class="dash-card writer-only" id="postAnnouncementCard">
+                <div class="dash-card-header"><span><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Yeni Elan Paylaş</span></div>
                 <form class="post-form" onsubmit="publishAnnouncement(event)">
+                    <select id="annDepartment" required>
+                        <option value="general">Ümumi Kanal (Rəhbərlik & Koordinatorlar)</option>
+                        <option value="sl">Startup və Layihələr (sl)</option>
+                        <option value="ti">Tədbirlər və İnkişaf (ti)</option>
+                        <option value="it">IT Departamenti (it)</option>
+                        <option value="iet">İctimai Əlaqələr və Tərəfdaşlıq (iet)</option>
+                        <option value="d">Dizayn Departamenti (d)</option>
+                    </select>
                     <input type="text" id="annTitle" placeholder="Elanın başlığı" required>
-                    <textarea id="annBody" placeholder="Elanın mətnini yazın..." required></textarea>
-                    <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center;"><i class="fa-solid fa-paper-plane"></i> Paylaş</button>
+                    <textarea id="annBody" placeholder="Mətn..." required></textarea>
+                    <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center;"><i class="fa-solid fa-paper-plane"></i> Paylaş</button>
                 </form>
             </div>
 
-            <!-- ADMIN-ONLY: Arxivə Fayl Əlavə Etmə -->
-            <div class="dash-card admin-only">
-                <div class="dash-card-header">
-                    <i class="fa-solid fa-file-circle-plus" style="color: var(--eco-green);"></i> Arxivə Fayl Əlavə Et
-                </div>
+            <!-- ARXİVƏ FAYL (Tier 1, 2, 3) -->
+            <div class="dash-card writer-only" id="addArchiveCard">
+                <div class="dash-card-header"><span><i class="fa-solid fa-file-circle-plus" style="color: var(--eco-green);"></i> Arxivə Fayl Əlavə Et</span></div>
                 <form class="post-form" onsubmit="addArchiveFile(event)">
-                    <input type="text" id="fileTitle" placeholder="Faylın adı (məsələn: Hesabat.pdf)" required>
-                    <input type="url" id="fileUrl" placeholder="Faylın linki (Google Drive və s.)" required>
-                    <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center;"><i class="fa-solid fa-upload"></i> Faylı Əlavə Et</button>
+                    <select id="fileDepartment" required>
+                        <option value="general">Ümumi Arxiv</option>
+                        <option value="sl">Startup Arxiv</option>
+                        <option value="ti">Tədbirlər Arxiv</option>
+                        <option value="it">IT Arxiv</option>
+                        <option value="iet">İctimai Əlaqələr Arxiv</option>
+                        <option value="d">Dizayn Arxiv</option>
+                    </select>
+                    <input type="text" id="fileTitle" placeholder="Fayl adı" required>
+                    <input type="url" id="fileUrl" placeholder="Link (Google Drive və s.)" required>
+                    <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center;"><i class="fa-solid fa-upload"></i> Əlavə Et</button>
                 </form>
             </div>
 
-            <!-- HƏM ADMIN, HƏM USER: Arxiv və Sənədlər -->
+            <!-- ARXİV VƏ SƏNƏDLƏR (Hər kəs BAXA BİLİR) -->
             <div class="dash-card">
                 <div class="dash-card-header">
-                    <i class="fa-solid fa-folder-open" style="color: var(--stk-navy);"></i> Arxiv və Sənədlər
+                    <span><i class="fa-solid fa-folder-open"></i> Arxivlər (Bütün kanallara baxış)</span>
+                    <select id="archiveFilter" onchange="renderArchives()" style="font-size:0.8rem; padding:4px;">
+                        <option value="all">Bütün Arxivlər</option>
+                        <option value="general">Ümumi</option>
+                        <option value="sl">Startup (sl)</option>
+                        <option value="ti">Tədbirlər (ti)</option>
+                        <option value="it">IT (it)</option>
+                        <option value="iet">İctimai Əlaqələr (iet)</option>
+                        <option value="d">Dizayn (d)</option>
+                    </select>
                 </div>
-                <ul id="archiveList" style="list-style: none; font-size: 0.9rem; color: var(--text-light); line-height: 1.8;">
-                    <!-- Dinamik arxiv faylları bura yüklənəcək -->
-                </ul>
+                <ul id="archiveList" style="list-style: none; font-size: 0.9rem; color: var(--text-light); line-height: 1.8;"></ul>
             </div>
 
-            <!-- HƏM ADMIN, HƏM USER: Elanlar Kanalı -->
+            <!-- ELANLAR KANALI (Hər kəs BAXA BİLİR) -->
             <div class="dash-card">
                 <div class="dash-card-header">
-                    <i class="fa-solid fa-scroll" style="color: var(--stk-gold);"></i> Elanlar və Bildirişlər
+                    <span><i class="fa-solid fa-scroll"></i> Elanlar və Kanallar</span>
+                    <select id="announcementFilter" onchange="renderAnnouncements()" style="font-size:0.8rem; padding:4px;">
+                        <option value="all">Bütün Kanallar</option>
+                        <option value="general">Ümumi</option>
+                        <option value="sl">Startup (sl)</option>
+                        <option value="ti">Tədbirlər (ti)</option>
+                        <option value="it">IT (it)</option>
+                        <option value="iet">İctimai Əlaqələr (iet)</option>
+                        <option value="d">Dizayn (d)</option>
+                    </select>
                 </div>
-                <div id="announcementList">
-                    <!-- Dinamik Elanlar bura düşəcək -->
-                </div>
+                <div id="announcementList" style="max-height: 450px; overflow-y: auto;"></div>
             </div>
-
         </div>
-
     </main>
 
-    <!-- Firebase və Dashboard JavaScript Modulu -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -245,21 +157,14 @@
             } else {
                 currentUserSession = JSON.parse(localStorage.getItem('currentUser'));
                 if (currentUserSession) {
-                    const userNameElem = document.getElementById('displayUserName');
+                    document.getElementById('displayUserName').innerText = `Xoş gəldiniz, ${currentUserSession.name}!`;
                     const roleBadge = document.getElementById('displayUserRole');
+                    roleBadge.innerText = currentUserSession.roleDisplayName;
+                    roleBadge.className = `role-badge ${currentUserSession.role}`;
 
-                    if (userNameElem) userNameElem.innerText = `Xoş gəldiniz, ${currentUserSession.name}!`;
-                    
-                    if (roleBadge) {
-                        if (currentUserSession.role === 'admin') {
-                            roleBadge.innerText = 'Admin / İdarə Heyəti';
-                            roleBadge.classList.add('admin');
-                            document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
-                        } else {
-                            roleBadge.innerText = 'Klub Üzvü';
-                            roleBadge.classList.add('user');
-                            document.querySelectorAll('.user-only').forEach(el => el.style.display = 'block');
-                        }
+                    // Tier 1, 2, 3 yazmaq/arxivə əlavə etmək formalarını görə bilir
+                    if (currentUserSession.role !== 'tier4') {
+                        document.querySelectorAll('.writer-only').forEach(el => el.style.display = 'block');
                     }
                     renderAnnouncements();
                     renderArchives();
@@ -268,32 +173,44 @@
         });
 
         let announcements = JSON.parse(localStorage.getItem('clubAnnouncements')) || [
-            {
-                title: "Klub İclasının Vaxtı Təyin Olundu",
-                body: "Gələn həftənin 2-ci günü Sənaye və Texnologiya Kollecinin akt zalında ümumi görüşümüz keçiriləcək.",
-                date: "18 Oktyabr 2026"
-            }
+            { id: 1, title: "Klub İclasının Vaxtı", body: "Ümumi görüş keçiriləcək.", date: "18.10.2026", department: "general", author: "ibrahim1", authorRole: "tier1" }
         ];
 
         window.renderAnnouncements = function() {
             const container = document.getElementById('announcementList');
+            const filter = document.getElementById('announcementFilter').value;
             if (!container) return;
             container.innerHTML = '';
             
-            announcements.forEach((ann, index) => {
-                const isAdmin = currentUserSession && currentUserSession.role === 'admin';
+            const filtered = announcements.filter(ann => filter === 'all' || ann.department === filter);
+
+            filtered.forEach((ann) => {
+                const index = announcements.findIndex(a => a.id === ann.id);
+                const myTier = currentUserSession.role;
+                const isMyMessage = currentUserSession.username === ann.author;
+                
+                let canModify = false;
+                if (myTier === 'tier1') {
+                    canModify = true;
+                } else if (myTier === 'tier2') {
+                    canModify = (isMyMessage || ann.authorRole === 'tier3' || ann.authorRole === 'tier4');
+                } else if (myTier === 'tier3') {
+                    canModify = isMyMessage;
+                }
+
                 container.innerHTML += `
                     <div class="announcement-box">
-                        <h4>${ann.title}</h4>
+                        <h4>${ann.title} <span style="font-size:0.7rem; background:var(--role-bg); padding:2px 6px; border-radius:4px;">${ann.department.toUpperCase()}</span></h4>
                         <p>${ann.body}</p>
-                        <span class="date"><i class="fa-regular fa-clock"></i> ${ann.date}</span>
-                        
-                        ${isAdmin ? `
-                            <div style="margin-top: 10px; display: flex; gap: 8px;">
-                                <button onclick="editAnnouncement(${index})" class="btn btn-outline" style="padding: 2px 8px; font-size: 0.75rem; color: var(--stk-gold); border-color: var(--stk-gold);">Redaktə</button>
-                                <button onclick="deleteAnnouncement(${index})" class="btn btn-outline" style="padding: 2px 8px; font-size: 0.75rem; color: #e53935; border-color: #e53935;">Sil</button>
-                            </div>
-                        ` : ''}
+                        <div class="meta">
+                            <span><i class="fa-regular fa-user"></i> ${ann.author} (${ann.date})</span>
+                            ${canModify ? `
+                                <div style="display: flex; gap: 6px;">
+                                    <button onclick="editAnnouncement(${index})" class="btn btn-outline" style="padding: 2px 6px; font-size: 0.7rem; color: var(--stk-gold); border-color: var(--stk-gold);">Redaktə</button>
+                                    <button onclick="deleteAnnouncement(${index})" class="btn btn-outline" style="padding: 2px 6px; font-size: 0.7rem; color: #e53935; border-color: #e53935;">Sil</button>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
                 `;
             });
@@ -301,26 +218,35 @@
 
         window.publishAnnouncement = function(e) {
             e.preventDefault();
-            const titleElem = document.getElementById('annTitle');
-            const bodyElem = document.getElementById('annBody');
+            const dept = document.getElementById('annDepartment').value;
+            const title = document.getElementById('annTitle').value;
+            const body = document.getElementById('annBody').value;
 
-            if (!titleElem || !bodyElem) return;
+            // Koordinatorlar (Tier 3) yalnız ümumi kanala və ya öz departamentinə yaza bilər
+            if (currentUserSession.role === 'tier3' && dept !== 'general' && dept !== currentUserSession.department) {
+                alert("Siz yalnız Ümumi kanala və öz departamentinizə yazı yaza bilərsiniz!");
+                return;
+            }
 
-            const title = titleElem.value;
-            const body = bodyElem.value;
-            const date = new Date().toLocaleDateString('az-AZ');
+            announcements.unshift({
+                id: Date.now(),
+                title,
+                body,
+                department: dept,
+                date: new Date().toLocaleDateString('az-AZ'),
+                author: currentUserSession.username,
+                authorRole: currentUserSession.role
+            });
 
-            announcements.unshift({ title, body, date });
             localStorage.setItem('clubAnnouncements', JSON.stringify(announcements));
-            
-            titleElem.value = '';
-            bodyElem.value = '';
+            document.getElementById('annTitle').value = '';
+            document.getElementById('annBody').value = '';
             renderAnnouncements();
             alert('Elan uğurla paylaşıldı!');
         };
 
         window.deleteAnnouncement = function(index) {
-            if (confirm("Bu elanı silmək istədiyinizə əminsiniz?")) {
+            if (confirm("Silmək istədiyinizə əminsiniz?")) {
                 announcements.splice(index, 1);
                 localStorage.setItem('clubAnnouncements', JSON.stringify(announcements));
                 renderAnnouncements();
@@ -329,9 +255,8 @@
 
         window.editAnnouncement = function(index) {
             const ann = announcements[index];
-            const newTitle = prompt("Yeni başlığı daxil edin:", ann.title);
-            const newBody = prompt("Yeni mətnini daxil edin:", ann.body);
-
+            const newTitle = prompt("Yeni başlıq:", ann.title);
+            const newBody = prompt("Yeni mətn:", ann.body);
             if (newTitle !== null && newBody !== null) {
                 announcements[index].title = newTitle.trim();
                 announcements[index].body = newBody.trim();
@@ -341,23 +266,30 @@
         };
 
         let archiveFiles = JSON.parse(localStorage.getItem('clubArchives')) || [
-            { name: "2025-2026 İdarəetmə Hesabatı.pdf", url: "#" },
-            { name: "Sədr və Kurator Protokolu.docx", url: "#" }
+            { id: 1, name: "Hesabat.pdf", url: "#", department: "general", author: "ibrahim1" }
         ];
 
         window.renderArchives = function() {
             const listContainer = document.getElementById('archiveList');
+            const filter = document.getElementById('archiveFilter').value;
             if (!listContainer) return;
             listContainer.innerHTML = '';
             
-            archiveFiles.forEach((file, index) => {
-                const isAdmin = currentUserSession && currentUserSession.role === 'admin';
+            const filtered = archiveFiles.filter(file => filter === 'all' || file.department === filter);
+
+            filtered.forEach((file) => {
+                const index = archiveFiles.findIndex(f => f.id === file.id);
+                const myTier = currentUserSession.role;
+                const isMyFile = currentUserSession.username === file.author;
+                
+                let canDelete = (myTier === 'tier1' || (myTier === 'tier2') || (myTier === 'tier3' && isMyFile));
+
                 listContainer.innerHTML += `
                     <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                         <a href="${file.url}" target="_blank" style="color: var(--text-light); text-decoration: none;">
-                            <i class="fa-solid fa-file-pdf" style="color: #e53935;"></i> ${file.name}
+                            <i class="fa-solid fa-file-pdf" style="color: #e53935;"></i> ${file.name} <span style="font-size:0.7rem; color:var(--stk-gold);">[${file.department.toUpperCase()}]</span>
                         </a>
-                        ${isAdmin ? `<button onclick="deleteArchive(${index})" style="background:transparent; border:none; color:#e53935; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-trash"></i></button>` : ''}
+                        ${canDelete ? `<button onclick="deleteArchive(${index})" style="background:transparent; border:none; color:#e53935; cursor:pointer; font-size:0.8rem;"><i class="fa-solid fa-trash"></i></button>` : ''}
                     </li>
                 `;
             });
@@ -365,20 +297,25 @@
 
         window.addArchiveFile = function(e) {
             e.preventDefault();
+            const dept = document.getElementById('fileDepartment').value;
             const name = document.getElementById('fileTitle').value;
             const url = document.getElementById('fileUrl').value;
 
-            archiveFiles.unshift({ name, url });
+            if (currentUserSession.role === 'tier3' && dept !== 'general' && dept !== currentUserSession.department) {
+                alert("Siz yalnız Ümumi arxivə və öz departamentinizə fayl əlavə edə bilərsiniz!");
+                return;
+            }
+
+            archiveFiles.unshift({ id: Date.now(), name, url, department: dept, author: currentUserSession.username });
             localStorage.setItem('clubArchives', JSON.stringify(archiveFiles));
-            
             document.getElementById('fileTitle').value = '';
             document.getElementById('fileUrl').value = '';
-            alert('Fayl arxivə əlavə olundu!');
+            alert('Fayl əlavə olundu!');
             renderArchives();
         };
 
         window.deleteArchive = function(index) {
-            if (confirm("Bu faylı arxivdən silmək istədiyinizə əminsiniz?")) {
+            if (confirm("Silmək istədiyinizə əminsiniz?")) {
                 archiveFiles.splice(index, 1);
                 localStorage.setItem('clubArchives', JSON.stringify(archiveFiles));
                 renderArchives();
@@ -386,21 +323,14 @@
         };
 
         window.logout = async function() {
-            try {
-                await signOut(auth);
-            } catch (err) {
-                console.error("Çıxış xətası:", err);
-            }
+            try { await signOut(auth); } catch (err) {}
             localStorage.removeItem('currentUser');
             window.location.replace('login.html');
         };
 
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('dark-theme');
-            });
-        }
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+        });
     </script>
 </body>
 </html>
