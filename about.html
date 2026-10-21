@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haqqımızda | Eco Start-up Club</title>
-    <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Xarici CSS Faylı -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- STK Top Bar -->
     <div class="top-bar">
         <div class="top-bar-container">
             <div class="top-info">
@@ -24,124 +21,85 @@
         </div>
     </div>
 
-    <!-- Header / Navbar -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="brand-logo-group">
-                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-up Club Logo" class="logo-img">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" class="logo-img">
                 <div class="brand-text">
                     <span class="brand-title">ECO START-UP CLUB</span>
                 </div>
             </a>
 
             <div class="nav-right-wrapper">
-                <button class="theme-toggle-btn" id="themeToggle" title="Rejimi Dəyiş">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-
-                <div class="hamburger" id="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                <button class="theme-toggle-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+                <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
             </div>
 
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
-                    <li><a href="index.html" data-tr="nav-home">Ana Səhifə</a></li>
-                    <li><a href="about.html" class="active" data-tr="nav-about">Haqqımızda</a></li>
-                    <li><a href="index.html#activities" data-tr="nav-activities">Fəaliyyətlər</a></li>
-                    <li><a href="index.html#team" data-tr="nav-team">İdarə Heyəti</a></li>
+                    <li><a href="index.html">Ana Səhifə</a></li>
+                    <li><a href="about.html" class="active">Haqqımızda</a></li>
+                    <li><a href="index.html#activities">Fəaliyyətlər</a></li>
+                    <li><a href="index.html#team">İdarə Heyəti</a></li>
                 </ul>
 
-                <!-- Dil Seçimi -->
-                <div class="lang-select">
-                    <button class="lang-btn active" onclick="changeLanguage('az')">AZ</button>
-                    <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-                    <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
-                </div>
-
-                <!-- Standart Düymələr -->
                 <div class="nav-actions">
-                    <a href="index.html#team" class="btn btn-gold"><i class="fa-solid fa-user-plus"></i> <span data-tr="btn-join">Üzv Ol</span></a>
-                    <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket"></i> <span data-tr="btn-login">Giriş</span></a>
+                    <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> Giriş</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Page Header -->
     <section class="page-header">
-        <h1 data-tr="about-title">Bizimlə Tanış Olun: <span>Haqqımızda</span></h1>
-        <p data-tr="about-subtitle">Sənaye və Texnologiya Kollecinin ekoloji və innovativ tələbə platforması haqqında ətraflı məlumat.</p>
+        <h1>Bizimlə Tanış Olun: <span>Haqqımızda</span></h1>
+        <p>Sənaye və Texnologiya Kollecinin ekoloji və innovativ tələbə platforması haqqında ətraflı məlumat.</p>
     </section>
 
-    <!-- Main Content -->
     <main class="section-container">
-        
         <div class="about-grid">
             <div class="about-card">
-                <div class="about-icon"><i class="fa-solid fa-bullseye"></i></div>
-                <h3 data-tr="card1-title">Missiyamız</h3>
-                <p data-tr="card1-desc">Tələbələr arasında ekoloji şüuru artırmaq, sənaye və texnologiya sahələrində yaşıl innovasiyaları təşviq etmək və ekoloji problemlərə yönəlmiş start-up layihələrini dəstəkləməkdir.</p>
+                <h3><i class="fa-solid fa-bullseye" style="color:var(--eco-green);"></i> Missiyamız</h3>
+                <p>Tələbələr arasında ekoloji şüuru artırmaq, sənaye və texnologiya sahələrində yaşıl innovasiyaları təşviq etmək və ekoloji problemlərə yönəlmiş start-up layihələrini dəstəkləməkdir.</p>
             </div>
 
             <div class="about-card">
-                <div class="about-icon"><i class="fa-solid fa-eye"></i></div>
-                <h3 data-tr="card2-title">Vizyonumuz</h3>
-                <p data-tr="card2-desc">Kollec tələbələrinin hazırladığı ekoloji texnologiya və davamlı start-up ideyalarının ölkə səviyyəsində tətbiq olunmasını təmin edən aparıcı tələbə platforması olmaqdır.</p>
+                <h3><i class="fa-solid fa-eye" style="color:var(--eco-green);"></i> Vizyonumuz</h3>
+                <p>Kollec tələbələrinin hazırladığı ekoloji texnologiya və davamlı start-up ideyalarının ölkə səviyyəsində tətbiq olunmasını təmin edən aparıcı tələbə platforması olmaqdır.</p>
             </div>
 
             <div class="about-card">
-                <div class="about-icon"><i class="fa-solid fa-rocket"></i></div>
-                <h3 data-tr="card3-title">Nə Edirik?</h3>
-                <p data-tr="card3-desc">İdeya müsabiqələri (Pitching Days), ekoloji sahədə təlim və seminarlar, ekspertlərlə panel müzakirələri və komanda daxilində şəbəkələşmə tədbirləri təşkil edirik.</p>
+                <h3><i class="fa-solid fa-rocket" style="color:var(--eco-green);"></i> Nə Edirik?</h3>
+                <p>İdeya müsabiqələri (Pitching Days), ekoloji sahədə təlim və seminarlar, ekspertlərlə panel müzakirələri və komanda daxilində şəbəkələşmə tədbirləri təşkil edirik.</p>
             </div>
         </div>
 
         <div class="values-section">
-            <h2 class="values-title"><i class="fa-solid fa-gem"></i> <span data-tr="val-main-title">Əsas Dəyərlərimiz</span></h2>
-            
-            <div class="values-list">
-                <div class="value-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div>
-                        <h4 data-tr="v1-title">İnnovativlik</h4>
-                        <p data-tr="v1-desc">Klassik problemlərə müasir texnoloji və yaradıcı həllər tapırıq.</p>
-                    </div>
+            <h2 class="values-title"><i class="fa-solid fa-gem" style="color:var(--eco-green);"></i> Əsas Dəyərlərimiz</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                <div>
+                    <h4 style="font-weight:700;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> İnnovativlik</h4>
+                    <p style="font-size:0.88rem; color:var(--text-light);">Klassik problemlərə müasir texnoloji və yaradıcı həllər tapırıq.</p>
                 </div>
-
-                <div class="value-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div>
-                        <h4 data-tr="v2-title">Dayanıqlılıq</h4>
-                        <p data-tr="v2-desc">Təbiətə və ətraf mühitə qayğı göstərərək uzunmüddətli təsir yaradırıq.</p>
-                    </div>
+                <div>
+                    <h4 style="font-weight:700;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Dayanıqlılıq</h4>
+                    <p style="font-size:0.88rem; color:var(--text-light);">Təbiətə və ətraf mühitə qayğı göstərərək uzunmüddətli təsir yaradırıq.</p>
                 </div>
-
-                <div class="value-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div>
-                        <h4 data-tr="v3-title">Komanda Ruhu</h4>
-                        <p data-tr="v3-desc">Birlikdə öyrənir, inkişaf edir və ümumi məqsədlərə çatmaq üçün çalışırıq.</p>
-                    </div>
+                <div>
+                    <h4 style="font-weight:700;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Komanda Ruhu</h4>
+                    <p style="font-size:0.88rem; color:var(--text-light);">Birlikdə öyrənir, inkişaf edir və ümumi məqsədlərə çatmaq üçün çalışırıq.</p>
                 </div>
-
-                <div class="value-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div>
-                        <h4 data-tr="v4-title">Liderlik</h4>
-                        <p data-tr="v4-desc">Gənclərin potensialını üzə çıxararaq onlara rəhbərlik bacarıqları qazandırırıq.</p>
-                    </div>
+                <div>
+                    <h4 style="font-weight:700;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Liderlik</h4>
+                    <p style="font-size:0.88rem; color:var(--text-light);">Gənclərin potensialını üzə çıxararaq onlara rəhbərlik bacarıqları qazandırırıq.</p>
                 </div>
             </div>
         </div>
-
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-brand">
-                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-up Club Logo" style="width: 40px; height: 40px; object-fit: contain; filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.85));">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
                 <div>
                     <h4 style="color: #ffffff; font-size: 1.05rem;">Eco Start-up Club</h4>
                     <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Sənaye və Texnologiya Kolleci</p>
@@ -155,144 +113,17 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p data-tr="footer-rights">&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p>
+            <p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('navMenu');
-
-            if (hamburger && navMenu) {
-                hamburger.addEventListener('click', () => {
-                    navMenu.classList.toggle('active');
-                    const icon = hamburger.querySelector('i');
-                    if (navMenu.classList.contains('active')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    } else {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    }
-                });
-            }
-
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle) {
-                const themeIcon = themeToggle.querySelector('i');
-                themeToggle.addEventListener('click', () => {
-                    document.body.classList.toggle('dark-theme');
-                    if (document.body.classList.contains('dark-theme')) {
-                        if (themeIcon) {
-                            themeIcon.classList.remove('fa-moon');
-                            themeIcon.classList.add('fa-sun');
-                        }
-                    } else {
-                        if (themeIcon) {
-                            themeIcon.classList.remove('fa-sun');
-                            themeIcon.classList.add('fa-moon');
-                        }
-                    }
-                });
-            }
+        document.getElementById('hamburger').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('active');
         });
-
-        const translations = {
-            az: {
-                "nav-home": "Ana Səhifə",
-                "nav-about": "Haqqımızda",
-                "nav-activities": "Fəaliyyətlər",
-                "nav-team": "İdarə Heyəti",
-                "btn-join": "Üzv Ol",
-                "btn-login": "Giriş",
-                "about-title": "Bizimlə Tanış Olun: <span>Haqqımızda</span>",
-                "about-subtitle": "Sənaye və Texnologiya Kollecinin ekoloji və innovativ tələbə platforması haqqında ətraflı məlumat.",
-                "card1-title": "Missiyamız",
-                "card1-desc": "Tələbələr arasında ekoloji şüuru artırmaq, sənaye və texnologiya sahələrində yaşıl innovasiyaları təşviq etmək və ekoloji problemlərə yönəlmiş start-up layihələrini dəstəkləməkdir.",
-                "card2-title": "Vizyonumuz",
-                "card2-desc": "Kollec tələbələrinin hazırladığı ekoloji texnologiya və davamlı start-up ideyalarının ölkə səviyyəsində tətbiq olunmasını təmin edən aparıcı tələbə platforması olmaqdır.",
-                "card3-title": "Nə Edirik?",
-                "card3-desc": "İdeya müsabiqələri (Pitching Days), ekoloji sahədə təlim və seminarlar, ekspertlərlə panel müzakirələri və komanda daxilində şəbəkələşmə tədbirləri təşkil edirik.",
-                "val-main-title": "Əsas Dəyərlərimiz",
-                "v1-title": "İnnovativlik",
-                "v1-desc": "Klassik problemlərə müasir texnoloji və yaradıcı həllər tapırıq.",
-                "v2-title": "Dayanıqlılıq",
-                "v2-desc": "Təbiətə və ətraf mühitə qayğı göstərərək uzunmüddətli təsir yaradırıq.",
-                "v3-title": "Komanda Ruhu",
-                "v3-desc": "Birlikdə öyrənir, inkişaf edir və ümumi məqsədlərə çatmaq üçün çalışırıq.",
-                "v4-title": "Liderlik",
-                "v4-desc": "Gənclərin potensialını üzə çıxararaq onlara rəhbərlik bacarıqları qazandırırıq.",
-                "footer-rights": "&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur."
-            },
-            en: {
-                "nav-home": "Home",
-                "nav-about": "About Us",
-                "nav-activities": "Activities",
-                "nav-team": "Board",
-                "btn-join": "Join Us",
-                "btn-login": "Login",
-                "about-title": "Get to Know Us: <span>About Us</span>",
-                "about-subtitle": "Detailed information about the ecological and innovative student platform of the Industrial and Technology College.",
-                "card1-title": "Our Mission",
-                "card1-desc": "To raise environmental awareness among students, promote green innovations in industry and technology, and support start-up projects aimed at ecological issues.",
-                "card2-title": "Our Vision",
-                "card2-desc": "To become a leading student platform ensuring the national application of eco-technology and sustainable start-up ideas created by college students.",
-                "card3-title": "What We Do",
-                "card3-desc": "We organize idea competitions (Pitching Days), environmental workshops, panel discussions with experts, and networking events.",
-                "val-main-title": "Core Values",
-                "v1-title": "Innovation",
-                "v1-desc": "Finding modern technological and creative solutions to classic problems.",
-                "v2-title": "Sustainability",
-                "v2-desc": "Creating long-term impact by caring for nature and the environment.",
-                "v3-title": "Team Spirit",
-                "v3-desc": "Learning, developing together, and working to achieve common goals.",
-                "v4-title": "Leadership",
-                "v4-desc": "Unlocking the potential of youth and empowering them with leadership skills.",
-                "footer-rights": "&copy; 2026 Industrial and Technology College - Eco Start-up Club. All rights reserved."
-            },
-            ru: {
-                "nav-home": "Главная",
-                "nav-about": "О нас",
-                "nav-activities": "Деятельность",
-                "nav-team": "Руководство",
-                "btn-join": "Вступить",
-                "btn-login": "Войти",
-                "about-title": "Познакомьтесь с нами: <span>О нас</span>",
-                "about-subtitle": "Подробная информация об экологической и инновационной студенческой платформе Колледжа промышленности и технологий.",
-                "card1-title": "Наша Миссия",
-                "card1-desc": "Повышение экологической осведомленности студентов, продвижение зеленых инноваций в промышленности и технологии, а также поддержка стартап-проектов.",
-                "card2-title": "Наше Видение",
-                "card2-desc": "Стать ведущей студенческой платформой, обеспечивающей внедрение экотехнологий и устойчивых стартап-идей студентов колледжа.",
-                "card3-title": "Что Мы Делаем?",
-                "card3-desc": "Организуем конкурсы идей (Pitching Days), экологические семинары, панельные дискуссии с экспертами и нетворкинг-мероприятия.",
-                "val-main-title": "Основные Ценности",
-                "v1-title": "Инновации",
-                "v1-desc": "Нахождение современных технологических и творческих решений классических проблем.",
-                "v2-title": "Устойчивость",
-                "v2-desc": "Создание долгосрочного эффекта за счет заботы о природе и окружающей среде.",
-                "v3-title": "Командный Дух",
-                "v3-desc": "Обучение, совместное развитие и работа для достижения общих целей.",
-                "v4-title": "Лидерство",
-                "v4-desc": "Раскрытие потенциала молодежи и наделение их лидерскими навыками.",
-                "footer-rights": "© 2026 Колледж промышленности и технологий - Eco Start-up Club. Все права защищены."
-            }
-        };
-
-        window.changeLanguage = function(lang) {
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-
-            document.querySelectorAll('[data-tr]').forEach(el => {
-                const key = el.getAttribute('data-tr');
-                if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
-            });
-        };
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+        });
     </script>
 </body>
 </html>
