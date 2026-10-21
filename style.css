@@ -57,7 +57,6 @@ body {
     overflow-x: hidden;
 }
 
-/* TOP BANNER */
 .top-bar {
     background: var(--stk-navy);
     color: rgba(255, 255, 255, 0.85);
@@ -80,7 +79,6 @@ body {
     gap: 20px;
 }
 
-/* HEADER & NAVBAR */
 header {
     background: var(--stk-navy-light);
     position: sticky;
@@ -139,10 +137,6 @@ header {
     justify-content: center;
     font-size: 1.1rem;
     font-weight: bold;
-}
-
-.theme-toggle-btn:hover {
-    transform: scale(1.05);
 }
 
 .nav-menu {
@@ -208,7 +202,6 @@ header {
     color: #ffffff;
 }
 
-/* HERO & PAGE HEADER */
 .hero, .page-header {
     position: relative;
     background: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
@@ -238,7 +231,7 @@ header {
 }
 
 .hero h1, .page-header h1 {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     font-weight: 800;
     line-height: 1.25;
     margin-bottom: 18px;
@@ -249,7 +242,7 @@ header {
 }
 
 .hero p, .page-header p {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: 30px;
     line-height: 1.6;
@@ -259,7 +252,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-width: 320px;
+    max-width: 300px;
     margin: 0 auto;
 }
 
@@ -270,7 +263,6 @@ header {
     font-size: 0.95rem;
 }
 
-/* SECTION CONTAINER */
 .section-container {
     max-width: 1200px;
     margin: 50px auto;
@@ -299,7 +291,6 @@ body.dark-theme .section-title {
     color: var(--stk-gold);
 }
 
-/* GALLERY / ACTIVITIES GRID */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -348,7 +339,6 @@ body.dark-theme .section-title {
     color: var(--text-light);
 }
 
-/* CATALOG / DEPARTMENT GRID */
 .catalog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -411,7 +401,6 @@ body.dark-theme .catalog-header {
     border-radius: 6px;
 }
 
-/* ABOUT PAGE CARDS */
 .about-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -462,91 +451,6 @@ body.dark-theme .values-title {
     color: var(--stk-gold);
 }
 
-/* LOGIN PAGE */
-.login-page-wrapper {
-    min-height: calc(100vh - 220px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-}
-
-.login-card {
-    background: var(--card-bg);
-    color: var(--text-color);
-    width: 100%;
-    max-width: 420px;
-    padding: 35px 30px;
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-}
-
-.login-title-group {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.login-icon {
-    width: 55px;
-    height: 55px;
-    background: rgba(241, 184, 18, 0.15);
-    color: var(--stk-gold);
-    border-radius: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 12px;
-}
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.input-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.input-box i {
-    position: absolute;
-    left: 14px;
-    color: var(--text-light);
-}
-
-.input-box input {
-    width: 100%;
-    padding: 11px 14px 11px 38px;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-color);
-    outline: none;
-}
-
-.auth-error-msg {
-    color: #e53935;
-    background: rgba(229, 57, 53, 0.1);
-    border: 1px solid rgba(229, 57, 53, 0.3);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    margin-bottom: 15px;
-    display: none;
-    text-align: center;
-    font-weight: 600;
-}
-
-/* FOOTER */
 footer {
     background: var(--stk-navy);
     color: #ffffff;
