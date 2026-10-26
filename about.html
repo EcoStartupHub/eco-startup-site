@@ -6,18 +6,84 @@
     <title>Haqqımızda | Eco Start-up Club</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --stk-navy: #0b2341;
+            --stk-navy-light: #16365d;
+            --stk-gold: #f1b812;
+            --stk-gold-hover: #d9a30a;
+            --eco-green: #2e7d32;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --hero-overlay: rgba(11, 35, 65, 0.88);
+        }
+        body.dark-theme {
+            --stk-navy: #071527;
+            --stk-navy-light: #0f2746;
+            --bg-color: #06101e;
+            --card-bg: #0f1d30;
+            --text-color: #f1f5f9;
+            --text-light: #94a3b8;
+            --border-color: #1e293b;
+            --hero-overlay: rgba(7, 21, 39, 0.94);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        .top-bar { background: var(--stk-navy); color: rgba(255, 255, 255, 0.85); font-size: 0.82rem; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .top-bar-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-img { height: 48px; width: auto; object-fit: contain; }
+        .brand-title { font-weight: 800; font-size: 1.15rem; color: #ffffff; }
+        .nav-right-wrapper { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle-btn { background: var(--stk-gold); border: none; color: var(--stk-navy); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .nav-menu { display: flex; align-items: center; gap: 25px; }
+        .nav-links { display: flex; gap: 22px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #ffffff; font-weight: 500; font-size: 0.92rem; }
+        .nav-links a.active, .nav-links a:hover { color: var(--stk-gold); }
+        .btn { padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+        .btn-gold { background-color: var(--stk-gold); color: var(--stk-navy); border: 1px solid var(--stk-gold); }
+        .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: #ffffff; }
+
+        .page-header { position: relative; background: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; padding: 80px 20px; text-align: center; color: #ffffff; border-bottom: 4px solid var(--eco-green); }
+        .page-header h1 { font-size: 2.3rem; font-weight: 800; margin-bottom: 18px; }
+        .page-header h1 span { color: var(--stk-gold); }
+        .page-header p { font-size: 1.02rem; color: rgba(255, 255, 255, 0.9); }
+
+        .section-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .about-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 25px; box-shadow: var(--shadow-md); }
+        .about-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--stk-navy); font-weight: 800; }
+        body.dark-theme .about-card h3 { color: var(--stk-gold); }
+        .about-card p { font-size: 0.92rem; color: var(--text-light); }
+        .values-section { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border-color); padding: 30px; box-shadow: var(--shadow-md); }
+        .values-title { font-size: 1.35rem; font-weight: 800; margin-bottom: 20px; color: var(--stk-navy); }
+        body.dark-theme .values-title { color: var(--stk-gold); }
+
+        footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: 60px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-brand { display: flex; align-items: center; gap: 12px; }
+        .footer-bottom { max-width: 1200px; margin: 15px auto 0; text-align: center; font-size: 0.82rem; color: rgba(255, 255, 255, 0.6); }
+
+        @media (max-width: 992px) {
+            .hamburger { display: block; }
+            .nav-menu { position: absolute; top: 100%; left: 0; width: 100%; background: var(--stk-navy-light); flex-direction: column; align-items: flex-start; padding: 25px; gap: 20px; display: none; }
+            .nav-menu.active { display: flex; }
+            .nav-links, .nav-actions, .btn { width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
     <div class="top-bar">
         <div class="top-bar-container">
-            <div class="top-info">
-                <span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span>
-            </div>
-            <div>
-                <span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span>
-            </div>
+            <div><span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span></div>
+            <div><span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span></div>
         </div>
     </div>
 
@@ -25,16 +91,12 @@
         <div class="nav-container">
             <a href="index.html" class="brand-logo-group">
                 <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" class="logo-img">
-                <div class="brand-text">
-                    <span class="brand-title">ECO START-UP CLUB</span>
-                </div>
+                <div class="brand-text"><span class="brand-title">ECO START-UP CLUB</span></div>
             </a>
-
             <div class="nav-right-wrapper">
                 <button class="theme-toggle-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
                 <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
             </div>
-
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
                     <li><a href="index.html">Ana Səhifə</a></li>
@@ -42,7 +104,6 @@
                     <li><a href="index.html#activities">Fəaliyyətlər</a></li>
                     <li><a href="index.html#team">İdarə Heyəti</a></li>
                 </ul>
-
                 <div class="nav-actions">
                     <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> Giriş</a>
                 </div>
@@ -61,12 +122,10 @@
                 <h3><i class="fa-solid fa-bullseye" style="color:var(--eco-green);"></i> Missiyamız</h3>
                 <p>Tələbələr arasında ekoloji şüuru artırmaq, sənaye və texnologiya sahələrində yaşıl innovasiyaları təşviq etmək və ekoloji problemlərə yönəlmiş start-up layihələrini dəstəkləməkdir.</p>
             </div>
-
             <div class="about-card">
                 <h3><i class="fa-solid fa-eye" style="color:var(--eco-green);"></i> Vizyonumuz</h3>
                 <p>Kollec tələbələrinin hazırladığı ekoloji texnologiya və davamlı start-up ideyalarının ölkə səviyyəsində tətbiq olunmasını təmin edən aparıcı tələbə platforması olmaqdır.</p>
             </div>
-
             <div class="about-card">
                 <h3><i class="fa-solid fa-rocket" style="color:var(--eco-green);"></i> Nə Edirik?</h3>
                 <p>İdeya müsabiqələri (Pitching Days), ekoloji sahədə təlim və seminarlar, ekspertlərlə panel müzakirələri və komanda daxilində şəbəkələşmə tədbirləri təşkil edirik.</p>
@@ -112,9 +171,7 @@
                 <a href="#" style="color: var(--stk-gold);"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p>
-        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p></div>
     </footer>
 
     <script>
