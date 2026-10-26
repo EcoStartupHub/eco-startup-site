@@ -6,9 +6,42 @@
     <title>İdarə Paneli | Eco Start-up Club</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    
     <style>
+        :root {
+            --stk-navy: #0b2341;
+            --stk-navy-light: #16365d;
+            --stk-gold: #f1b812;
+            --stk-gold-hover: #d9a30a;
+            --eco-green: #2e7d32;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --role-bg: #f1f5f9;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        body.dark-theme {
+            --stk-navy: #071527;
+            --stk-navy-light: #0f2746;
+            --bg-color: #06101e;
+            --card-bg: #0f1d30;
+            --text-color: #f1f5f9;
+            --text-light: #94a3b8;
+            --border-color: #1e293b;
+            --role-bg: #1e293b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-img { height: 48px; width: auto; object-fit: contain; }
+        .brand-title { font-weight: 800; font-size: 1.15rem; color: #ffffff; }
+        .nav-right-wrapper { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle-btn { background: var(--stk-gold); border: none; color: var(--stk-navy); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        
         .dashboard-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
         .user-welcome-card { background: var(--card-bg); border-radius: 14px; padding: 25px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); margin-bottom: 30px; }
         .user-info h2 { font-size: 1.4rem; color: var(--stk-navy); }
@@ -32,6 +65,11 @@
         .post-form textarea, .post-form input, .post-form select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); margin-bottom: 10px; outline: none; }
         .post-form textarea { resize: vertical; min-height: 80px; }
         .writer-only { display: none; }
+        
+        .btn { padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: none; }
+        .btn-gold { background-color: var(--stk-gold); color: var(--stk-navy); }
+        .btn-gold:hover { background-color: var(--stk-gold-hover); }
+        .btn-outline { background-color: transparent; color: var(--text-color); border: 1px solid var(--border-color); }
     </style>
 </head>
 <body>
@@ -55,11 +93,10 @@
                 <h2 id="displayUserName">Xoş gəldiniz!</h2>
                 <span class="role-badge tier4" id="displayUserRole">Üzv</span>
             </div>
-            <div><a href="index.html" class="btn btn-outline" style="color: var(--text-color); border-color: var(--border-color);"><i class="fa-solid fa-house"></i> Ana Səhifə</a></div>
+            <div><a href="index.html" class="btn btn-outline"><i class="fa-solid fa-house"></i> Ana Səhifə</a></div>
         </div>
 
         <div class="dash-grid">
-            <!-- YAZMAQ ÜÇÜN FORMA (Tier 1, 2, 3) -->
             <div class="dash-card writer-only" id="postAnnouncementCard">
                 <div class="dash-card-header"><span><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Yeni Elan Paylaş</span></div>
                 <form class="post-form" onsubmit="publishAnnouncement(event)">
@@ -77,7 +114,6 @@
                 </form>
             </div>
 
-            <!-- ARXİVƏ FAYL (Tier 1, 2, 3) -->
             <div class="dash-card writer-only" id="addArchiveCard">
                 <div class="dash-card-header"><span><i class="fa-solid fa-file-circle-plus" style="color: var(--eco-green);"></i> Arxivə Fayl Əlavə Et</span></div>
                 <form class="post-form" onsubmit="addArchiveFile(event)">
@@ -95,7 +131,6 @@
                 </form>
             </div>
 
-            <!-- ARXİV VƏ SƏNƏDLƏR (Hər kəs BAXA BİLİR) -->
             <div class="dash-card">
                 <div class="dash-card-header">
                     <span><i class="fa-solid fa-folder-open"></i> Arxivlər (Bütün kanallara baxış)</span>
@@ -112,7 +147,6 @@
                 <ul id="archiveList" style="list-style: none; font-size: 0.9rem; color: var(--text-light); line-height: 1.8;"></ul>
             </div>
 
-            <!-- ELANLAR KANALI (Hər kəs BAXA BİLİR) -->
             <div class="dash-card">
                 <div class="dash-card-header">
                     <span><i class="fa-solid fa-scroll"></i> Elanlar və Kanallar</span>
@@ -162,7 +196,6 @@
                     roleBadge.innerText = currentUserSession.roleDisplayName;
                     roleBadge.className = `role-badge ${currentUserSession.role}`;
 
-                    // Tier 1, 2, 3 yazmaq/arxivə əlavə etmək formalarını görə bilir
                     if (currentUserSession.role !== 'tier4') {
                         document.querySelectorAll('.writer-only').forEach(el => el.style.display = 'block');
                     }
@@ -222,7 +255,6 @@
             const title = document.getElementById('annTitle').value;
             const body = document.getElementById('annBody').value;
 
-            // Koordinatorlar (Tier 3) yalnız ümumi kanala və ya öz departamentinə yaza bilər
             if (currentUserSession.role === 'tier3' && dept !== 'general' && dept !== currentUserSession.department) {
                 alert("Siz yalnız Ümumi kanala və öz departamentinizə yazı yaza bilərsiniz!");
                 return;
