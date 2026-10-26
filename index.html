@@ -6,18 +6,105 @@
     <title>Eco Start-up Club | Sənaye və Texnologiya Kolleci</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --stk-navy: #0b2341;
+            --stk-navy-light: #16365d;
+            --stk-gold: #f1b812;
+            --stk-gold-hover: #d9a30a;
+            --eco-green: #2e7d32;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --role-bg: #f1f5f9;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --hero-overlay: rgba(11, 35, 65, 0.88);
+        }
+        body.dark-theme {
+            --stk-navy: #071527;
+            --stk-navy-light: #0f2746;
+            --bg-color: #06101e;
+            --card-bg: #0f1d30;
+            --text-color: #f1f5f9;
+            --text-light: #94a3b8;
+            --border-color: #1e293b;
+            --role-bg: #1e293b;
+            --hero-overlay: rgba(7, 21, 39, 0.94);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        .top-bar { background: var(--stk-navy); color: rgba(255, 255, 255, 0.85); font-size: 0.82rem; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .top-bar-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-img { height: 48px; width: auto; object-fit: contain; }
+        .brand-title { font-weight: 800; font-size: 1.15rem; color: #ffffff; }
+        .nav-right-wrapper { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle-btn { background: var(--stk-gold); border: none; color: var(--stk-navy); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .nav-menu { display: flex; align-items: center; gap: 25px; }
+        .nav-links { display: flex; gap: 22px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #ffffff; font-weight: 500; font-size: 0.92rem; }
+        .nav-links a.active, .nav-links a:hover { color: var(--stk-gold); }
+        .btn { padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+        .btn-gold { background-color: var(--stk-gold); color: var(--stk-navy); border: 1px solid var(--stk-gold); }
+        .btn-gold:hover { background-color: var(--stk-gold-hover); }
+        .btn-outline { background-color: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.4); }
+        .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: #ffffff; }
+
+        .hero { position: relative; background: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; padding: 80px 20px; text-align: center; color: #ffffff; border-bottom: 4px solid var(--eco-green); }
+        .hero-container { max-width: 850px; margin: 0 auto; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
+        .hero h1 { font-size: 2.3rem; font-weight: 800; line-height: 1.25; margin-bottom: 18px; }
+        .hero h1 span { color: var(--stk-gold); }
+        .hero p { font-size: 1.02rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 30px; }
+        .hero-buttons { display: flex; flex-direction: column; gap: 12px; max-width: 300px; margin: 0 auto; }
+        .hero-buttons .btn { width: 100%; justify-content: center; padding: 12px; }
+
+        .section-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .section-title { font-size: 1.35rem; font-weight: 800; color: var(--stk-navy); display: flex; align-items: center; gap: 10px; }
+        body.dark-theme .section-title { color: var(--stk-gold); }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .gallery-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .gallery-img-placeholder { height: 160px; background: linear-gradient(135deg, #1b5e20, #388e3c); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ffffff; font-weight: 700; gap: 8px; padding: 15px; text-align: center; }
+        .gallery-content { padding: 20px; }
+        .gallery-content h3 { font-size: 1.05rem; margin-bottom: 8px; font-weight: 800; }
+        .gallery-content p { font-size: 0.88rem; color: var(--text-light); }
+
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .catalog-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 20px; box-shadow: var(--shadow-sm); }
+        .catalog-header { font-size: 1.1rem; color: var(--stk-navy); font-weight: 800; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        body.dark-theme .catalog-header { color: var(--stk-gold); }
+        .catalog-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .catalog-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--bg-color); border-radius: 8px; border-left: 4px solid var(--eco-green); }
+        .catalog-name { font-weight: 700; font-size: 0.92rem; }
+        .catalog-role { font-size: 0.78rem; font-weight: 600; background: var(--role-bg); color: var(--text-light); padding: 4px 10px; border-radius: 6px; }
+
+        footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: 60px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-brand { display: flex; align-items: center; gap: 12px; }
+        .footer-bottom { max-width: 1200px; margin: 15px auto 0; text-align: center; font-size: 0.82rem; color: rgba(255, 255, 255, 0.6); }
+
+        @media (max-width: 992px) {
+            .hamburger { display: block; }
+            .nav-menu { position: absolute; top: 100%; left: 0; width: 100%; background: var(--stk-navy-light); flex-direction: column; align-items: flex-start; padding: 25px; gap: 20px; display: none; }
+            .nav-menu.active { display: flex; }
+            .nav-links, .nav-actions, .btn { width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
     <div class="top-bar">
         <div class="top-bar-container">
-            <div class="top-info">
-                <span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span>
-            </div>
-            <div>
-                <span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span>
-            </div>
+            <div><span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span></div>
+            <div><span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span></div>
         </div>
     </div>
 
@@ -25,16 +112,12 @@
         <div class="nav-container">
             <a href="index.html" class="brand-logo-group">
                 <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" class="logo-img">
-                <div class="brand-text">
-                    <span class="brand-title">ECO START-UP CLUB</span>
-                </div>
+                <div class="brand-text"><span class="brand-title">ECO START-UP CLUB</span></div>
             </a>
-
             <div class="nav-right-wrapper">
                 <button class="theme-toggle-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
                 <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
             </div>
-
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Ana Səhifə</a></li>
@@ -42,7 +125,6 @@
                     <li><a href="#activities">Fəaliyyətlər</a></li>
                     <li><a href="#team">İdarə Heyəti</a></li>
                 </ul>
-
                 <div class="nav-actions">
                     <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> Giriş</a>
                 </div>
@@ -50,22 +132,14 @@
         </div>
     </header>
 
-    <section class="hero" id="home">
+    <section class="hero">
         <div class="hero-container">
-            <div class="hero-badge">
-                <i class="fa-solid fa-leaf"></i> Gələcəyin Ekoloji Start-up'ları
-            </div>
+            <div class="hero-badge"><i class="fa-solid fa-leaf"></i> Gələcəyin Ekoloji Start-up'ları</div>
             <h1>Peşəkar Gələcək, <span>Yaşıl Təşəbbüslər</span></h1>
-            <p>
-                Azərbaycan Dövlət Neft və Sənaye Universitetinin (ADNSU) nəzdində Sənaye və Texnologiya Kollecinin tərkibində yaradılmış, ekoloji problemləri həll etmək üçün Start-up'ları dəstəkləyən və formalaşdıran innovativ tələbə platforması.
-            </p>
+            <p>Azərbaycan Dövlət Neft və Sənaye Universitetinin (ADNSU) nəzdində Sənaye və Texnologiya Kollecinin tərkibində yaradılmış, ekoloji problemləri həll etmək üçün Start-up'ları dəstəkləyən və formalaşdıran innovativ tələbə platforması.</p>
             <div class="hero-buttons">
-                <a href="#team" class="btn btn-gold">
-                    <i class="fa-solid fa-users"></i> İdarə Heyətimiz
-                </a>
-                <a href="about.html" class="btn btn-outline">
-                    <i class="fa-solid fa-circle-info"></i> Haqqımızda
-                </a>
+                <a href="#team" class="btn btn-gold"><i class="fa-solid fa-users"></i> İdarə Heyətimiz</a>
+                <a href="about.html" class="btn btn-outline"><i class="fa-solid fa-circle-info"></i> Haqqımızda</a>
             </div>
         </div>
     </section>
@@ -76,32 +150,21 @@
         </div>
         <div class="gallery-grid">
             <div class="gallery-card">
-                <div class="gallery-img-placeholder">
-                    <i class="fa-solid fa-seedling"></i>
-                    <span>Eco Pitching Day 2026</span>
-                </div>
+                <div class="gallery-img-placeholder"><i class="fa-solid fa-seedling"></i><span>Eco Pitching Day 2026</span></div>
                 <div class="gallery-content">
                     <h3>Eco-Start-up İdeya Müsabiqəsi</h3>
                     <p>Tələbələrin ekoloji problemlərə yönəlmiş start-up layihələrinin təqdimatı və qiymətləndirilməsi.</p>
                 </div>
             </div>
-
             <div class="gallery-card">
-                <div class="gallery-img-placeholder">
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                    <span>Inovasiya Təlimləri</span>
-                </div>
+                <div class="gallery-img-placeholder"><i class="fa-solid fa-chalkboard-user"></i><span>Inovasiya Təlimləri</span></div>
                 <div class="gallery-content">
                     <h3>Yaşıl Texnologiyalar Seminari</h3>
                     <p>Sənaye və ekologiyanın simbiozu mövzusunda mütəxəssislərlə interaktiv panel müzakirəsi.</p>
                 </div>
             </div>
-
             <div class="gallery-card">
-                <div class="gallery-img-placeholder">
-                    <i class="fa-solid fa-handshake-angle"></i>
-                    <span>Komanda Görüşləri</span>
-                </div>
+                <div class="gallery-img-placeholder"><i class="fa-solid fa-handshake-angle"></i><span>Komanda Görüşləri</span></div>
                 <div class="gallery-content">
                     <h3>Şəbəkələşmə və Tərəfdaşlıq</h3>
                     <p>Klub üzvləri arasında komanda işinin gücləndirilməsi və yeni layihələrin planlaşdırılması.</p>
@@ -114,109 +177,49 @@
         <div class="section-header">
             <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> İdarə Heyəti və Departamentlər</h2>
         </div>
-
         <div class="catalog-grid">
             <div class="catalog-card">
-                <div class="catalog-header">
-                    <i class="fa-solid fa-crown"></i> Klub Rəhbərliyi
-                </div>
+                <div class="catalog-header"><i class="fa-solid fa-crown"></i> Klub Rəhbərliyi</div>
                 <ul class="catalog-list">
-                    <li class="catalog-item">
-                        <span class="catalog-name">Alpaşayev İbrahim</span>
-                        <span class="catalog-role">Klub Sədri</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Şükürova Günel</span>
-                        <span class="catalog-role">Klub Kuratoru</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Nəsirova Fatimə</span>
-                        <span class="catalog-role">Sədr Müavini</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Alizadə Aytac</span>
-                        <span class="catalog-role">Katib</span>
-                    </li>
+                    <li class="catalog-item"><span class="catalog-name">Alpaşayev İbrahim</span><span class="catalog-role">Klub Sədri</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Şükürova Günel</span><span class="catalog-role">Klub Kuratoru</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Nəsirova Fatimə</span><span class="catalog-role">Sədr Müavini</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Alizadə Aytac</span><span class="catalog-role">Katib</span></li>
                 </ul>
             </div>
-
             <div class="catalog-card">
-                <div class="catalog-header">
-                    <i class="fa-solid fa-rocket"></i> Startup və Layihələr Departamenti
-                </div>
+                <div class="catalog-header"><i class="fa-solid fa-rocket"></i> Startup və Layihələr Departamenti</div>
                 <ul class="catalog-list">
-                    <li class="catalog-item">
-                        <span class="catalog-name">Quliyeva Laləzər</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Nurlana Dəmirli</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
+                    <li class="catalog-item"><span class="catalog-name">Quliyeva Laləzər</span><span class="catalog-role">Koordinator</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Nurlana Dəmirli</span><span class="catalog-role">Koordinator</span></li>
                 </ul>
             </div>
-
             <div class="catalog-card">
-                <div class="catalog-header">
-                    <i class="fa-solid fa-calendar-check"></i> Tədbirlər və İnkişaf Departamenti
-                </div>
+                <div class="catalog-header"><i class="fa-solid fa-calendar-check"></i> Tədbirlər və İnkişaf Departamenti</div>
                 <ul class="catalog-list">
-                    <li class="catalog-item">
-                        <span class="catalog-name">Məmmədova Mədinə</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Azər Dəniz</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
+                    <li class="catalog-item"><span class="catalog-name">Məmmədova Mədinə</span><span class="catalog-role">Koordinator</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Azər Dəniz</span><span class="catalog-role">Koordinator</span></li>
                 </ul>
             </div>
-
             <div class="catalog-card">
-                <div class="catalog-header">
-                    <i class="fa-solid fa-laptop-code"></i> IT Departamenti
-                </div>
+                <div class="catalog-header"><i class="fa-solid fa-laptop-code"></i> IT Departamenti</div>
                 <ul class="catalog-list">
-                    <li class="catalog-item">
-                        <span class="catalog-name">Məcidli Cahandar</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Axundov Zaur</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
+                    <li class="catalog-item"><span class="catalog-name">Məcidli Cahandar</span><span class="catalog-role">Koordinator</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Axundov Zaur</span><span class="catalog-role">Koordinator</span></li>
                 </ul>
             </div>
-
             <div class="catalog-card">
-                <div class="catalog-header">
-                    <i class="fa-solid fa-bullhorn"></i> İctimai Əlaqələr və Tərəfdaşlıq
-                </div>
+                <div class="catalog-header"><i class="fa-solid fa-bullhorn"></i> İctimai Əlaqələr və Tərəfdaşlıq</div>
                 <ul class="catalog-list">
-                    <li class="catalog-item">
-                        <span class="catalog-name">Əliyeva Könül</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Məmmədzadə Röya</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
+                    <li class="catalog-item"><span class="catalog-name">Əliyeva Könül</span><span class="catalog-role">Koordinator</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Məmmədzadə Röya</span><span class="catalog-role">Koordinator</span></li>
                 </ul>
             </div>
-
             <div class="catalog-card">
-                <div class="catalog-header">
-                    <i class="fa-solid fa-palette"></i> Dizayn Departamenti
-                </div>
+                <div class="catalog-header"><i class="fa-solid fa-palette"></i> Dizayn Departamenti</div>
                 <ul class="catalog-list">
-                    <li class="catalog-item">
-                        <span class="catalog-name">Həmidzadə Pərvanə</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
-                    <li class="catalog-item">
-                        <span class="catalog-name">Kərimova Mətanət</span>
-                        <span class="catalog-role">Koordinator</span>
-                    </li>
+                    <li class="catalog-item"><span class="catalog-name">Həmidzadə Pərvanə</span><span class="catalog-role">Koordinator</span></li>
+                    <li class="catalog-item"><span class="catalog-name">Kərimova Mətanət</span><span class="catalog-role">Koordinator</span></li>
                 </ul>
             </div>
         </div>
@@ -238,9 +241,7 @@
                 <a href="#" style="color: var(--stk-gold);"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p>
-        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p></div>
     </footer>
 
     <script>
