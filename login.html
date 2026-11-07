@@ -8,24 +8,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --stk-navy: #0b2341;
-            --stk-navy-light: #16365d;
-            --stk-gold: #f1b812;
-            --stk-gold-hover: #d9a30a;
-            --eco-green: #2e7d32;
-            --bg-color: #f8fafc;
+            --stk-navy: #091a30;
+            --stk-navy-light: #122b4d;
+            --stk-gold: #ffc107;
+            --stk-gold-hover: #e0a800;
+            --stk-gold-glow: rgba(255, 193, 7, 0.25);
+            --eco-green: #10b981;
+            --bg-color: #f1f5f9;
             --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --text-light: #64748b;
+            --text-color: #0f172a;
+            --text-light: #475569;
             --border-color: #e2e8f0;
-            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.1);
         }
         body.dark-theme {
-            --stk-navy: #071527;
-            --stk-navy-light: #0f2746;
-            --bg-color: #06101e;
-            --card-bg: #0f1d30;
-            --text-color: #f1f5f9;
+            --stk-navy: #030812;
+            --stk-navy-light: #091325;
+            --bg-color: #040914;
+            --card-bg: #0b1528;
+            --text-color: #f8fafc;
             --text-light: #94a3b8;
             --border-color: #1e293b;
         }
@@ -43,15 +44,15 @@
         .login-page-wrapper { min-height: calc(100vh - 200px); display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
         .login-card { background: var(--card-bg); width: 100%; max-width: 420px; padding: 35px 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md); }
         .login-title-group { text-align: center; margin-bottom: 25px; }
-        .login-icon { width: 55px; height: 55px; background: rgba(241, 184, 18, 0.15); color: var(--stk-gold); border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 12px; }
+        .login-icon { width: 55px; height: 55px; background: rgba(255, 193, 7, 0.15); color: var(--stk-gold); border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 12px; }
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
         .input-box { position: relative; display: flex; align-items: center; }
         .input-box i { position: absolute; left: 14px; color: var(--text-light); }
         .input-box input { width: 100%; padding: 11px 14px 11px 38px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); outline: none; font-size: 0.92rem; }
         .btn { padding: 11px 18px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; border: none; width: 100%; }
-        .btn-gold { background-color: var(--stk-gold); color: var(--stk-navy); }
-        .btn-gold:hover { background-color: var(--stk-gold-hover); }
+        .btn-gold { background: linear-gradient(135deg, #ffc107, #ffb300); color: #091a30; box-shadow: 0 4px 14px var(--stk-gold-glow); }
+        .btn-gold:hover { transform: translateY(-2px); }
         .auth-error-msg { color: #e53935; background: rgba(229, 57, 53, 0.1); border: 1px solid rgba(229, 57, 53, 0.3); padding: 8px 12px; border-radius: 6px; font-size: 0.82rem; margin-bottom: 15px; display: none; text-align: center; font-weight: 600; }
         footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: 60px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
