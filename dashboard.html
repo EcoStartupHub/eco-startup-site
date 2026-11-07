@@ -8,29 +8,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --stk-navy: #0b2341;
-            --stk-navy-light: #16365d;
-            --stk-gold: #f1b812;
-            --stk-gold-hover: #d9a30a;
-            --eco-green: #2e7d32;
-            --bg-color: #f8fafc;
+            --stk-navy: #091a30;
+            --stk-navy-light: #122b4d;
+            --stk-gold: #ffc107;
+            --stk-gold-hover: #e0a800;
+            --stk-gold-glow: rgba(255, 193, 7, 0.25);
+            --eco-green: #10b981;
+            --bg-color: #f1f5f9;
             --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --text-light: #64748b;
+            --text-color: #0f172a;
+            --text-light: #475569;
             --border-color: #e2e8f0;
-            --role-bg: #f1f5f9;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --role-bg: #f8fafc;
+            --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.1);
         }
         body.dark-theme {
-            --stk-navy: #071527;
-            --stk-navy-light: #0f2746;
-            --bg-color: #06101e;
-            --card-bg: #0f1d30;
-            --text-color: #f1f5f9;
+            --stk-navy: #030812;
+            --stk-navy-light: #091325;
+            --bg-color: #040914;
+            --card-bg: #0b1528;
+            --text-color: #f8fafc;
             --text-light: #94a3b8;
             --border-color: #1e293b;
-            --role-bg: #1e293b;
+            --role-bg: #111c33;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
@@ -47,9 +48,9 @@
         .user-info h2 { font-size: 1.4rem; color: var(--stk-navy); }
         body.dark-theme .user-info h2 { color: var(--stk-gold); }
         .role-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-top: 5px; }
-        .role-badge.tier1 { background: rgba(241, 184, 18, 0.2); color: var(--stk-gold); border: 1px solid var(--stk-gold); }
-        .role-badge.tier2 { background: rgba(217, 163, 10, 0.15); color: var(--stk-gold-hover); border: 1px solid var(--stk-gold-hover); }
-        .role-badge.tier3 { background: rgba(46, 125, 50, 0.2); color: var(--eco-green); border: 1px solid var(--eco-green); }
+        .role-badge.tier1 { background: rgba(255, 193, 7, 0.2); color: var(--stk-gold); border: 1px solid var(--stk-gold); }
+        .role-badge.tier2 { background: rgba(224, 168, 0, 0.15); color: var(--stk-gold-hover); border: 1px solid var(--stk-gold-hover); }
+        .role-badge.tier3 { background: rgba(16, 185, 129, 0.2); color: var(--eco-green); border: 1px solid var(--eco-green); }
         .role-badge.tier4 { background: rgba(100, 116, 139, 0.2); color: var(--text-light); border: 1px solid var(--border-color); }
         
         .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
@@ -67,8 +68,8 @@
         .writer-only { display: none; }
         
         .btn { padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: none; }
-        .btn-gold { background-color: var(--stk-gold); color: var(--stk-navy); }
-        .btn-gold:hover { background-color: var(--stk-gold-hover); }
+        .btn-gold { background: linear-gradient(135deg, #ffc107, #ffb300); color: #091a30; box-shadow: 0 4px 14px var(--stk-gold-glow); }
+        .btn-gold:hover { transform: translateY(-2px); }
         .btn-outline { background-color: transparent; color: var(--text-color); border: 1px solid var(--border-color); }
     </style>
 </head>
