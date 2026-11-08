@@ -160,7 +160,7 @@
 
             try {
                 const usersRef = collection(db, "users");
-                const q = query(usersRef, where("username", "==", userVal), where("password", "==", passVal));
+                const q = query(usersRef, where("username", "==", userVal));
                 const querySnapshot = await getDocs(q);
 
                 if (!querySnapshot.empty) {
@@ -169,24 +169,29 @@
                         userData = { id: docSnap.id, ...docSnap.data() };
                     });
 
-                    let roleDisplayName = "Klub Üzvü (Tier 4)";
-                    if (userData.role === 'tier1') roleDisplayName = "Ali Rəhbərlik (Tier 1)";
-                    else if (userData.role === 'tier2') roleDisplayName = "İdarə Heyəti (Tier 2)";
-                    else if (userData.role === 'tier3') roleDisplayName = "Koordinator (Tier 3)";
+                    if (userData.password === passVal) {
+                        let roleDisplayName = "Klub Üzvü (Tier 4)";
+                        if (userData.role === 'tier1') roleDisplayName = "Ali Rəhbərlik (Tier 1)";
+                        else if (userData.role === 'tier2') roleDisplayName = "İdarə Heyəti (Tier 2)";
+                        else if (userData.role === 'tier3') roleDisplayName = "Koordinator (Tier 3)";
 
-                    const sessionUser = {
-                        docId: userData.id,
-                        username: userData.username,
-                        name: userData.name || userData.username,
-                        role: userData.role,
-                        roleDisplayName: roleDisplayName,
-                        department: userData.department || 'general'
-                    };
+                        const sessionUser = {
+                            docId: userData.id,
+                            username: userData.username,
+                            name: userData.name || userData.username,
+                            role: userData.role,
+                            roleDisplayName: roleDisplayName,
+                            department: userData.department || 'general'
+                        };
 
-                    localStorage.setItem('currentUser', JSON.stringify(sessionUser));
-                    window.location.replace('dashboard.html');
+                        localStorage.setItem('currentUser', JSON.stringify(sessionUser));
+                        window.location.replace('dashboard.html');
+                    } else {
+                        loginError.innerText = "Şifrə yanlışdır!";
+                        loginError.style.display = 'block';
+                    }
                 } else {
-                    loginError.innerText = "İstifadəçi adı və ya şifrə yanlışdır!";
+                    loginError.innerText = "Belə istifadəçi tapılmadı!";
                     loginError.style.display = 'block';
                 }
             } catch (err) {
