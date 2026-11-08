@@ -65,7 +65,7 @@
         
         .post-form textarea, .post-form input, .post-form select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); margin-bottom: 10px; outline: none; }
         .post-form textarea { resize: vertical; min-height: 80px; }
-        .writer-only { display: none; }
+        .writer-only, .tier1-only { display: none; }
         
         .btn { padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: none; }
         .btn-gold { background: linear-gradient(135deg, #ffc107, #ffb300); color: #091a30; box-shadow: 0 4px 14px var(--stk-gold-glow); }
@@ -98,6 +98,33 @@
         </div>
 
         <div class="dash-grid">
+            <!-- TIER 1: İSTİFADƏÇİ İDARƏETMƏSİ -->
+            <div class="dash-card tier1-only" id="userManagementCard">
+                <div class="dash-card-header"><span><i class="fa-solid fa-users-gear" style="color: var(--stk-gold);"></i> İstifadəçi İdarəsi (Tier 1)</span></div>
+                <form class="post-form" onsubmit="addNewUser(event)">
+                    <input type="text" id="newUsername" placeholder="İstifadəçi adı (məs: elvin)" required>
+                    <input type="password" id="newUserPassword" placeholder="Şifrə" required>
+                    <input type="text" id="newFullName" placeholder="Ad və Soyad" required>
+                    <select id="newUserRole" required>
+                        <option value="tier1">Tier 1 (Rəhbərlik)</option>
+                        <option value="tier2">Tier 2 (Koordinator)</option>
+                        <option value="tier3">Tier 3 (Departament rəhbəri)</option>
+                        <option value="tier4" selected>Tier 4 (Üzv)</option>
+                    </select>
+                    <select id="newUserDept" required>
+                        <option value="general">Ümumi</option>
+                        <option value="sl">Startup (sl)</option>
+                        <option value="ti">Tədbirlər (ti)</option>
+                        <option value="it">IT (it)</option>
+                        <option value="iet">İctimai Əlaqələr (iet)</option>
+                        <option value="d">Dizayn (d)</option>
+                    </select>
+                    <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center;"><i class="fa-solid fa-user-plus"></i> İstifadəçi Əlavə Et</button>
+                </form>
+                <div style="margin-top: 15px; max-height: 200px; overflow-y: auto;" id="systemUsersList"></div>
+            </div>
+
+            <!-- ELAN YARATMA -->
             <div class="dash-card writer-only" id="postAnnouncementCard">
                 <div class="dash-card-header"><span><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Yeni Elan Paylaş</span></div>
                 <form class="post-form" onsubmit="publishAnnouncement(event)">
@@ -115,6 +142,7 @@
                 </form>
             </div>
 
+            <!-- ARXİV ƏLAVƏ ET -->
             <div class="dash-card writer-only" id="addArchiveCard">
                 <div class="dash-card-header"><span><i class="fa-solid fa-file-circle-plus" style="color: var(--eco-green);"></i> Arxivə Fayl Əlavə Et</span></div>
                 <form class="post-form" onsubmit="addArchiveFile(event)">
@@ -132,6 +160,7 @@
                 </form>
             </div>
 
+            <!-- ARXİVLƏR LİSTİ -->
             <div class="dash-card">
                 <div class="dash-card-header">
                     <span><i class="fa-solid fa-folder-open"></i> Arxivlər</span>
@@ -148,6 +177,7 @@
                 <ul id="archiveList" style="list-style: none; font-size: 0.9rem; color: var(--text-light); line-height: 1.8;"></ul>
             </div>
 
+            <!-- ELANLAR LİSTİ -->
             <div class="dash-card">
                 <div class="dash-card-header">
                     <span><i class="fa-solid fa-scroll"></i> Elanlar və Kanallar</span>
@@ -168,7 +198,6 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -177,36 +206,110 @@
             projectId: "eco-startup-site",
             storageBucket: "eco-startup-site.firebasestorage.app",
             messagingSenderId: "177745640190",
-            appId: "1:177745640190:web:f8096c55e42224befa43af",
-            measurementId: "G-MSG6DJE36D"
+            appId: "1:177745640190:web:f8096c55e42224befa43af"
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
 
         let currentUserSession = null;
 
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                localStorage.removeItem('currentUser');
+        window.addEventListener('DOMContentLoaded', () => {
+            const sessionData = localStorage.getItem('currentUser');
+            if (!sessionData) {
                 window.location.replace('login.html');
             } else {
-                currentUserSession = JSON.parse(localStorage.getItem('currentUser'));
-                if (currentUserSession) {
-                    document.getElementById('displayUserName').innerText = `Xoş gəldiniz, ${currentUserSession.name}!`;
-                    const roleBadge = document.getElementById('displayUserRole');
-                    roleBadge.innerText = currentUserSession.roleDisplayName;
-                    roleBadge.className = `role-badge ${currentUserSession.role}`;
+                currentUserSession = JSON.parse(sessionData);
+                document.getElementById('displayUserName').innerText = `Xoş gəldiniz, ${currentUserSession.name}!`;
+                const roleBadge = document.getElementById('displayUserRole');
+                roleBadge.innerText = currentUserSession.roleDisplayName;
+                roleBadge.className = `role-badge ${currentUserSession.role}`;
 
-                    if (currentUserSession.role !== 'tier4') {
-                        document.querySelectorAll('.writer-only').forEach(el => el.style.display = 'block');
-                    }
-                    renderAnnouncements();
-                    renderArchives();
+                if (currentUserSession.role !== 'tier4') {
+                    document.querySelectorAll('.writer-only').forEach(el => el.style.display = 'block');
                 }
+
+                if (currentUserSession.role === 'tier1') {
+                    document.getElementById('userManagementCard').style.display = 'block';
+                    renderSystemUsers();
+                }
+
+                renderAnnouncements();
+                renderArchives();
             }
         });
+
+        window.addNewUser = async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('newUsername').value.trim().toLowerCase();
+            const password = document.getElementById('newUserPassword').value.trim();
+            const name = document.getElementById('newFullName').value.trim();
+            const role = document.getElementById('newUserRole').value;
+            const department = document.getElementById('newUserDept').value;
+
+            try {
+                await addDoc(collection(db, "users"), {
+                    username,
+                    password,
+                    name,
+                    role,
+                    department,
+                    createdAt: Date.now()
+                });
+                document.getElementById('newUsername').value = '';
+                document.getElementById('newUserPassword').value = '';
+                document.getElementById('newFullName').value = '';
+                alert("İstifadəçi uğurla əlavə olundu!");
+                renderSystemUsers();
+            } catch (err) {
+                alert("Xəta: " + err.message);
+            }
+        };
+
+        window.renderSystemUsers = async function() {
+            const container = document.getElementById('systemUsersList');
+            if (!container) return;
+            container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">Yüklənir...</p>';
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "users"));
+                container.innerHTML = '';
+                
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">İstifadəçi yoxdur.</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((docSnap) => {
+                    const u = docSnap.data();
+                    const docId = docSnap.id;
+
+                    container.innerHTML += `
+                        <div style="background:var(--bg-color); padding:8px; border-radius:6px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem;">
+                            <div>
+                                <strong>${u.name}</strong> <span style="color:var(--text-light); font-size:0.75rem;">(@${u.username})</span><br>
+                                <span style="font-size:0.7rem; color:var(--stk-gold);">[${u.role.toUpperCase()} - ${u.department.toUpperCase()}]</span>
+                            </div>
+                            <button onclick="deleteSystemUser('${docId}')" class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem; color:#e53935; border-color:#e53935;"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                container.innerHTML = `<p style="color:#e53935; font-size:0.8rem;">Xəta: ${err.message}</p>`;
+            }
+        };
+
+        window.deleteSystemUser = async function(docId) {
+            if (confirm("Bu istifadəçini silmək istədiyinizə əminsiniz?")) {
+                try {
+                    await deleteDoc(doc(db, "users", docId));
+                    renderSystemUsers();
+                    alert("İstifadəçi silindi.");
+                } catch (err) {
+                    alert("Xəta: " + err.message);
+                }
+            }
+        };
 
         window.renderAnnouncements = async function() {
             const container = document.getElementById('announcementList');
@@ -222,7 +325,6 @@
                 });
 
                 announcements.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
                 container.innerHTML = '';
                 const filtered = announcements.filter(ann => filter === 'all' || ann.department === filter);
 
@@ -233,16 +335,12 @@
 
                 filtered.forEach((ann) => {
                     const myTier = currentUserSession.role;
-                    const isMyMessage = currentUserSession.username === ann.author;
+                    const isMyMessage = currentUserSession.username === ann.authorUsername || currentUserSession.name === ann.author;
                     
                     let canModify = false;
-                    if (myTier === 'tier1') {
-                        canModify = true;
-                    } else if (myTier === 'tier2') {
-                        canModify = (isMyMessage || ann.authorRole === 'tier3' || ann.authorRole === 'tier4');
-                    } else if (myTier === 'tier3') {
-                        canModify = isMyMessage;
-                    }
+                    if (myTier === 'tier1') canModify = true;
+                    else if (myTier === 'tier2') canModify = (isMyMessage || ann.authorRole === 'tier3' || ann.authorRole === 'tier4');
+                    else if (myTier === 'tier3') canModify = isMyMessage;
 
                     const safeTitle = ann.title ? ann.title.replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
                     const safeBody = ann.body ? ann.body.replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
@@ -264,7 +362,7 @@
                     `;
                 });
             } catch (err) {
-                container.innerHTML = `<p style="color:#e53935; font-size:0.85rem;">Xəta baş verdi: ${err.message}</p>`;
+                container.innerHTML = `<p style="color:#e53935; font-size:0.85rem;">Xəta: ${err.message}</p>`;
             }
         };
 
@@ -288,7 +386,8 @@
                     body,
                     department: dept,
                     date: new Date().toLocaleDateString('az-AZ'),
-                    author: currentUserSession.username,
+                    author: currentUserSession.name,
+                    authorUsername: currentUserSession.username,
                     authorRole: currentUserSession.role,
                     createdAt: Date.now()
                 });
@@ -311,16 +410,14 @@
 
             if (newTitle !== null && newBody !== null && newTitle.trim() !== "" && newBody.trim() !== "") {
                 try {
-                    const annRef = doc(db, "announcements", docId);
-                    await updateDoc(annRef, {
+                    await updateDoc(doc(db, "announcements", docId), {
                         title: newTitle.trim(),
-                        body: newBody.trim(),
-                        updatedAt: Date.now()
+                        body: newBody.trim()
                     });
-                    alert("Elan uğurla yeniləndi!");
+                    alert("Elan yeniləndi!");
                     await renderAnnouncements();
                 } catch (err) {
-                    alert("Redaktə zamanı xəta baş verdi: " + err.message);
+                    alert("Xəta: " + err.message);
                 }
             }
         };
@@ -331,7 +428,7 @@
                     await deleteDoc(doc(db, "announcements", docId));
                     await renderAnnouncements();
                 } catch (err) {
-                    alert("Silinmə zamanı xəta baş verdi: " + err.message);
+                    alert("Xəta: " + err.message);
                 }
             }
         };
@@ -350,7 +447,6 @@
                 });
 
                 archiveFiles.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
                 listContainer.innerHTML = '';
                 const filtered = archiveFiles.filter(file => filter === 'all' || file.department === filter);
 
@@ -361,7 +457,7 @@
 
                 filtered.forEach((file) => {
                     const myTier = currentUserSession.role;
-                    const isMyFile = currentUserSession.username === file.author;
+                    const isMyFile = currentUserSession.username === file.authorUsername || currentUserSession.name === file.author;
                     let canDelete = (myTier === 'tier1' || myTier === 'tier2' || (myTier === 'tier3' && isMyFile));
 
                     listContainer.innerHTML += `
@@ -397,14 +493,15 @@
                     name,
                     url,
                     department: dept,
-                    author: currentUserSession.username,
+                    author: currentUserSession.name,
+                    authorUsername: currentUserSession.username,
                     createdAt: Date.now()
                 });
 
                 document.getElementById('fileTitle').value = '';
                 document.getElementById('fileUrl').value = '';
                 await renderArchives();
-                alert('Fayl uğurla arxivə əlavə olundu!');
+                alert('Fayl əlavə olundu!');
             } catch (err) {
                 alert("Xəta baş verdi: " + err.message);
             } finally {
@@ -419,13 +516,12 @@
                     await deleteDoc(doc(db, "archives", docId));
                     await renderArchives();
                 } catch (err) {
-                    alert("Silinmə zamanı xəta baş verdi: " + err.message);
+                    alert("Xəta: " + err.message);
                 }
             }
         };
 
-        window.logout = async function() {
-            try { await signOut(auth); } catch (err) {}
+        window.logout = function() {
             localStorage.removeItem('currentUser');
             window.location.replace('login.html');
         };
