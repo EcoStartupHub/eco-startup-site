@@ -295,8 +295,8 @@
 
                 document.getElementById('annTitle').value = '';
                 document.getElementById('annBody').value = '';
+                await renderAnnouncements();
                 alert('Elan uğurla paylaşıldı!');
-                renderAnnouncements();
             } catch (err) {
                 alert("Xəta baş verdi: " + err.message);
             } finally {
@@ -318,7 +318,7 @@
                         updatedAt: Date.now()
                     });
                     alert("Elan uğurla yeniləndi!");
-                    renderAnnouncements();
+                    await renderAnnouncements();
                 } catch (err) {
                     alert("Redaktə zamanı xəta baş verdi: " + err.message);
                 }
@@ -329,7 +329,7 @@
             if (confirm("Silmək istədiyinizə əminsiniz?")) {
                 try {
                     await deleteDoc(doc(db, "announcements", docId));
-                    renderAnnouncements();
+                    await renderAnnouncements();
                 } catch (err) {
                     alert("Silinmə zamanı xəta baş verdi: " + err.message);
                 }
@@ -403,8 +403,8 @@
 
                 document.getElementById('fileTitle').value = '';
                 document.getElementById('fileUrl').value = '';
+                await renderArchives();
                 alert('Fayl uğurla arxivə əlavə olundu!');
-                renderArchives();
             } catch (err) {
                 alert("Xəta baş verdi: " + err.message);
             } finally {
@@ -417,7 +417,7 @@
             if (confirm("Silmək istədiyinizə əminsiniz?")) {
                 try {
                     await deleteDoc(doc(db, "archives", docId));
-                    renderArchives();
+                    await renderArchives();
                 } catch (err) {
                     alert("Silinmə zamanı xəta baş verdi: " + err.message);
                 }
