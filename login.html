@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İdarə Panelinə Giriş | Eco Start-up Club</title>
+    <title>Giriş | Eco Start-up Club</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,6 +13,7 @@
             --stk-gold: #ffc107;
             --stk-gold-hover: #e0a800;
             --stk-gold-glow: rgba(255, 193, 7, 0.25);
+            --eco-green: #10b981;
             --bg-color: #f1f5f9;
             --card-bg: #ffffff;
             --text-color: #0f172a;
@@ -20,41 +21,110 @@
             --border-color: #e2e8f0;
             --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.1);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .login-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); padding: 40px 30px; width: 100%; max-width: 420px; box-shadow: var(--shadow-md); text-align: center; }
-        .login-card img { height: 60px; margin-bottom: 20px; object-fit: contain; }
-        .login-card h2 { color: var(--stk-navy); margin-bottom: 5px; font-weight: 800; font-size: 1.5rem; }
-        .login-card p { color: var(--text-light); font-size: 0.85rem; margin-bottom: 25px; }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-light); margin-bottom: 6px; }
-        .form-group input { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); outline: none; font-size: 0.95rem; }
-        .form-group input:focus { border-color: var(--stk-gold); box-shadow: 0 0 0 3px var(--stk-gold-glow); }
-        .btn-login { width: 100%; padding: 12px; border-radius: 8px; border: none; background: linear-gradient(135deg, #ffc107, #ffb300); color: var(--stk-navy); font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 14px var(--stk-gold-glow); transition: transform 0.2s; }
-        .btn-login:hover { transform: translateY(-2px); }
-        .error-msg { color: #dc2626; font-size: 0.85rem; margin-top: 15px; display: none; background: rgba(220, 38, 38, 0.1); padding: 10px; border-radius: 6px; border: 1px solid rgba(220, 38, 38, 0.2); }
+        body.dark-theme {
+            --stk-navy: #030812;
+            --stk-navy-light: #091325;
+            --bg-color: #040914;
+            --card-bg: #0b1528;
+            --text-color: #f8fafc;
+            --text-light: #94a3b8;
+            --border-color: #1e293b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        .top-bar { background: var(--stk-navy); color: rgba(255, 255, 255, 0.85); font-size: 0.82rem; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .top-bar-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--stk-gold); box-shadow: var(--shadow-md); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-img { height: 48px; width: auto; object-fit: contain; }
+        .brand-title { font-weight: 800; font-size: 1.15rem; color: #ffffff; letter-spacing: 0.5px; }
+        .theme-toggle-btn { background: var(--stk-gold); border: none; color: var(--stk-navy); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        
+        .login-page-wrapper { min-height: calc(100vh - 200px); display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+        .login-card { background: var(--card-bg); width: 100%; max-width: 420px; padding: 35px 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md); }
+        .login-title-group { text-align: center; margin-bottom: 25px; }
+        .login-icon { width: 55px; height: 55px; background: rgba(255, 193, 7, 0.15); color: var(--stk-gold); border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 12px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+        .input-box { position: relative; display: flex; align-items: center; }
+        .input-box i { position: absolute; left: 14px; color: var(--text-light); }
+        .input-box input { width: 100%; padding: 11px 14px 11px 38px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-color); outline: none; font-size: 0.92rem; }
+        .btn { padding: 11px 18px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; border: none; width: 100%; }
+        .btn-gold { background: linear-gradient(135deg, #ffc107, #ffb300); color: #091a30; box-shadow: 0 4px 14px var(--stk-gold-glow); }
+        .btn-gold:hover { transform: translateY(-2px); }
+        .auth-error-msg { color: #e53935; background: rgba(229, 57, 53, 0.1); border: 1px solid rgba(229, 57, 53, 0.3); padding: 8px 12px; border-radius: 6px; font-size: 0.82rem; margin-bottom: 15px; display: none; text-align: center; font-weight: 600; }
+        footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: 60px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-brand { display: flex; align-items: center; gap: 12px; }
+        .footer-bottom { max-width: 1200px; margin: 15px auto 0; text-align: center; font-size: 0.82rem; color: rgba(255, 255, 255, 0.6); }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
-        <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Eco Start-Up Logo">
-        <h2>ECO START-UP CLUB</h2>
-        <p>İdarə Panelinə Giriş</p>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">İstifadəçi Adı</label>
-                <input type="text" id="username" placeholder="İstifadəçi adınızı daxil edin" required autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label for="password">Şifrə</label>
-                <input type="password" id="password" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="btn-login" id="btnLogin">Daxil Ol</button>
-            <div class="error-msg" id="errorMsg"></div>
-        </form>
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div><span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span></div>
+            <div><span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span></div>
+        </div>
     </div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo-group">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" class="logo-img">
+                <div class="brand-text"><span class="brand-title">ECO START-UP CLUB</span></div>
+            </a>
+            <button class="theme-toggle-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+        </div>
+    </header>
+
+    <main class="login-page-wrapper">
+        <div class="login-card">
+            <div class="login-title-group">
+                <div class="login-icon"><i class="fa-solid fa-user-lock"></i></div>
+                <h3 style="font-size: 1.3rem; margin-bottom: 6px;">Klub Hesabına Giriş</h3>
+                <p style="font-size: 0.88rem; color: var(--text-light);">İstifadəçi adınızı və şifrənizi daxil edin</p>
+            </div>
+
+            <div class="auth-error-msg" id="loginError">İstifadəçi adı və ya şifrə yanlışdır!</div>
+            
+            <form id="customLoginForm">
+                <div class="form-group">
+                    <label>İstifadəçi Adı</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="loginUsername" placeholder="Məs: ibrahim, zaxundov" required autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Şifrə</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Şifrəniz" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-gold" id="btnLogin">Daxil Ol</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="color: var(--text-light); text-decoration: none; font-size: 0.85rem;"><i class="fa-solid fa-arrow-left"></i> Ana Səhifəyə Qayıt</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+                <div>
+                    <h4 style="color: #ffffff; font-size: 1.05rem;">Eco Start-up Club</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Sənaye və Texnologiya Kolleci</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p></div>
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -76,20 +146,20 @@
             window.location.replace('dashboard.html');
         }
 
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        document.getElementById('customLoginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const usernameInput = document.getElementById('username').value.trim().toLowerCase();
-            const passwordInput = document.getElementById('password').value;
+            const userVal = document.getElementById('loginUsername').value.trim().toLowerCase();
+            const passVal = document.getElementById('loginPassword').value;
             const btn = document.getElementById('btnLogin');
-            const errorDiv = document.getElementById('errorMsg');
+            const loginError = document.getElementById('loginError');
 
-            errorDiv.style.display = 'none';
+            loginError.style.display = 'none';
             btn.disabled = true;
             btn.innerText = "Yoxlanılır...";
 
             try {
                 const usersRef = collection(db, "users");
-                const q = query(usersRef, where("username", "==", usernameInput), where("password", "==", passwordInput));
+                const q = query(usersRef, where("username", "==", userVal), where("password", "==", passVal));
                 const querySnapshot = await getDocs(q);
 
                 if (!querySnapshot.empty) {
@@ -98,15 +168,15 @@
                         userData = { id: docSnap.id, ...docSnap.data() };
                     });
 
-                    let roleDisplayName = "Üzv (Tier 4)";
-                    if (userData.role === 'tier1') roleDisplayName = "Sədr / Rəhbər (Tier 1)";
-                    else if (userData.role === 'tier2') roleDisplayName = "Koordinator (Tier 2)";
-                    else if (userData.role === 'tier3') roleDisplayName = "Departament Rəhbəri (Tier 3)";
+                    let roleDisplayName = "Klub Üzvü (Tier 4)";
+                    if (userData.role === 'tier1') roleDisplayName = "Ali Rəhbərlik (Tier 1)";
+                    else if (userData.role === 'tier2') roleDisplayName = "İdarə Heyəti (Tier 2)";
+                    else if (userData.role === 'tier3') roleDisplayName = "Koordinator (Tier 3)";
 
                     const sessionUser = {
                         docId: userData.id,
                         username: userData.username,
-                        name: userData.name,
+                        name: userData.name || userData.username,
                         role: userData.role,
                         roleDisplayName: roleDisplayName,
                         department: userData.department || 'general'
@@ -115,16 +185,20 @@
                     localStorage.setItem('currentUser', JSON.stringify(sessionUser));
                     window.location.replace('dashboard.html');
                 } else {
-                    errorDiv.innerText = "İstifadəçi adı və ya şifrə yanlışdır!";
-                    errorDiv.style.display = 'block';
+                    loginError.innerText = "İstifadəçi adı və ya şifrə yanlışdır!";
+                    loginError.style.display = 'block';
                 }
             } catch (err) {
-                errorDiv.innerText = "Xəta baş verdi: " + err.message;
-                errorDiv.style.display = 'block';
+                loginError.innerText = "Xəta baş verdi: " + err.message;
+                loginError.style.display = 'block';
             } finally {
                 btn.disabled = false;
                 btn.innerText = "Daxil Ol";
             }
+        });
+
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
         });
     </script>
 </body>
