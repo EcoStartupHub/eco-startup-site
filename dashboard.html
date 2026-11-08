@@ -35,6 +35,10 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        
+        .top-bar { background: var(--stk-navy); color: rgba(255, 255, 255, 0.85); font-size: 0.82rem; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .top-bar-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        
         header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
         .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
@@ -71,9 +75,21 @@
         .btn-gold { background: linear-gradient(135deg, #ffc107, #ffb300); color: #091a30; box-shadow: 0 4px 14px var(--stk-gold-glow); }
         .btn-gold:hover { transform: translateY(-2px); }
         .btn-outline { background-color: transparent; color: var(--text-color); border: 1px solid var(--border-color); }
+        
+        footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: 60px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-brand { display: flex; align-items: center; gap: 12px; }
+        .footer-bottom { max-width: 1200px; margin: 15px auto 0; text-align: center; font-size: 0.82rem; color: rgba(255, 255, 255, 0.6); }
     </style>
 </head>
 <body>
+
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div><span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span></div>
+            <div><span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span></div>
+        </div>
+    </div>
 
     <header>
         <div class="nav-container">
@@ -196,6 +212,19 @@
         </div>
     </main>
 
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+                <div>
+                    <h4 style="color: #ffffff; font-size: 1.05rem;">Eco Start-up Club</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Sənaye və Texnologiya Kolleci</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p></div>
+    </footer>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -248,7 +277,7 @@
             const department = document.getElementById('newUserDept').value;
 
             try {
-                await addDoc(collection(db, "users"), {
+                await addDoc(collection(db, "club_secret_users"), {
                     username,
                     password,
                     name,
@@ -272,7 +301,7 @@
             container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">Yüklənir...</p>';
 
             try {
-                const querySnapshot = await getDocs(collection(db, "users"));
+                const querySnapshot = await getDocs(collection(db, "club_secret_users"));
                 container.innerHTML = '';
                 
                 if (querySnapshot.empty) {
@@ -302,7 +331,7 @@
         window.deleteSystemUser = async function(docId) {
             if (confirm("Bu istifadəçini silmək istədiyinizə əminsiniz?")) {
                 try {
-                    await deleteDoc(doc(db, "users", docId));
+                    await deleteDoc(doc(db, "club_secret_users", docId));
                     renderSystemUsers();
                     alert("İstifadəçi silindi.");
                 } catch (err) {
