@@ -159,7 +159,8 @@
             btn.innerText = "Yoxlanılır...";
 
             try {
-                const usersRef = collection(db, "users");
+                // Kolleksiya adı sənin bazadakı ad ilə eyniləşdirildi: club_secret_users
+                const usersRef = collection(db, "club_secret_users");
                 const q = query(usersRef, where("username", "==", userVal));
                 const querySnapshot = await getDocs(q);
 
