@@ -208,6 +208,7 @@
             <div class="sidebar-item active" onclick="switchTab('announcementsTab', this)"><i class="fa-solid fa-bullhorn" style="width: 20px;"></i> Elanlar</div>
             <div class="sidebar-item" onclick="switchTab('chatTab', this)"><i class="fa-solid fa-comments" style="width: 20px;"></i> Çat Kanalları</div>
             <div class="sidebar-item" onclick="switchTab('archivesTab', this)"><i class="fa-solid fa-folder-open" style="width: 20px;"></i> Arxivlər</div>
+            <div class="sidebar-item writer-only" onclick="switchTab('activitiesTab', this)"><i class="fa-solid fa-newspaper" style="width: 20px;"></i> Fəaliyyətlərin İdarəsi</div>
             <div class="sidebar-item tier1-only" id="sidebarUserMgmt" onclick="switchTab('usersTab', this)"><i class="fa-solid fa-users-gear" style="width: 20px;"></i> İstifadəçi İdarəsi</div>
             <div style="margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 12px;">
                 <a href="index.html" class="sidebar-item" style="color: var(--text-light);"><i class="fa-solid fa-house" style="width: 20px;"></i> Ana Səhifə</a>
@@ -334,7 +335,51 @@
                 </div>
             </div>
 
-            <!-- 4. İSTİFADƏÇİ İDARƏSİ -->
+            <!-- 4. FƏALİYYƏTLƏRİN İDARƏSİ BÖLMƏSİ -->
+            <div id="activitiesTab" class="tab-content">
+                <div class="dash-card writer-only">
+                    <div class="dash-card-header"><span><i class="fa-solid fa-plus-circle" style="color: var(--stk-gold);"></i> Yeni Fəaliyyət / Tədbir Əlavə Et</span></div>
+                    <form class="post-form" onsubmit="publishActivity(event)">
+                        <label style="font-size:0.8rem; font-weight:600;">Departament Seçin:</label>
+                        <select id="actDepartament" required>
+                            <option value="general">Ümumi Tədbir (Bütün Klub)</option>
+                            <option value="sl">Startup və Layihələr (sl)</option>
+                            <option value="ti">Tədbirlər və İnkişaf (ti)</option>
+                            <option value="it">IT Departamenti (it)</option>
+                            <option value="iet">İctimai Əlaqələr və Tərəfdaşlıq (iet)</option>
+                            <option value="d">Dizayn Departamenti (d)</option>
+                        </select>
+
+                        <input type="text" id="actTitle" placeholder="Fəaliyyətin/Tədbirin başlığı" required>
+                        <textarea id="actDesc" placeholder="Ətraflı məlumat..." required style="min-height:100px;"></textarea>
+
+                        <div style="margin-bottom: 10px;">
+                            <label style="font-size:0.8rem; font-weight:600;">Şəkil Sayı (1 - 20):</label>
+                            <select id="imgCountSelect" onchange="generateImageInputs()" style="width:100%; margin-top:4px;">
+                                <option value="1">1 Şəkil</option>
+                                <option value="2">2 Şəkil</option>
+                                <option value="3">3 Şəkil</option>
+                                <option value="5">5 Şəkil</option>
+                                <option value="10">10 Şəkil</option>
+                                <option value="20">20 Şəkil</option>
+                            </select>
+                        </div>
+
+                        <div id="imageInputsContainer">
+                            <input type="url" class="act-img-url" placeholder="1-ci şəkil linki (Postimages və s.)" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-gold" id="btnSubmitAct" style="width:100%; justify-content:center; margin-top:10px;"><i class="fa-solid fa-paper-plane"></i> Saytda Paylaş</button>
+                    </form>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-header"><span><i class="fa-solid fa-list-check"></i> Mövcud Fəaliyyətlər</span></div>
+                    <div id="dashboardActivitiesList"></div>
+                </div>
+            </div>
+
+            <!-- 5. İSTİFADƏÇİ İDARƏSİ -->
             <div id="usersTab" class="tab-content">
                 <div class="dash-card tier1-only" id="userManagementCard" style="display:block;">
                     <div class="dash-card-header"><span><i class="fa-solid fa-users-gear" style="color: var(--stk-gold);"></i> İstifadəçi İdarəsi (Ali Rəhbərlik)</span></div>
@@ -414,6 +459,10 @@
 
             document.getElementById('appSidebar').classList.remove('active');
             document.getElementById('sidebarOverlay').classList.remove('active');
+            
+            if (tabId === 'activitiesTab') {
+                renderDashboardActivities();
+            }
         };
 
         function formatUserBadge(name, role, departament) {
@@ -463,6 +512,97 @@
             }
         });
 
+        // ================= FƏALİYYƏTLƏRİN İDARƏSİ =================
+        window.generateImageInputs = function() {
+            const count = parseInt(document.getElementById('imgCountSelect').value);
+            const container = document.getElementById('imageInputsContainer');
+            container.innerHTML = '';
+            for (let i = 1; i <= count; i++) {
+                container.innerHTML += `<input type="url" class="act-img-url" placeholder="${i}-ci şəkil linki" ${i===1?'required':''}>`;
+            }
+        };
+
+        window.publishActivity = async function(e) {
+            e.preventDefault();
+            const dept = document.getElementById('actDepartament').value;
+            const title = document.getElementById('actTitle').value.trim();
+            const description = document.getElementById('actDesc').value.trim();
+            const btn = document.getElementById('btnSubmitAct');
+
+            const imgInputs = document.querySelectorAll('.act-img-url');
+            const images = [];
+            imgInputs.forEach(inp => {
+                if (inp.value.trim() !== '') images.push(inp.value.trim());
+            });
+
+            try {
+                btn.disabled = true;
+                btn.innerText = "Yüklənir...";
+                await addDoc(collection(db, "activities"), {
+                    title,
+                    description,
+                    departament: dept,
+                    images,
+                    date: new Date().toLocaleDateString('az-AZ'),
+                    author: currentUserSession.name,
+                    createdAt: Date.now()
+                });
+
+                document.getElementById('actTitle').value = '';
+                document.getElementById('actDesc').value = '';
+                alert("Fəaliyyət uğurla saytda paylaşıldı!");
+                renderDashboardActivities();
+            } catch (err) {
+                alert("Xəta baş verdi: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Saytda Paylaş';
+            }
+        };
+
+        window.renderDashboardActivities = async function() {
+            const container = document.getElementById('dashboardActivitiesList');
+            if (!container) return;
+            container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">Yüklənir...</p>';
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "activities"));
+                container.innerHTML = '';
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-light);">Hələ ki fəaliyyət paylaşılmayıb.</p>';
+                    return;
+                }
+
+                querySnapshot.forEach(docSnap => {
+                    const item = docSnap.data();
+                    const id = docSnap.id;
+                    container.innerHTML += `
+                        <div style="background:var(--bg-color); padding:10px; border-radius:6px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-size:0.82rem;">
+                            <div>
+                                <strong>${item.title}</strong> <span style="font-size:0.7rem; color:var(--stk-gold);">[${item.departament.toUpperCase()}]</span><br>
+                                <span style="font-size:0.7rem; color:var(--text-light);">${item.date} - ${item.images ? item.images.length : 0} şəkil</span>
+                            </div>
+                            <button onclick="deleteActivity('${id}')" class="btn btn-outline" style="padding:2px 6px; color:#e53935; border-color:#e53935; font-size:0.7rem;"><i class="fa-solid fa-trash"></i> Sil</button>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                container.innerHTML = `<p style="color:#e53935; font-size:0.8rem;">Xəta: ${err.message}</p>`;
+            }
+        };
+
+        window.deleteActivity = async function(id) {
+            if (confirm("Bu fəaliyyəti silmək istədiyinizə əminsiniz?")) {
+                try {
+                    await deleteDoc(doc(db, "activities", id));
+                    renderDashboardActivities();
+                    alert("Silindi.");
+                } catch (err) {
+                    alert("Xəta: " + err.message);
+                }
+            }
+        };
+
         // ================= İSTİFADƏÇİ DETALLARI VƏ REDAKTƏ =================
         window.openUserModal = async function(docId) {
             try {
@@ -475,7 +615,6 @@
                     document.getElementById('modalFullName').value = u.name || '';
                     document.getElementById('modalUsername').value = u.username || '';
                     document.getElementById('modalRole').value = u.role || 'tier4';
-                    // Tək departament sahəsinə uyğunlaşdırıldı
                     document.getElementById('modalDept').value = u.departament || u.department || 'general';
                     
                     document.getElementById('userDetailModal').style.display = 'flex';
@@ -532,7 +671,6 @@
             const chatInput = document.getElementById('chatInput');
             const btnSend = document.getElementById('btnSendChat');
             const userRole = currentUserSession.role;
-            // Tək departament açarı
             const userDept = currentUserSession.departament || currentUserSession.department;
 
             let canRead = true;
@@ -761,7 +899,6 @@
             const departament = document.getElementById('newUserDept').value;
 
             try {
-                // Tək departament adı ilə saxlanılır
                 await setDoc(doc(db, "club_secret_users", customId), {
                     customId,
                     username,
