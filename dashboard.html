@@ -112,7 +112,7 @@
         .chat-input-area { display: flex; padding: 6px; background: var(--card-bg); border-top: 1px solid var(--border-color); gap: 6px; }
         .chat-input-area input { flex: 1; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); outline: none; font-size: 0.82rem; }
         
-        /* MODAL STİLLƏRİ (Detallar üçün) */
+        /* MODAL */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1200; display: none; align-items: center; justify-content: center; padding: 15px; }
         .modal-card { background: var(--card-bg); border-radius: 12px; width: 100%; max-width: 420px; padding: 20px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md); position: relative; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: 700; color: var(--stk-navy); }
@@ -154,7 +154,6 @@
         </div>
     </header>
 
-    <!-- SIDEBAR OVERLAY -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <!-- İSTİFADƏÇİ DETALLARI MODALI -->
@@ -201,7 +200,6 @@
     </div>
 
     <div class="app-layout">
-        <!-- SOL HAMBURGER MENYU (SIDEBAR) -->
         <nav class="sidebar" id="appSidebar">
             <div class="sidebar-header-mobile">
                 <h3>Menyu</h3>
@@ -225,10 +223,9 @@
                 <div><span style="font-size: 0.78rem; color: var(--text-light);"><i class="fa-solid fa-circle" style="color: var(--eco-green); font-size: 0.55rem;"></i> Canlı</span></div>
             </div>
 
-            <!-- 1. ELANLAR BÖLMƏSİ (DEFAULT) -->
+            <!-- 1. ELANLAR BÖLMƏSİ -->
             <div id="announcementsTab" class="tab-content active">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
-                    <!-- Elan Yaratma -->
                     <div class="dash-card writer-only" id="postAnnouncementCard">
                         <div class="dash-card-header"><span><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Yeni Elan Paylaş</span></div>
                         <form class="post-form" onsubmit="publishAnnouncement(event)">
@@ -246,7 +243,6 @@
                         </form>
                     </div>
 
-                    <!-- Elanlar Siyahısı -->
                     <div class="dash-card" style="grid-column: span 1 / -1;">
                         <div class="dash-card-header">
                             <span><i class="fa-solid fa-scroll"></i> Elanlar və Kanallar</span>
@@ -303,7 +299,6 @@
             <!-- 3. ARXİVLƏR BÖLMƏSİ -->
             <div id="archivesTab" class="tab-content">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
-                    <!-- Arxiv Fayl Əlavə Et -->
                     <div class="dash-card writer-only" id="addArchiveCard">
                         <div class="dash-card-header"><span><i class="fa-solid fa-file-circle-plus" style="color: var(--eco-green);"></i> Arxivə Fayl Əlavə Et</span></div>
                         <form class="post-form" onsubmit="addArchiveFile(event)">
@@ -321,7 +316,6 @@
                         </form>
                     </div>
 
-                    <!-- Arxivlər Siyahısı -->
                     <div class="dash-card" style="grid-column: span 1 / -1;">
                         <div class="dash-card-header">
                             <span><i class="fa-solid fa-folder-open"></i> Arxivlər və Sənədlər</span>
@@ -422,7 +416,7 @@
             document.getElementById('sidebarOverlay').classList.remove('active');
         };
 
-        function formatUserBadge(name, role, department) {
+        function formatUserBadge(name, role, departament) {
             let roleTitle = "";
             if (role === 'tier1') roleTitle = "Ali rəhbərlik / Sədr";
             else if (role === 'tier2') roleTitle = "Rəhbərlik";
@@ -430,11 +424,11 @@
             else if (role === 'tier4') roleTitle = "Üzv";
 
             let deptName = "";
-            if (department === 'sl') deptName = "Startup";
-            else if (department === 'ti') deptName = "Tədbirlər";
-            else if (department === 'it') deptName = "IT";
-            else if (department === 'iet') deptName = "İctimai Əlaqələr";
-            else if (department === 'd') deptName = "Dizayn";
+            if (departament === 'sl') deptName = "Startup";
+            else if (departament === 'ti') deptName = "Tədbirlər";
+            else if (departament === 'it') deptName = "IT";
+            else if (departament === 'iet') deptName = "İctimai Əlaqələr";
+            else if (departament === 'd') deptName = "Dizayn";
 
             if (role === 'tier1' || role === 'tier2') {
                 return `${name} <span style="font-weight:400; opacity:0.8; font-size:0.62rem;">[${roleTitle}]</span>`;
@@ -469,7 +463,7 @@
             }
         });
 
-        // ================= İSTİFADƏÇİ DETALLARI VƏ REDAKTƏ (MODAL) =================
+        // ================= İSTİFADƏÇİ DETALLARI VƏ REDAKTƏ =================
         window.openUserModal = async function(docId) {
             try {
                 const docRef = doc(db, "club_secret_users", docId);
@@ -481,7 +475,8 @@
                     document.getElementById('modalFullName').value = u.name || '';
                     document.getElementById('modalUsername').value = u.username || '';
                     document.getElementById('modalRole').value = u.role || 'tier4';
-                    document.getElementById('modalDept').value = u.department || 'general';
+                    // Tək departament sahəsinə uyğunlaşdırıldı
+                    document.getElementById('modalDept').value = u.departament || u.department || 'general';
                     
                     document.getElementById('userDetailModal').style.display = 'flex';
                 }
@@ -500,14 +495,14 @@
             const name = document.getElementById('modalFullName').value.trim();
             const username = document.getElementById('modalUsername').value.trim().toLowerCase();
             const role = document.getElementById('modalRole').value;
-            const department = document.getElementById('modalDept').value;
+            const departament = document.getElementById('modalDept').value;
 
             try {
                 await updateDoc(doc(db, "club_secret_users", docId), {
                     name,
                     username,
                     role,
-                    department
+                    departament
                 });
                 alert("İstifadəçi məlumatları yeniləndi!");
                 closeUserModal();
@@ -537,7 +532,8 @@
             const chatInput = document.getElementById('chatInput');
             const btnSend = document.getElementById('btnSendChat');
             const userRole = currentUserSession.role;
-            const userDept = currentUserSession.department;
+            // Tək departament açarı
+            const userDept = currentUserSession.departament || currentUserSession.department;
 
             let canRead = true;
             let canWrite = false;
@@ -629,7 +625,7 @@
                     const canManageMsg = isMe || canManageRoomChat;
                     const showCheckbox = canManageRoomChat;
                     const safeText = m.text ? m.text.replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
-                    const authorFormatted = formatUserBadge(m.senderName, m.senderRole, m.senderDepartment);
+                    const authorFormatted = formatUserBadge(m.senderName, m.senderRole, m.senderDepartament || m.senderDepartment);
 
                     messagesContainer.innerHTML += `
                         <div class="chat-bubble ${bubbleClass}" id="msg-${m.id}">
@@ -672,7 +668,7 @@
                     senderName: currentUserSession.name,
                     senderUsername: currentUserSession.username,
                     senderRole: currentUserSession.role,
-                    senderDepartment: currentUserSession.department,
+                    senderDepartament: currentUserSession.departament || currentUserSession.department,
                     time: new Date().toLocaleTimeString('az-AZ', { hour: '2-digit', minute: '2-digit' }),
                     createdAt: Date.now()
                 });
@@ -762,16 +758,17 @@
             const password = document.getElementById('newUserPassword').value.trim();
             const name = document.getElementById('newFullName').value.trim();
             const role = document.getElementById('newUserRole').value;
-            const department = document.getElementById('newUserDept').value;
+            const departament = document.getElementById('newUserDept').value;
 
             try {
+                // Tək departament adı ilə saxlanılır
                 await setDoc(doc(db, "club_secret_users", customId), {
                     customId,
                     username,
                     password,
                     name,
                     role,
-                    department,
+                    departament,
                     createdAt: Date.now()
                 });
                 document.getElementById('newCustomId').value = '';
@@ -802,12 +799,13 @@
                 querySnapshot.forEach((docSnap) => {
                     const u = docSnap.data();
                     const docId = docSnap.id;
+                    const userDept = u.departament || u.department || 'general';
 
                     container.innerHTML += `
                         <div style="background:var(--bg-color); padding:8px 10px; border-radius:6px; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; cursor:pointer;" onclick="openUserModal('${docId}')" title="Detallara bax / Redaktə et">
                             <div>
                                 <strong>${u.name}</strong> <span style="color:var(--text-light); font-size:0.7rem;">(ID: ${docId})</span><br>
-                                <span style="font-size:0.65rem; color:var(--stk-gold);">[${u.role.toUpperCase()} - ${u.department.toUpperCase()}]</span>
+                                <span style="font-size:0.65rem; color:var(--stk-gold);">[${u.role.toUpperCase()} - ${userDept.toUpperCase()}]</span>
                             </div>
                             <span style="font-size:0.75rem; color:var(--text-light);"><i class="fa-solid fa-chevron-right"></i></span>
                         </div>
@@ -851,7 +849,7 @@
 
                     const safeTitle = ann.title ? ann.title.replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
                     const safeBody = ann.body ? ann.body.replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
-                    const authorFormatted = formatUserBadge(ann.author, ann.authorRole, ann.authorDepartment);
+                    const authorFormatted = formatUserBadge(ann.author, ann.authorRole, ann.authorDepartament || ann.authorDepartment);
 
                     container.innerHTML += `
                         <div class="announcement-box">
@@ -880,8 +878,9 @@
             const title = document.getElementById('annTitle').value.trim();
             const body = document.getElementById('annBody').value.trim();
             const btn = document.getElementById('btnSubmitAnn');
+            const userDept = currentUserSession.departament || currentUserSession.department;
 
-            if (currentUserSession.role === 'tier3' && dept !== 'general' && dept !== currentUserSession.department) {
+            if (currentUserSession.role === 'tier3' && dept !== 'general' && dept !== userDept) {
                 alert("Siz yalnız Ümumi kanala və öz departamentinizə yazı yaza bilərsiniz!");
                 return;
             }
@@ -897,7 +896,7 @@
                     author: currentUserSession.name,
                     authorUsername: currentUserSession.username,
                     authorRole: currentUserSession.role,
-                    authorDepartment: currentUserSession.department,
+                    authorDepartament: userDept,
                     createdAt: Date.now()
                 });
 
@@ -989,8 +988,9 @@
             const name = document.getElementById('fileTitle').value.trim();
             const url = document.getElementById('fileUrl').value.trim();
             const btn = document.getElementById('btnSubmitFile');
+            const userDept = currentUserSession.departament || currentUserSession.department;
 
-            if (currentUserSession.role === 'tier3' && dept !== 'general' && dept !== currentUserSession.department) {
+            if (currentUserSession.role === 'tier3' && dept !== 'general' && dept !== userDept) {
                 alert("Siz yalnız Ümumi arxivə və öz departamentinizə fayl əlavə edə bilərsiniz!");
                 return;
             }
