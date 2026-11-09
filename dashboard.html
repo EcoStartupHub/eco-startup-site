@@ -166,7 +166,7 @@
             <!-- 1. ELANLAR BÖLMƏSİ (DEFAULT) -->
             <div id="announcementsTab" class="tab-content active">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-                    <!-- Elan Yaratma (Yalnız rəhbərlik/koordinator) -->
+                    <!-- Elan Yaratma -->
                     <div class="dash-card writer-only" id="postAnnouncementCard">
                         <div class="dash-card-header"><span><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Yeni Elan Paylaş</span></div>
                         <form class="post-form" onsubmit="publishAnnouncement(event)">
@@ -241,7 +241,7 @@
             <!-- 3. ARXİVLƏR BÖLMƏSİ -->
             <div id="archivesTab" class="tab-content">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
-                    <!-- Arxiv Fayl Əlavə Et (Writer only) -->
+                    <!-- Arxiv Fayl Əlavə Et -->
                     <div class="dash-card writer-only" id="addArchiveCard">
                         <div class="dash-card-header"><span><i class="fa-solid fa-file-circle-plus" style="color: var(--eco-green);"></i> Arxivə Fayl Əlavə Et</span></div>
                         <form class="post-form" onsubmit="addArchiveFile(event)">
@@ -323,7 +323,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot, query, where, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc, updateDoc, onSnapshot, query, where, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
@@ -347,7 +347,7 @@
             sidebar.classList.toggle('active');
         };
 
-        // Sekmə keçidləri (Tabs)
+        // Sekmə keçidləri (Tabs) və Həmişə menyunun bağlanması
         window.switchTab = function(tabId, element) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
@@ -355,10 +355,8 @@
             document.getElementById(tabId).classList.add('active');
             element.classList.add('active');
 
-            // Əgər mobil cihazdadırsa, menyunu avtomatik bağla
-            if (window.innerWidth <= 900) {
-                document.getElementById('appSidebar').classList.remove('active');
-            }
+            // Həmişə (istər mobil, istər masaüstü) səhifə/tab dəyişəndə menyunu avtomatik bağla
+            document.getElementById('appSidebar').classList.remove('active');
         };
 
         function formatUserBadge(name, role, department) {
@@ -632,7 +630,7 @@
             }
         };
 
-        // ================= İSTİFADƏÇİ İDARƏETMƏSİ =================
+        // ================= İSTİFADƏÇİ İDARƏETMƏSİ (Custom Document ID = username) =================
         window.addNewUser = async function(e) {
             e.preventDefault();
             const username = document.getElementById('newUsername').value.trim().toLowerCase();
@@ -642,7 +640,8 @@
             const department = document.getElementById('newUserDept').value;
 
             try {
-                await addDoc(collection(db, "club_secret_users"), {
+                // setDoc istifadə edərək sənəd ID-sini birbaşa istifadəçi adı (username) edirik
+                await setDoc(doc(db, "club_secret_users", username), {
                     username,
                     password,
                     name,
@@ -676,12 +675,12 @@
 
                 querySnapshot.forEach((docSnap) => {
                     const u = docSnap.data();
-                    const docId = docSnap.id;
+                    const docId = docSnap.id; // Artıq bu birbaşa username-dir
 
                     container.innerHTML += `
                         <div style="background:var(--bg-color); padding:8px 12px; border-radius:6px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem;">
                             <div>
-                                <strong>${u.name}</strong> <span style="color:var(--text-light); font-size:0.75rem;">(@${u.username})</span><br>
+                                <strong>${u.name}</strong> <span style="color:var(--text-light); font-size:0.75rem;">(@${docId})</span><br>
                                 <span style="font-size:0.7rem; color:var(--stk-gold);">[${u.role.toUpperCase()} - ${u.department.toUpperCase()}]</span>
                             </div>
                             <button onclick="deleteSystemUser('${docId}')" class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem; color:#e53935; border-color:#e53935;"><i class="fa-solid fa-trash"></i></button>
@@ -694,7 +693,7 @@
         };
 
         window.deleteSystemUser = async function(docId) {
-            if (confirm("Bu istifadəçini silmək istədiyinizə əminsiniz?")) {
+            if (confirm(`@${docId} istifadəçisini silmək istədiyinizə əminsiniz?`)) {
                 try {
                     await deleteDoc(doc(db, "club_secret_users", docId));
                     renderSystemUsers();
