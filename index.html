@@ -58,24 +58,28 @@
         .btn-outline:hover { background: rgba(255,193,7,0.1); }
 
         .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; flex: 1; width: 100%; }
-        .section-title { text-align: center; margin-bottom: 35px; }
-        .section-title h2 { font-size: 1.8rem; color: var(--stk-navy); }
-        body.dark-theme .section-title h2 { color: var(--stk-gold); }
-        .section-title p { color: var(--text-light); font-size: 0.95rem; }
+        .section-container { margin-bottom: 60px; }
+        .section-header { text-align: center; margin-bottom: 35px; }
+        .section-title { font-size: 1.8rem; color: var(--stk-navy); }
+        body.dark-theme .section-title { color: var(--stk-gold); }
 
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         .feature-card { background: var(--card-bg); border-radius: 14px; padding: 25px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
         .feature-card h3 { color: var(--stk-navy); margin-bottom: 10px; font-size: 1.2rem; }
         body.dark-theme .feature-card h3 { color: var(--stk-gold); }
         .feature-card p { color: var(--text-light); font-size: 0.92rem; }
 
-        /* İDARƏ HEYƏTİ STİLİ */
-        .board-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; justify-content: center; }
-        .board-card { background: var(--card-bg); border-radius: 14px; padding: 25px; border: 1px solid var(--border-color); text-align: center; box-shadow: var(--shadow-sm); }
-        .board-card h3 { font-size: 1.1rem; color: var(--stk-navy); margin-bottom: 4px; }
-        body.dark-theme .board-card h3 { color: var(--stk-gold); }
-        .board-card .role { font-size: 0.82rem; font-weight: 700; color: var(--stk-gold); text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .board-card p { font-size: 0.85rem; color: var(--text-light); }
+        /* İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR STİLLƏRİ (Orijinal) */
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .catalog-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 20px; box-shadow: var(--shadow-sm); }
+        .catalog-header { font-size: 1.05rem; font-weight: 700; color: var(--stk-navy); padding-bottom: 10px; border-bottom: 2px solid var(--stk-gold); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        body.dark-theme .catalog-header { color: var(--stk-gold); }
+        .catalog-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .catalog-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--border-color); font-size: 0.88rem; }
+        .catalog-item:last-child { border-bottom: none; }
+        .catalog-name { font-weight: 600; color: var(--text-color); }
+        .catalog-role { font-size: 0.75rem; background: var(--bg-color); padding: 2px 8px; border-radius: 4px; font-weight: 600; color: var(--stk-navy); }
+        body.dark-theme .catalog-role { color: var(--stk-gold); }
 
         footer { background: var(--stk-navy); color: #ffffff; padding: 30px 20px; text-align: center; border-top: 4px solid var(--stk-gold); margin-top: auto; }
         .footer-bottom { font-size: 0.82rem; color: rgba(255, 255, 255, 0.6); margin-top: 10px; }
@@ -113,45 +117,79 @@
     </section>
 
     <div class="container">
-        <!-- İSTİQAMƏTLƏR -->
-        <div class="section-title">
-            <h2>Bizim İstiqamətlər</h2>
-            <p>Klubumuz daxilində fəaliyyət göstərən əsas departamentlər</p>
+        <!-- BİZİM İSTİQAMƏTLƏR -->
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-compass"></i> Bizim İstiqamətlər</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3><i class="fa-solid fa-rocket" style="color: var(--stk-gold);"></i> Startup və Layihələr</h3>
+                    <p>Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fa-solid fa-laptop-code" style="color: var(--eco-green);"></i> IT Departamenti</h3>
+                    <p>Rəqəmsal platformaların, interaktiv ekoloji oyunların və klubun texnoloji infrastrukturunun inkişaf etdirilməsi.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Tədbirlər və İctimai Əlaqələr</h3>
+                    <p>Seminarlar, hackathonlar, maarifləndirici kampaniyalar və tərəfdaşlıq əlaqələrinin idarə olunması.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3><i class="fa-solid fa-rocket" style="color: var(--stk-gold);"></i> Startup və Layihələr</h3>
-                <p>Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.</p>
+        <!-- İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR -->
+        <section class="section-container" id="team">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> İdarə Heyəti və Departamentlər</h2>
             </div>
-            <div class="feature-card">
-                <h3><i class="fa-solid fa-laptop-code" style="color: var(--eco-green);"></i> IT Departamenti</h3>
-                <p>Rəqəmsal platformaların, interaktiv ekoloji oyunların və klubun texnoloji infrastrukturunun inkişaf etdirilməsi.</p>
+            <div class="catalog-grid">
+                <div class="catalog-card">
+                    <div class="catalog-header"><i class="fa-solid fa-crown"></i> Klub Rəhbərliyi</div>
+                    <ul class="catalog-list">
+                        <li class="catalog-item"><span class="catalog-name">Alpaşayev İbrahim</span><span class="catalog-role">Klub Sədri</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Şükürova Günel</span><span class="catalog-role">Klub Kuratoru</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Nəsirova Fatimə</span><span class="catalog-role">Sədr Müavini</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Alizadə Aytac</span><span class="catalog-role">Katib</span></li>
+                    </ul>
+                </div>
+                <div class="catalog-card">
+                    <div class="catalog-header"><i class="fa-solid fa-rocket"></i> Startup və Layihələr Departamenti</div>
+                    <ul class="catalog-list">
+                        <li class="catalog-item"><span class="catalog-name">Quliyeva Laləzər</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Nurlana Dəmirli</span><span class="catalog-role">Koordinator</span></li>
+                    </ul>
+                </div>
+                <div class="catalog-card">
+                    <div class="catalog-header"><i class="fa-solid fa-calendar-check"></i> Tədbirlər və İnkişaf Departamenti</div>
+                    <ul class="catalog-list">
+                        <li class="catalog-item"><span class="catalog-name">Məmmədova Mədinə</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Azər Dəniz</span><span class="catalog-role">Koordinator</span></li>
+                    </ul>
+                </div>
+                <div class="catalog-card">
+                    <div class="catalog-header"><i class="fa-solid fa-laptop-code"></i> IT Departamenti</div>
+                    <ul class="catalog-list">
+                        <li class="catalog-item"><span class="catalog-name">Məcidli Cahandar</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Axundov Zaur</span><span class="catalog-role">Koordinator</span></li>
+                    </ul>
+                </div>
+                <div class="catalog-card">
+                    <div class="catalog-header"><i class="fa-solid fa-bullhorn"></i> İctimai Əlaqələr və Tərəfdaşlıq</div>
+                    <ul class="catalog-list">
+                        <li class="catalog-item"><span class="catalog-name">Əliyeva Könül</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Məmmədzadə Röya</span><span class="catalog-role">Koordinator</span></li>
+                    </ul>
+                </div>
+                <div class="catalog-card">
+                    <div class="catalog-header"><i class="fa-solid fa-palette"></i> Dizayn Departamenti</div>
+                    <ul class="catalog-list">
+                        <li class="catalog-item"><span class="catalog-name">Həmidzadə Pərvanə</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Kərimova Mətanət</span><span class="catalog-role">Koordinator</span></li>
+                    </ul>
+                </div>
             </div>
-            <div class="feature-card">
-                <h3><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Tədbirlər və İctimai Əlaqələr</h3>
-                <p>Seminarlar, hackathonlar, maarifləndirici kampaniyalar və tərəfdaşlıq əlaqələrinin idarə olunması.</p>
-            </div>
-        </div>
-
-        <!-- İDARƏ HEYƏTİ -->
-        <div class="section-title" style="margin-top: 60px;">
-            <h2>İdarə Heyəti</h2>
-            <p>Klubun rəhbərliyi və əsas təmsilçiləri</p>
-        </div>
-
-        <div class="board-grid">
-            <div class="board-card">
-                <h3>İbrahim Alpaşayev</h3>
-                <span class="role">Sədr / Rəhbər</span>
-                <p>Eco Start-Up Club-un rəhbəri və təsisçilərindən biri. Klubun ümumi strategiyasının və inkişaf istiqamətlərinin idarə olunması.</p>
-            </div>
-            <div class="board-card">
-                <h3>Cahandar Məcidli</h3>
-                <span class="role">IT Departamenti Rəhbəri / Əlaqələndirici</span>
-                <p>Texniki infrastrukturun, rəqəmsal sistemlərin və proqram təminatlarının koordinasiyası.</p>
-            </div>
-        </div>
+        </section>
     </div>
 
     <footer>
