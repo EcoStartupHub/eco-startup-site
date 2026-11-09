@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fəaliyyətlərimiz | Eco Start-up Club</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --stk-navy: #091a30;
+            --stk-navy-light: #122b4d;
+            --stk-gold: #ffc107;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-light: #475569;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.1);
+        }
+        body.dark-theme {
+            --stk-navy: #030812;
+            --stk-navy-light: #091325;
+            --bg-color: #040914;
+            --card-bg: #0b1528;
+            --text-color: #f8fafc;
+            --text-light: #94a3b8;
+            --border-color: #1e293b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; }
+        
+        header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--stk-gold); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-logo-group { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font-weight: 800; font-size: 0.95rem; }
+        .brand-logo-group img { height: 36px; width: auto; object-fit: contain; }
+        
+        .hero-section { background: var(--stk-navy); color: white; padding: 40px 20px; text-align: center; }
+        .hero-section h1 { font-size: 1.8rem; color: var(--stk-gold); margin-bottom: 8px; }
+
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; flex: 1; width: 100%; }
+
+        .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 25px; }
+        .filter-btn { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
+        .filter-btn.active { background: var(--stk-gold); color: var(--stk-navy); border-color: var(--stk-gold); }
+
+        .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .activity-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .activity-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .activity-img { width: 100%; height: 180px; object-fit: cover; }
+        .activity-body { padding: 15px; }
+        .activity-dept { font-size: 0.75rem; font-weight: 700; color: var(--stk-gold); text-transform: uppercase; margin-bottom: 5px; }
+        .activity-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text-color); line-height: 1.3; }
+        .activity-date { font-size: 0.75rem; color: var(--text-light); }
+
+        /* MODAL DETALLAR */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 15px; }
+        .modal-content { background: var(--card-bg); border-radius: 14px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 25px; position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.3rem; color: var(--text-color); cursor: pointer; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; }
+        .gallery-img { width: 100%; height: 110px; object-fit: cover; border-radius: 8px; cursor: pointer; }
+        
+        footer { background: var(--stk-navy); color: #fff; text-align: center; padding: 20px; font-size: 0.85rem; margin-top: auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo-group">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo">
+                <span>ECO START-UP CLUB</span>
+            </a>
+            <a href="index.html" style="color:#fff; text-decoration:none; font-size:0.85rem; font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Ana Səhifə</a>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <h1>Fəaliyyətlərimiz & Layihələr</h1>
+        <p style="font-size: 0.9rem; opacity: 0.9;">Klubumuzun həyata keçirdiyi seminar, tədbir və innovativ layihələr</p>
+    </section>
+
+    <div class="container">
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterActivities('all', this)">Bütün Fəaliyyətlər</button>
+            <button class="filter-btn" onclick="filterActivities('general', this)">Ümumi Tədbir</button>
+            <button class="filter-btn" onclick="filterActivities('sl', this)">Startup və Layihələr</button>
+            <button class="filter-btn" onclick="filterActivities('ti', this)">Tədbirlər və İnkişaf</button>
+            <button class="filter-btn" onclick="filterActivities('it', this)">IT Departamenti</button>
+            <button class="filter-btn" onclick="filterActivities('iet', this)">İctimai Əlaqələr və Tərəfdaşlıq</button>
+            <button class="filter-btn" onclick="filterActivities('d', this)">Dizayn Departamenti</button>
+        </div>
+
+        <div class="activity-grid" id="activitiesGrid">
+            <p style="color:var(--text-light);">Fəaliyyətlər yüklənir...</p>
+        </div>
+    </div>
+
+    <!-- DETAL MODALI -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2q8vmp6j9ZXeMK-Cquq24VBy7ot3T-j8",
+            authDomain: "eco-startup-site.firebaseapp.com",
+            projectId: "eco-startup-site",
+            storageBucket: "eco-startup-site.firebasestorage.app",
+            messagingSenderId: "177745640190",
+            appId: "1:177745640190:web:f8096c55e42224befa43af"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let allActivities = [];
+
+        const deptMap = {
+            general: "Ümumi Tədbir",
+            sl: "Startup və Layihələr",
+            ti: "Tədbirlər və İnkişaf",
+            it: "IT Departamenti",
+            iet: "İctimai Əlaqələr və Tərəfdaşlıq",
+            d: "Dizayn Departamenti"
+        };
+
+        async function fetchActivities() {
+            const grid = document.getElementById('activitiesGrid');
+            try {
+                const querySnapshot = await getDocs(collection(db, "activities"));
+                allActivities = [];
+                querySnapshot.forEach((docSnap) => {
+                    allActivities.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                allActivities.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                renderGrid(allActivities);
+            } catch (err) {
+                grid.innerHTML = `<p style="color:#e53935;">Xəta baş verdi: ${err.message}</p>`;
+            }
+        }
+
+        function renderGrid(list) {
+            const grid = document.getElementById('activitiesGrid');
+            grid.innerHTML = '';
+
+            if (list.length === 0) {
+                grid.innerHTML = '<p style="color:var(--text-light);">Heç bir fəaliyyət tapılmadı.</p>';
+                return;
+            }
+
+            list.forEach(item => {
+                const coverImg = (item.images && item.images.length > 0) ? item.images[0] : 'https://i.postimg.cc/59KBvbxD/logo.png';
+                const deptName = deptMap[item.departament] || "Ümumi Tədbir";
+
+                grid.innerHTML += `
+                    <div class="activity-card" onclick="openModal('${item.id}')">
+                        <img src="${coverImg}" class="activity-img" alt="Cover">
+                        <div class="activity-body">
+                            <div class="activity-dept">${deptName}</div>
+                            <div class="activity-title">${item.title}</div>
+                            <div class="activity-date"><i class="fa-regular fa-calendar"></i> ${item.date}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.filterActivities = function(deptKey, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (deptKey === 'all') {
+                renderGrid(allActivities);
+            } else {
+                const filtered = allActivities.filter(a => a.departament === deptKey);
+                renderGrid(filtered);
+            }
+        };
+
+        window.openModal = function(id) {
+            const item = allActivities.find(a => a.id === id);
+            if (!item) return;
+
+            const modalBody = document.getElementById('modalBody');
+            const deptName = deptMap[item.departament] || "Ümumi Tədbir";
+
+            let imagesHTML = '';
+            if (item.images && item.images.length > 0) {
+                imagesHTML = `
+                    <h4 style="margin-top:20px; font-size:0.9rem;">Şəkillər Qalereyası (${item.images.length})</h4>
+                    <div class="gallery-grid">
+                        ${item.images.map(imgUrl => `<img src="${imgUrl}" class="gallery-img" onclick="window.open('${imgUrl}', '_blank')">`).join('')}
+                    </div>
+                `;
+            }
+
+            modalBody.innerHTML = `
+                <div style="font-size:0.8rem; color:var(--stk-gold); font-weight:700; text-transform:uppercase;">${deptName}</div>
+                <h2 style="font-size:1.4rem; margin:6px 0 10px; color:var(--text-color);">${item.title}</h2>
+                <div style="font-size:0.78rem; color:var(--text-light); margin-bottom:15px;"><i class="fa-regular fa-calendar"></i> Tarix: ${item.date}</div>
+                <div style="font-size:0.9rem; line-height:1.6; color:var(--text-color); white-space:pre-line;">${item.description}</div>
+                ${imagesHTML}
+            `;
+
+            document.getElementById('detailModal').style.display = 'flex';
+        };
+
+        window.closeModal = function() {
+            document.getElementById('detailModal').style.display = 'none';
+        };
+
+        fetchActivities();
+    </script>
+</body>
+</html>
