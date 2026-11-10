@@ -48,7 +48,11 @@
         .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .activity-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .activity-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-        .activity-img { width: 100%; height: 180px; object-fit: cover; }
+        
+        /* Şəkil ölçü problemini həll edən hissə: contain və tünd/açıq fon */
+        .activity-img-wrapper { width: 100%; height: 180px; background: rgba(0,0,0,0.03); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .activity-img { width: 100%; height: 100%; object-fit: contain; }
+        
         .activity-body { padding: 15px; }
         .activity-dept { font-size: 0.75rem; font-weight: 700; color: var(--stk-gold); text-transform: uppercase; margin-bottom: 5px; }
         .activity-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text-color); line-height: 1.3; }
@@ -58,8 +62,12 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 15px; }
         .modal-content { background: var(--card-bg); border-radius: 14px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 25px; position: relative; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.3rem; color: var(--text-color); cursor: pointer; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; }
-        .gallery-img { width: 100%; height: 110px; object-fit: cover; border-radius: 8px; cursor: pointer; }
+        
+        /* Qalereya şəkillərinin düzgün ölçüləndirilməsi */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 15px; }
+        .gallery-img-wrapper { width: 100%; height: 140px; background: rgba(0,0,0,0.04); border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--border-color); }
+        .gallery-img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.2s; }
+        .gallery-img-wrapper:hover .gallery-img { transform: scale(1.03); }
         
         footer { background: var(--stk-navy); color: #fff; text-align: center; padding: 20px; font-size: 0.85rem; margin-top: auto; }
     </style>
@@ -166,7 +174,9 @@
 
                 grid.innerHTML += `
                     <div class="activity-card" onclick="openModal('${item.id}')">
-                        <img src="${coverImg}" class="activity-img" alt="Cover">
+                        <div class="activity-img-wrapper">
+                            <img src="${coverImg}" class="activity-img" alt="Cover">
+                        </div>
                         <div class="activity-body">
                             <div class="activity-dept">${deptName}</div>
                             <div class="activity-title">${item.title}</div>
@@ -201,7 +211,11 @@
                 imagesHTML = `
                     <h4 style="margin-top:20px; font-size:0.9rem;">Şəkillər Qalereyası (${item.images.length})</h4>
                     <div class="gallery-grid">
-                        ${item.images.map(imgUrl => `<img src="${imgUrl}" class="gallery-img" onclick="window.open('${imgUrl}', '_blank')">`).join('')}
+                        ${item.images.map(imgUrl => `
+                            <div class="gallery-img-wrapper" onclick="window.open('${imgUrl}', '_blank')">
+                                <img src="${imgUrl}" class="gallery-img" alt="Şəkil">
+                            </div>
+                        `).join('')}
                     </div>
                 `;
             }
