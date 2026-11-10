@@ -13,7 +13,6 @@
             --stk-gold: #ffc107;
             --stk-gold-glow: rgba(255, 193, 7, 0.35);
             --eco-green: #10b981;
-            --eco-green-dark: #059669;
             --bg-color: #f1f5f9;
             --card-bg: #ffffff;
             --text-color: #0f172a;
@@ -62,7 +61,6 @@
         
         .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: #ffffff; }
 
-        /* HERO PAGE HEADER */
         .page-header { position: relative; background: var(--hero-overlay), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; padding: 85px 20px; text-align: center; color: #ffffff; border-bottom: 4px solid var(--eco-green); }
         .page-header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         .page-header h1 span { color: var(--stk-gold); }
@@ -73,7 +71,6 @@
         .section-title { font-size: 1.85rem; color: var(--stk-navy); font-weight: 800; display: inline-flex; align-items: center; gap: 10px; }
         body.dark-theme .section-title { color: var(--stk-gold); }
 
-        /* FEATURES GRID */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
         .feature-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 25px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
         .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--eco-green); }
@@ -81,7 +78,6 @@
         body.dark-theme .feature-card h3 { color: var(--stk-gold); }
         .feature-card p { font-size: 0.93rem; color: var(--text-light); line-height: 1.65; }
 
-        /* İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR (CATALOG) */
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 22px; }
         .catalog-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 22px; box-shadow: var(--shadow-md); }
         .catalog-header { font-size: 1.08rem; font-weight: 800; color: var(--stk-navy); padding-bottom: 12px; border-bottom: 2px solid var(--stk-gold); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
@@ -93,7 +89,6 @@
         .catalog-role { font-size: 0.76rem; background: var(--bg-color); padding: 3px 10px; border-radius: 6px; font-weight: 700; color: var(--stk-navy); border: 1px solid var(--border-color); }
         body.dark-theme .catalog-role { color: var(--stk-gold); }
 
-        /* FOOTER */
         footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: 60px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .footer-brand { display: flex; align-items: center; gap: 12px; }
@@ -114,8 +109,8 @@
 
     <div class="top-bar">
         <div class="top-bar-container">
-            <div><span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span></div>
-            <div><span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span></div>
+            <div><span><i class="fa-solid fa-graduation-cap"></i> <span data-key="topCollege">ADNSU nəzdində Sənaye və Texnologiya Kolleci</span></span></div>
+            <div><span><i class="fa-solid fa-location-dot"></i> <span data-key="topCity">Bakı şəhəri</span></span></div>
         </div>
     </div>
 
@@ -137,98 +132,95 @@
 
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active">Ana Səhifə</a></li>
-                    <li><a href="about.html">Haqqımızda</a></li>
-                    <li><a href="activities.html">Fəaliyyətlər</a></li>
-                    <li><a href="#team">İdarə Heyəti</a></li>
+                    <li><a href="index.html" class="active" data-key="navHome">Ana Səhifə</a></li>
+                    <li><a href="about.html" data-key="navAbout">Haqqımızda</a></li>
+                    <li><a href="activities.html" data-key="navActivities">Fəaliyyətlər</a></li>
+                    <li><a href="#team" data-key="navBoard">İdarə Heyəti</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> Giriş</a>
+                    <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> <span data-key="btnLogin">Giriş</span></a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- HERO HEADER -->
     <section class="page-header">
-        <h1>Gələcəyi Ekoloji İnnovasiyalarla Qururuq: <span>Eco Start-up</span></h1>
-        <p>Sənaye və Texnologiya Kollecinin ekoloji təşəbbüslər, yaşıl texnologiyalar və tələbə startapları platformasına xoş gəldiniz.</p>
+        <h1><span data-key="heroTitlePre">Gələcəyi Ekoloji İnnovasiyalarla Qururuq:</span> <span>Eco Start-up</span></h1>
+        <p data-key="heroDesc">Sənaye və Texnologiya Kollecinin ekoloji təşəbbüslər, yaşıl texnologiyalar və tələbə startapları platformasına xoş gəldiniz.</p>
         <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <a href="activities.html" class="btn btn-gold"><i class="fa-solid fa-calendar-days"></i> Fəaliyyətlərimizə Bax</a>
-            <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-gauge"></i> İdarə Paneli</a>
+            <a href="activities.html" class="btn btn-gold"><i class="fa-solid fa-calendar-days"></i> <span data-key="btnActivities">Fəaliyyətlərimizə Bax</span></a>
+            <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-gauge"></i> <span data-key="btnDashboard">İdarə Paneli</span></a>
         </div>
     </section>
 
     <main class="section-container">
-        <!-- BİZİM İSTİQAMƏTLƏR -->
         <section class="section-container" style="margin: 0 0 50px 0; padding: 0;">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-compass" style="color:var(--stk-gold);"></i> Bizim İstiqamətlər</h2>
+                <h2 class="section-title"><i class="fa-solid fa-compass" style="color:var(--stk-gold);"></i> <span data-key="secDirections">Bizim İstiqamətlər</span></h2>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <h3><i class="fa-solid fa-rocket" style="color:var(--eco-green);"></i> Startup və Layihələr</h3>
-                    <p>Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.</p>
+                    <h3><i class="fa-solid fa-rocket" style="color:var(--eco-green);"></i> <span data-key="dirStartupTitle">Startup və Layihələr</span></h3>
+                    <p data-key="dirStartupDesc">Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.</p>
                 </div>
                 <div class="feature-card">
-                    <h3><i class="fa-solid fa-laptop-code" style="color:var(--eco-green);"></i> IT Departamenti</h3>
-                    <p>Rəqəmsal platformaların, interaktiv ekoloji oyunların və klubun texnoloji infrastrukturunun inkişaf etdirilməsi.</p>
+                    <h3><i class="fa-solid fa-laptop-code" style="color:var(--eco-green);"></i> <span data-key="dirITTitle">IT Departamenti</span></h3>
+                    <p data-key="dirITDesc">Rəqəmsal platformaların, interaktiv ekoloji oyunların və klubun texnoloji infrastrukturunun inkişaf etdirilməsi.</p>
                 </div>
                 <div class="feature-card">
-                    <h3><i class="fa-solid fa-bullhorn" style="color:var(--eco-green);"></i> Tədbirlər və İctimai Əlaqələr</h3>
-                    <p>Seminarlar, hackathonlar, maarifləndirici kampaniyalar və tərəfdaşlıq əlaqələrinin idarə olunması.</p>
+                    <h3><i class="fa-solid fa-bullhorn" style="color:var(--eco-green);"></i> <span data-key="dirEventsTitle">Tədbirlər və İctimai Əlaqələr</span></h3>
+                    <p data-key="dirEventsDesc">Seminarlar, hackathonlar, maarifləndirici kampaniyalar və tərəfdaşlıq əlaqələrinin idarə olunması.</p>
                 </div>
             </div>
         </section>
 
-        <!-- İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR -->
         <section id="team" style="scroll-margin-top: 90px;">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-sitemap" style="color:var(--stk-gold);"></i> İdarə Heyəti və Departamentlər</h2>
+                <h2 class="section-title"><i class="fa-solid fa-sitemap" style="color:var(--stk-gold);"></i> <span data-key="secBoard">İdarə Heyəti və Departamentlər</span></h2>
             </div>
             <div class="catalog-grid">
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-crown" style="color:var(--stk-gold);"></i> Klub Rəhbərliyi</div>
+                    <div class="catalog-header"><i class="fa-solid fa-crown" style="color:var(--stk-gold);"></i> <span data-key="boardClubMgmt">Klub Rəhbərliyi</span></div>
                     <ul class="catalog-list">
-                        <li class="catalog-item"><span class="catalog-name">Alpaşayev İbrahim</span><span class="catalog-role">Klub Sədri</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Şükürova Günel</span><span class="catalog-role">Klub Kuratoru</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Nəsirova Fatimə</span><span class="catalog-role">Sədr Müavini</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Alizadə Aytac</span><span class="catalog-role">Katib</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Alpaşayev İbrahim</span><span class="catalog-role" data-key="roleChairman">Klub Sədri</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Şükürova Günel</span><span class="catalog-role" data-key="roleCurator">Klub Kuratoru</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Nəsirova Fatimə</span><span class="catalog-role" data-key="roleViceChairman">Sədr Müavini</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Alizadə Aytac</span><span class="catalog-role" data-key="roleSecretary">Katib</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-rocket" style="color:var(--stk-gold);"></i> Startup və Layihələr Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-rocket" style="color:var(--stk-gold);"></i> <span data-key="deptStartup">Startup və Layihələr Departamenti</span></div>
                     <ul class="catalog-list">
-                        <li class="catalog-item"><span class="catalog-name">Quliyeva Laləzər</span><span class="catalog-role">Koordinator</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Nurlana Dəmirli</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Quliyeva Laləzər</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Nurlana Dəmirli</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-calendar-check" style="color:var(--stk-gold);"></i> Tədbirlər və İnkişaf Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-calendar-check" style="color:var(--stk-gold);"></i> <span data-key="deptEvents">Tədbirlər və İnkişaf Departamenti</span></div>
                     <ul class="catalog-list">
-                        <li class="catalog-item"><span class="catalog-name">Məmmədova Mədinə</span><span class="catalog-role">Koordinator</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Azər Dəniz</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Məmmədova Mədinə</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Azər Dəniz</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-laptop-code" style="color:var(--stk-gold);"></i> IT Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-laptop-code" style="color:var(--stk-gold);"></i> <span data-key="deptIT">IT Departamenti</span></div>
                     <ul class="catalog-list">
-                        <li class="catalog-item"><span class="catalog-name">Məcidli Cahandar</span><span class="catalog-role">Koordinator</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Axundov Zaur</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Məcidli Cahandar</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Axundov Zaur</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-bullhorn" style="color:var(--stk-gold);"></i> İctimai Əlaqələr və Tərəfdaşlıq</div>
+                    <div class="catalog-header"><i class="fa-solid fa-bullhorn" style="color:var(--stk-gold);"></i> <span data-key="deptPR">İctimai Əlaqələr və Tərəfdaşlıq</span></div>
                     <ul class="catalog-list">
-                        <li class="catalog-item"><span class="catalog-name">Əliyeva Könül</span><span class="catalog-role">Koordinator</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Məmmədzadə Röya</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Əliyeva Könül</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Məmmədzadə Röya</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-palette" style="color:var(--stk-gold);"></i> Dizayn Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-palette" style="color:var(--stk-gold);"></i> <span data-key="deptDesign">Dizayn Departamenti</span></div>
                     <ul class="catalog-list">
-                        <li class="catalog-item"><span class="catalog-name">Həmidzadə Pərvanə</span><span class="catalog-role">Koordinator</span></li>
-                        <li class="catalog-item"><span class="catalog-name">Kərimova Mətanət</span><span class="catalog-role">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Həmidzadə Pərvanə</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
+                        <li class="catalog-item"><span class="catalog-name">Kərimova Mətanət</span><span class="catalog-role" data-key="roleCoordinator">Koordinator</span></li>
                     </ul>
                 </div>
             </div>
@@ -241,7 +233,7 @@
                 <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
                 <div>
                     <h4 style="color: #ffffff; font-size: 1.05rem;">Eco Start-up Club</h4>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Sənaye və Texnologiya Kolleci</p>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;" data-key="footerCollege">Sənaye və Texnologiya Kolleci</p>
                 </div>
             </div>
             <div style="display: flex; gap: 15px; font-size: 1.2rem;">
@@ -251,7 +243,7 @@
                 <a href="#" style="color: var(--stk-gold);"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
-        <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p></div>
+        <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. <span data-key="footerRights">Bütün hüquqlar qorunur.</span></p></div>
     </footer>
 
     <script>
@@ -269,6 +261,102 @@
                 icon.className = "fa-solid fa-moon";
             }
         });
+
+        // DİL SEÇİMİ MEXANİZMİ
+        const translationsIndex = {
+            az: {
+                topCollege: "ADNSU nəzdində Sənaye və Texnologiya Kolleci",
+                topCity: "Bakı şəhəri",
+                navHome: "Ana Səhifə",
+                navAbout: "Haqqımızda",
+                navActivities: "Fəaliyyətlər",
+                navBoard: "İdarə Heyəti",
+                btnLogin: "Giriş",
+                heroTitlePre: "Gələcəyi Ekoloji İnnovasiyalarla Qururuq:",
+                heroDesc: "Sənaye və Texnologiya Kollecinin ekoloji təşəbbüslər, yaşıl texnologiyalar və tələbə startapları platformasına xoş gəldiniz.",
+                btnActivities: "Fəaliyyətlərimizə Bax",
+                btnDashboard: "İdarə Paneli",
+                secDirections: "Bizim İstiqamətlər",
+                dirStartupTitle: "Startup və Layihələr",
+                dirStartupDesc: "Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.",
+                dirITTitle: "IT Departamenti",
+                dirITDesc: "Rəqəmsal platformaların, interaktiv ekoloji oyunların və klubun texnoloji infrastrukturunun inkişaf etdirilməsi.",
+                dirEventsTitle: "Tədbirlər və İctimai Əlaqələr",
+                dirEventsDesc: "Seminarlar, hackathonlar, maarifləndirici kampaniyalar və tərəfdaşlıq əlaqələrinin idarə olunması.",
+                secBoard: "İdarə Heyəti və Departamentlər",
+                boardClubMgmt: "Klub Rəhbərliyi",
+                roleChairman: "Klub Sədri",
+                roleCurator: "Klub Kuratoru",
+                roleViceChairman: "Sədr Müavini",
+                roleSecretary: "Katib",
+                roleCoordinator: "Koordinator",
+                deptStartup: "Startup və Layihələr Departamenti",
+                deptEvents: "Tədbirlər və İnkişaf Departamenti",
+                deptIT: "IT Departamenti",
+                deptPR: "İctimai Əlaqələr və Tərəfdaşlıq",
+                deptDesign: "Dizayn Departamenti",
+                footerCollege: "Sənaye və Texnologiya Kolleci",
+                footerRights: "Bütün hüquqlar qorunur."
+            },
+            en: {
+                topCollege: "College of Industry and Technology under ASOIU",
+                topCity: "Baku city",
+                navHome: "Home",
+                navAbout: "About Us",
+                navActivities: "Activities",
+                navBoard: "Board",
+                btnLogin: "Login",
+                heroTitlePre: "Building the Future with Eco Innovations:",
+                heroDesc: "Welcome to the official platform for ecological initiatives, green technologies, and student start-ups at the College of Industry and Technology.",
+                btnActivities: "View Activities",
+                btnDashboard: "Dashboard",
+                secDirections: "Our Directions",
+                dirStartupTitle: "Startup & Projects",
+                dirStartupDesc: "Mentorship and incubation support to turn students' innovative eco ideas into real start-up projects.",
+                dirITTitle: "IT Department",
+                dirITDesc: "Development of digital platforms, interactive eco-games, and the club's tech infrastructure.",
+                dirEventsTitle: "Events & Public Relations",
+                dirEventsDesc: "Organization of seminars, hackathons, educational campaigns, and partnership relations.",
+                secBoard: "Board and Departments",
+                boardClubMgmt: "Club Leadership",
+                roleChairman: "Club Chairman",
+                roleCurator: "Club Curator",
+                roleViceChairman: "Vice Chairman",
+                roleSecretary: "Secretary",
+                roleCoordinator: "Coordinator",
+                deptStartup: "Startup and Projects Department",
+                deptEvents: "Events and Development Department",
+                deptIT: "IT Department",
+                deptPR: "Public Relations and Partnership",
+                deptDesign: "Design Department",
+                footerCollege: "College of Industry and Technology",
+                footerRights: "All rights reserved."
+            }
+        };
+
+        const langSelect = document.getElementById('langSelect');
+        langSelect.addEventListener('change', (e) => {
+            const selectedLang = e.target.value;
+            localStorage.setItem('selectedLang', selectedLang);
+            applyLanguage(selectedLang);
+        });
+
+        function applyLanguage(lang) {
+            const data = translationsIndex[lang];
+            if (!data) return;
+
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key');
+                if (data[key]) {
+                    elem.innerText = data[key];
+                }
+            });
+        }
+
+        // Yüklənəndə son seçilmiş dili götürmək
+        const savedLang = localStorage.getItem('selectedLang') || 'az';
+        langSelect.value = savedLang;
+        applyLanguage(savedLang);
     </script>
 </body>
 </html>
