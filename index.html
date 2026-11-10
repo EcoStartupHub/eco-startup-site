@@ -11,7 +11,6 @@
             --stk-navy: #061426;
             --stk-navy-light: #0d2342;
             --stk-gold: #ffc107;
-            --stk-gold-hover: #ffca2c;
             --stk-gold-glow: rgba(255, 193, 7, 0.35);
             --eco-green: #10b981;
             --eco-green-dark: #059669;
@@ -20,7 +19,7 @@
             --text-color: #0f172a;
             --text-light: #475569;
             --border-color: #e2e8f0;
-            --shadow-md: 0 10px 28px rgba(6, 20, 38, 0.12);
+            --shadow-md: 0 10px 30px rgba(6, 20, 38, 0.14);
             --hero-overlay: linear-gradient(135deg, rgba(6, 20, 38, 0.94), rgba(16, 185, 129, 0.8));
         }
         body.dark-theme {
@@ -36,11 +35,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* TOP BAR */
         .top-bar { background: var(--stk-navy); color: rgba(255, 255, 255, 0.9); font-size: 0.82rem; padding: 6px 0; border-bottom: 1px solid rgba(255, 193, 7, 0.25); }
         .top-bar-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         
-        /* HEADER & NAV */
         header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
         .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
@@ -51,7 +48,7 @@
         .theme-toggle-btn { background: var(--stk-gold); border: none; color: var(--stk-navy); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; box-shadow: 0 2px 10px var(--stk-gold-glow); }
         .lang-select { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 10px; border-radius: 6px; font-size: 0.82rem; font-weight: 700; outline: none; cursor: pointer; }
         .lang-select option { background: var(--stk-navy-light); color: #fff; }
-        
+
         .nav-menu { display: flex; align-items: center; gap: 20px; }
         .nav-links { display: flex; gap: 18px; list-style: none; }
         .nav-links a { text-decoration: none; color: #ffffff; font-weight: 600; font-size: 0.9rem; padding: 6px 10px; border-radius: 6px; }
@@ -62,7 +59,7 @@
         .btn-gold:hover { transform: translateY(-2px); background: linear-gradient(135deg, #ffca2c, #e0a800); }
         .btn-outline { background: transparent; color: #fff; border: 2px solid var(--stk-gold); }
         .btn-outline:hover { background: rgba(255,193,7,0.15); }
-
+        
         .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: #ffffff; }
 
         /* HERO PAGE HEADER */
@@ -76,18 +73,13 @@
         .section-title { font-size: 1.85rem; color: var(--stk-navy); font-weight: 800; display: inline-flex; align-items: center; gap: 10px; }
         body.dark-theme .section-title { color: var(--stk-gold); }
 
-        /* ABOUT GRID CARDS */
-        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
-        .about-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 25px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
-        .about-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--eco-green); }
-        .about-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--stk-navy); font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        body.dark-theme .about-card h3 { color: var(--stk-gold); }
-        .about-card p { font-size: 0.93rem; color: var(--text-light); line-height: 1.65; }
-
-        /* VALUES SECTION */
-        .values-section { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border-color); padding: 32px; box-shadow: var(--shadow-md); margin-bottom: 50px; }
-        .values-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 22px; color: var(--stk-navy); display: flex; align-items: center; gap: 10px; }
-        body.dark-theme .values-title { color: var(--stk-gold); }
+        /* FEATURES GRID */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        .feature-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 25px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--eco-green); }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--stk-navy); font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        body.dark-theme .feature-card h3 { color: var(--stk-gold); }
+        .feature-card p { font-size: 0.93rem; color: var(--text-light); line-height: 1.65; }
 
         /* İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR (CATALOG) */
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 22px; }
@@ -102,12 +94,11 @@
         body.dark-theme .catalog-role { color: var(--stk-gold); }
 
         /* FOOTER */
-        footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: auto; }
+        footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: 60px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .footer-brand { display: flex; align-items: center; gap: 12px; }
         .footer-bottom { max-width: 1200px; margin: 15px auto 0; text-align: center; font-size: 0.82rem; color: rgba(255, 255, 255, 0.65); }
 
-        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 992px) {
             .hamburger { display: block; }
             .nav-menu { position: absolute; top: 100%; left: 0; width: 100%; background: var(--stk-navy-light); flex-direction: column; align-items: flex-start; padding: 25px; gap: 20px; display: none; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
@@ -147,7 +138,7 @@
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Ana Səhifə</a></li>
-                    <li><a href="#about">Haqqımızda</a></li>
+                    <li><a href="about.html">Haqqımızda</a></li>
                     <li><a href="activities.html">Fəaliyyətlər</a></li>
                     <li><a href="#team">İdarə Heyəti</a></li>
                 </ul>
@@ -162,50 +153,30 @@
     <section class="page-header">
         <h1>Gələcəyi Ekoloji İnnovasiyalarla Qururuq: <span>Eco Start-up</span></h1>
         <p>Sənaye və Texnologiya Kollecinin ekoloji təşəbbüslər, yaşıl texnologiyalar və tələbə startapları platformasına xoş gəldiniz.</p>
-        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
             <a href="activities.html" class="btn btn-gold"><i class="fa-solid fa-calendar-days"></i> Fəaliyyətlərimizə Bax</a>
             <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-gauge"></i> İdarə Paneli</a>
         </div>
     </section>
 
     <main class="section-container">
-        <!-- HAQQIMIZDA CARD-LAR -->
-        <section id="about" style="scroll-margin-top: 90px;">
-            <div class="about-grid">
-                <div class="about-card">
-                    <h3><i class="fa-solid fa-bullseye" style="color:var(--eco-green);"></i> Missiyamız</h3>
-                    <p>Tələbələr arasında ekoloji şüuru artırmaq, sənaye və texnologiya sahələrində yaşıl innovasiyaları təşviq etmək və ekoloji problemlərə yönəlmiş start-up layihələrini dəstəkləməkdir.</p>
-                </div>
-                <div class="about-card">
-                    <h3><i class="fa-solid fa-eye" style="color:var(--eco-green);"></i> Vizyonumuz</h3>
-                    <p>Kollec tələbələrinin hazırladığı ekoloji texnologiya və davamlı start-up ideyalarının ölkə səviyyəsində tətbiq olunmasını təmin edən aparıcı tələbə platforması olmaqdır.</p>
-                </div>
-                <div class="about-card">
-                    <h3><i class="fa-solid fa-rocket" style="color:var(--eco-green);"></i> Nə Edirik?</h3>
-                    <p>İdeya müsabiqələri (Pitching Days), ekoloji sahədə təlim və seminarlar, ekspertlərlə panel müzakirələri və komanda daxilində şəbəkələşmə tədbirləri təşkil edirik.</p>
-                </div>
+        <!-- BİZİM İSTİQAMƏTLƏR -->
+        <section class="section-container" style="margin: 0 0 50px 0; padding: 0;">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-compass" style="color:var(--stk-gold);"></i> Bizim İstiqamətlər</h2>
             </div>
-
-            <!-- ƏSAS DƏYƏRLƏR -->
-            <div class="values-section">
-                <h2 class="values-title"><i class="fa-solid fa-gem" style="color:var(--eco-green);"></i> Əsas Dəyərlərimiz</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
-                    <div>
-                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> İnnovativlik</h4>
-                        <p style="font-size:0.88rem; color:var(--text-light);">Klassik problemlərə müasir texnoloji və yaradıcı həllər tapırıq.</p>
-                    </div>
-                    <div>
-                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Dayanıqlılıq</h4>
-                        <p style="font-size:0.88rem; color:var(--text-light);">Təbiətə və ətraf mühitə qayğı göstərərək uzunmüddətli təsir yaradırıq.</p>
-                    </div>
-                    <div>
-                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Komanda Ruhu</h4>
-                        <p style="font-size:0.88rem; color:var(--text-light);">Birlikdə öyrənir, inkişaf edir və ümumi məqsədlərə çatmaq üçün çalışırıq.</p>
-                    </div>
-                    <div>
-                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Liderlik</h4>
-                        <p style="font-size:0.88rem; color:var(--text-light);">Gənclərin potensialını üzə çıxararaq onlara rəhbərlik bacarıqları qazandırırıq.</p>
-                    </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3><i class="fa-solid fa-rocket" style="color:var(--eco-green);"></i> Startup və Layihələr</h3>
+                    <p>Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fa-solid fa-laptop-code" style="color:var(--eco-green);"></i> IT Departamenti</h3>
+                    <p>Rəqəmsal platformaların, interaktiv ekoloji oyunların və klubun texnoloji infrastrukturunun inkişaf etdirilməsi.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fa-solid fa-bullhorn" style="color:var(--eco-green);"></i> Tədbirlər və İctimai Əlaqələr</h3>
+                    <p>Seminarlar, hackathonlar, maarifləndirici kampaniyalar və tərəfdaşlıq əlaqələrinin idarə olunması.</p>
                 </div>
             </div>
         </section>
@@ -277,19 +248,17 @@
                 <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" style="color: var(--stk-solid-envelope); color:var(--stk-gold);"><i class="fa-solid fa-envelope"></i></a>
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
         <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p></div>
     </footer>
 
     <script>
-        // Mobil Hamburger Menyu
         document.getElementById('hamburger').addEventListener('click', () => {
             document.getElementById('navMenu').classList.toggle('active');
         });
 
-        // Qaranlıq / Aydınlıq Rejimi Keçidi
         const themeToggle = document.getElementById('themeToggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
