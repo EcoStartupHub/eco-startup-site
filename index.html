@@ -8,88 +8,122 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --stk-navy: #091a30;
-            --stk-navy-light: #122b4d;
+            --stk-navy: #061426;
+            --stk-navy-light: #0d2342;
             --stk-gold: #ffc107;
-            --stk-gold-hover: #e0a800;
-            --stk-gold-glow: rgba(255, 193, 7, 0.25);
+            --stk-gold-hover: #ffca2c;
+            --stk-gold-glow: rgba(255, 193, 7, 0.35);
             --eco-green: #10b981;
+            --eco-green-dark: #059669;
             --bg-color: #f1f5f9;
             --card-bg: #ffffff;
             --text-color: #0f172a;
             --text-light: #475569;
             --border-color: #e2e8f0;
-            --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
-            --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.1);
+            --shadow-md: 0 10px 28px rgba(6, 20, 38, 0.12);
+            --hero-overlay: linear-gradient(135deg, rgba(6, 20, 38, 0.94), rgba(16, 185, 129, 0.8));
         }
         body.dark-theme {
-            --stk-navy: #030812;
-            --stk-navy-light: #091325;
-            --bg-color: #040914;
-            --card-bg: #0b1528;
+            --stk-navy: #02060e;
+            --stk-navy-light: #071324;
+            --bg-color: #030814;
+            --card-bg: #0a1428;
             --text-color: #f8fafc;
             --text-light: #94a3b8;
             --border-color: #1e293b;
+            --hero-overlay: linear-gradient(135deg, rgba(2, 6, 14, 0.96), rgba(5, 150, 105, 0.85));
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
-        .top-bar { background: var(--stk-navy); color: rgba(255, 255, 255, 0.85); font-size: 0.78rem; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        /* TOP BAR */
+        .top-bar { background: var(--stk-navy); color: rgba(255, 255, 255, 0.9); font-size: 0.82rem; padding: 6px 0; border-bottom: 1px solid rgba(255, 193, 7, 0.25); }
         .top-bar-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         
+        /* HEADER & NAV */
         header { background: var(--stk-navy-light); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
         .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-img { height: 40px; width: auto; object-fit: contain; }
-        .brand-title { font-weight: 800; font-size: 1rem; color: #ffffff; letter-spacing: -0.3px; }
+        .logo-img { height: 46px; width: auto; object-fit: contain; }
+        .brand-title { font-weight: 800; font-size: 1.12rem; color: #ffffff; letter-spacing: -0.3px; }
         
-        .nav-menu { display: flex; align-items: center; gap: 15px; }
-        .nav-link { color: #ffffff; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 6px 12px; border-radius: 6px; }
-        .nav-link:hover { background: rgba(255,255,255,0.1); color: var(--stk-gold); }
-
-        .hero { background: linear-gradient(135deg, var(--stk-navy), var(--stk-navy-light)); color: #ffffff; padding: 80px 20px; text-align: center; border-bottom: 4px solid var(--stk-gold); }
-        .hero h1 { font-size: 2.2rem; font-weight: 800; color: var(--stk-gold); margin-bottom: 15px; }
-        .hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto 25px; opacity: 0.9; }
-
-        .btn { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
-        .btn-gold { background: var(--stk-gold); color: var(--stk-navy); box-shadow: 0 4px 15px var(--stk-gold-glow); }
-        .btn-gold:hover { background: var(--stk-gold-hover); transform: translateY(-2px); }
+        .nav-right-wrapper { display: flex; align-items: center; gap: 12px; }
+        .theme-toggle-btn { background: var(--stk-gold); border: none; color: var(--stk-navy); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; box-shadow: 0 2px 10px var(--stk-gold-glow); }
+        .lang-select { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 10px; border-radius: 6px; font-size: 0.82rem; font-weight: 700; outline: none; cursor: pointer; }
+        .lang-select option { background: var(--stk-navy-light); color: #fff; }
+        
+        .nav-menu { display: flex; align-items: center; gap: 20px; }
+        .nav-links { display: flex; gap: 18px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #ffffff; font-weight: 600; font-size: 0.9rem; padding: 6px 10px; border-radius: 6px; }
+        .nav-links a.active, .nav-links a:hover { color: var(--stk-gold); background: rgba(255,255,255,0.08); }
+        
+        .btn { padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: none; }
+        .btn-gold { background: linear-gradient(135deg, #ffc107, #ffb300); color: #061426; box-shadow: 0 4px 14px var(--stk-gold-glow); }
+        .btn-gold:hover { transform: translateY(-2px); background: linear-gradient(135deg, #ffca2c, #e0a800); }
         .btn-outline { background: transparent; color: #fff; border: 2px solid var(--stk-gold); }
-        .btn-outline:hover { background: rgba(255,193,7,0.1); }
+        .btn-outline:hover { background: rgba(255,193,7,0.15); }
 
-        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; flex: 1; width: 100%; }
-        .section-container { margin-bottom: 60px; }
+        .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: #ffffff; }
+
+        /* HERO PAGE HEADER */
+        .page-header { position: relative; background: var(--hero-overlay), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; padding: 85px 20px; text-align: center; color: #ffffff; border-bottom: 4px solid var(--eco-green); }
+        .page-header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .page-header h1 span { color: var(--stk-gold); }
+        .page-header p { font-size: 1.08rem; color: rgba(255, 255, 255, 0.92); max-width: 750px; margin: 0 auto 25px; }
+
+        .section-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; flex: 1; width: 100%; }
         .section-header { text-align: center; margin-bottom: 35px; }
-        .section-title { font-size: 1.8rem; color: var(--stk-navy); }
+        .section-title { font-size: 1.85rem; color: var(--stk-navy); font-weight: 800; display: inline-flex; align-items: center; gap: 10px; }
         body.dark-theme .section-title { color: var(--stk-gold); }
 
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .feature-card { background: var(--card-bg); border-radius: 14px; padding: 25px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
-        .feature-card h3 { color: var(--stk-navy); margin-bottom: 10px; font-size: 1.2rem; }
-        body.dark-theme .feature-card h3 { color: var(--stk-gold); }
-        .feature-card p { color: var(--text-light); font-size: 0.92rem; }
+        /* ABOUT GRID CARDS */
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        .about-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 25px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+        .about-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--eco-green); }
+        .about-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--stk-navy); font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        body.dark-theme .about-card h3 { color: var(--stk-gold); }
+        .about-card p { font-size: 0.93rem; color: var(--text-light); line-height: 1.65; }
 
-        /* İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR STİLLƏRİ (Orijinal) */
-        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .catalog-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 20px; box-shadow: var(--shadow-sm); }
-        .catalog-header { font-size: 1.05rem; font-weight: 700; color: var(--stk-navy); padding-bottom: 10px; border-bottom: 2px solid var(--stk-gold); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        /* VALUES SECTION */
+        .values-section { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border-color); padding: 32px; box-shadow: var(--shadow-md); margin-bottom: 50px; }
+        .values-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 22px; color: var(--stk-navy); display: flex; align-items: center; gap: 10px; }
+        body.dark-theme .values-title { color: var(--stk-gold); }
+
+        /* İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR (CATALOG) */
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 22px; }
+        .catalog-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 22px; box-shadow: var(--shadow-md); }
+        .catalog-header { font-size: 1.08rem; font-weight: 800; color: var(--stk-navy); padding-bottom: 12px; border-bottom: 2px solid var(--stk-gold); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
         body.dark-theme .catalog-header { color: var(--stk-gold); }
-        .catalog-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .catalog-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--border-color); font-size: 0.88rem; }
+        .catalog-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .catalog-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--border-color); font-size: 0.9rem; }
         .catalog-item:last-child { border-bottom: none; }
         .catalog-name { font-weight: 600; color: var(--text-color); }
-        .catalog-role { font-size: 0.75rem; background: var(--bg-color); padding: 2px 8px; border-radius: 4px; font-weight: 600; color: var(--stk-navy); }
+        .catalog-role { font-size: 0.76rem; background: var(--bg-color); padding: 3px 10px; border-radius: 6px; font-weight: 700; color: var(--stk-navy); border: 1px solid var(--border-color); }
         body.dark-theme .catalog-role { color: var(--stk-gold); }
 
-        footer { background: var(--stk-navy); color: #ffffff; padding: 30px 20px; text-align: center; border-top: 4px solid var(--stk-gold); margin-top: auto; }
-        .footer-bottom { font-size: 0.82rem; color: rgba(255, 255, 255, 0.6); margin-top: 10px; }
+        /* FOOTER */
+        footer { background: var(--stk-navy); color: #ffffff; padding: 35px 20px 20px; border-top: 4px solid var(--stk-gold); margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-brand { display: flex; align-items: center; gap: 12px; }
+        .footer-bottom { max-width: 1200px; margin: 15px auto 0; text-align: center; font-size: 0.82rem; color: rgba(255, 255, 255, 0.65); }
+
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 992px) {
+            .hamburger { display: block; }
+            .nav-menu { position: absolute; top: 100%; left: 0; width: 100%; background: var(--stk-navy-light); flex-direction: column; align-items: flex-start; padding: 25px; gap: 20px; display: none; box-shadow: var(--shadow-md); border-bottom: 3px solid var(--stk-gold); }
+            .nav-menu.active { display: flex; }
+            .nav-links { flex-direction: column; width: 100%; gap: 12px; }
+            .nav-links a { display: block; width: 100%; }
+            .nav-actions { width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
         <div class="top-bar-container">
-            <div><span><i class="fa-solid fa-graduation-cap"></i> Azərbaycan Dövlət Neft və Sənaye Universiteti nəzdində Sənaye və Texnologiya Kolleci</span></div>
+            <div><span><i class="fa-solid fa-graduation-cap"></i> ADNSU nəzdində Sənaye və Texnologiya Kolleci</span></div>
             <div><span><i class="fa-solid fa-location-dot"></i> Bakı şəhəri</span></div>
         </div>
     </div>
@@ -98,54 +132,92 @@
         <div class="nav-container">
             <a href="index.html" class="brand-logo-group">
                 <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" class="logo-img">
-                <span class="brand-title">ECO START-UP CLUB</span>
+                <div class="brand-text"><span class="brand-title">ECO START-UP CLUB</span></div>
             </a>
-            <div class="nav-menu">
-                <a href="activities.html" class="nav-link"><i class="fa-solid fa-newspaper"></i> Fəaliyyətlər</a>
-                <a href="login.html" class="btn btn-gold" style="padding: 6px 14px; font-size: 0.82rem;"><i class="fa-solid fa-right-to-bracket"></i> Giriş</a>
+            
+            <div class="nav-right-wrapper">
+                <select class="lang-select" id="langSelect">
+                    <option value="az">AZ</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle-btn" id="themeToggle" title="Rejimi dəyiş"><i class="fa-solid fa-moon"></i></button>
+                <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Ana Səhifə</a></li>
+                    <li><a href="#about">Haqqımızda</a></li>
+                    <li><a href="activities.html">Fəaliyyətlər</a></li>
+                    <li><a href="#team">İdarə Heyəti</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> Giriş</a>
+                </div>
             </div>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>Gələcəyi Ekoloji İnnovasiyalarla Qururuq</h1>
-        <p>ADNSU nəzdində Sənaye və Texnologiya Kollecinin "Eco Start-Up Club" rəsmi platformasına xoş gəldiniz. Tələbə təşəbbüsləri, startaplar və yaşıl gələcək üçün bir aradayıq.</p>
-        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+    <!-- HERO HEADER -->
+    <section class="page-header">
+        <h1>Gələcəyi Ekoloji İnnovasiyalarla Qururuq: <span>Eco Start-up</span></h1>
+        <p>Sənaye və Texnologiya Kollecinin ekoloji təşəbbüslər, yaşıl texnologiyalar və tələbə startapları platformasına xoş gəldiniz.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
             <a href="activities.html" class="btn btn-gold"><i class="fa-solid fa-calendar-days"></i> Fəaliyyətlərimizə Bax</a>
             <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-gauge"></i> İdarə Paneli</a>
         </div>
     </section>
 
-    <div class="container">
-        <!-- BİZİM İSTİQAMƏTLƏR -->
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-compass"></i> Bizim İstiqamətlər</h2>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3><i class="fa-solid fa-rocket" style="color: var(--stk-gold);"></i> Startup və Layihələr</h3>
-                    <p>Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.</p>
+    <main class="section-container">
+        <!-- HAQQIMIZDA CARD-LAR -->
+        <section id="about" style="scroll-margin-top: 90px;">
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-bullseye" style="color:var(--eco-green);"></i> Missiyamız</h3>
+                    <p>Tələbələr arasında ekoloji şüuru artırmaq, sənaye və texnologiya sahələrində yaşıl innovasiyaları təşviq etmək və ekoloji problemlərə yönəlmiş start-up layihələrini dəstəkləməkdir.</p>
                 </div>
-                <div class="feature-card">
-                    <h3><i class="fa-solid fa-laptop-code" style="color: var(--eco-green);"></i> IT Departamenti</h3>
-                    <p>Rəqəmsal platformaların, interaktiv ekoloji oyunların və klubun texnoloji infrastrukturunun inkişaf etdirilməsi.</p>
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-eye" style="color:var(--eco-green);"></i> Vizyonumuz</h3>
+                    <p>Kollec tələbələrinin hazırladığı ekoloji texnologiya və davamlı start-up ideyalarının ölkə səviyyəsində tətbiq olunmasını təmin edən aparıcı tələbə platforması olmaqdır.</p>
                 </div>
-                <div class="feature-card">
-                    <h3><i class="fa-solid fa-bullhorn" style="color: var(--stk-gold);"></i> Tədbirlər və İctimai Əlaqələr</h3>
-                    <p>Seminarlar, hackathonlar, maarifləndirici kampaniyalar və tərəfdaşlıq əlaqələrinin idarə olunması.</p>
+                <div class="about-card">
+                    <h3><i class="fa-solid fa-rocket" style="color:var(--eco-green);"></i> Nə Edirik?</h3>
+                    <p>İdeya müsabiqələri (Pitching Days), ekoloji sahədə təlim və seminarlar, ekspertlərlə panel müzakirələri və komanda daxilində şəbəkələşmə tədbirləri təşkil edirik.</p>
                 </div>
             </div>
-        </div>
+
+            <!-- ƏSAS DƏYƏRLƏR -->
+            <div class="values-section">
+                <h2 class="values-title"><i class="fa-solid fa-gem" style="color:var(--eco-green);"></i> Əsas Dəyərlərimiz</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> İnnovativlik</h4>
+                        <p style="font-size:0.88rem; color:var(--text-light);">Klassik problemlərə müasir texnoloji və yaradıcı həllər tapırıq.</p>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Dayanıqlılıq</h4>
+                        <p style="font-size:0.88rem; color:var(--text-light);">Təbiətə və ətraf mühitə qayğı göstərərək uzunmüddətli təsir yaradırıq.</p>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Komanda Ruhu</h4>
+                        <p style="font-size:0.88rem; color:var(--text-light);">Birlikdə öyrənir, inkişaf edir və ümumi məqsədlərə çatmaq üçün çalışırıq.</p>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:700; margin-bottom:4px;"><i class="fa-solid fa-check" style="color:var(--eco-green);"></i> Liderlik</h4>
+                        <p style="font-size:0.88rem; color:var(--text-light);">Gənclərin potensialını üzə çıxararaq onlara rəhbərlik bacarıqları qazandırırıq.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- İDARƏ HEYƏTİ VƏ DEPARTAMENTLƏR -->
-        <section class="section-container" id="team">
+        <section id="team" style="scroll-margin-top: 90px;">
             <div class="section-header">
-                <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> İdarə Heyəti və Departamentlər</h2>
+                <h2 class="section-title"><i class="fa-solid fa-sitemap" style="color:var(--stk-gold);"></i> İdarə Heyəti və Departamentlər</h2>
             </div>
             <div class="catalog-grid">
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-crown"></i> Klub Rəhbərliyi</div>
+                    <div class="catalog-header"><i class="fa-solid fa-crown" style="color:var(--stk-gold);"></i> Klub Rəhbərliyi</div>
                     <ul class="catalog-list">
                         <li class="catalog-item"><span class="catalog-name">Alpaşayev İbrahim</span><span class="catalog-role">Klub Sədri</span></li>
                         <li class="catalog-item"><span class="catalog-name">Şükürova Günel</span><span class="catalog-role">Klub Kuratoru</span></li>
@@ -154,35 +226,35 @@
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-rocket"></i> Startup və Layihələr Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-rocket" style="color:var(--stk-gold);"></i> Startup və Layihələr Departamenti</div>
                     <ul class="catalog-list">
                         <li class="catalog-item"><span class="catalog-name">Quliyeva Laləzər</span><span class="catalog-role">Koordinator</span></li>
                         <li class="catalog-item"><span class="catalog-name">Nurlana Dəmirli</span><span class="catalog-role">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-calendar-check"></i> Tədbirlər və İnkişaf Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-calendar-check" style="color:var(--stk-gold);"></i> Tədbirlər və İnkişaf Departamenti</div>
                     <ul class="catalog-list">
                         <li class="catalog-item"><span class="catalog-name">Məmmədova Mədinə</span><span class="catalog-role">Koordinator</span></li>
                         <li class="catalog-item"><span class="catalog-name">Azər Dəniz</span><span class="catalog-role">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-laptop-code"></i> IT Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-laptop-code" style="color:var(--stk-gold);"></i> IT Departamenti</div>
                     <ul class="catalog-list">
                         <li class="catalog-item"><span class="catalog-name">Məcidli Cahandar</span><span class="catalog-role">Koordinator</span></li>
                         <li class="catalog-item"><span class="catalog-name">Axundov Zaur</span><span class="catalog-role">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-bullhorn"></i> İctimai Əlaqələr və Tərəfdaşlıq</div>
+                    <div class="catalog-header"><i class="fa-solid fa-bullhorn" style="color:var(--stk-gold);"></i> İctimai Əlaqələr və Tərəfdaşlıq</div>
                     <ul class="catalog-list">
                         <li class="catalog-item"><span class="catalog-name">Əliyeva Könül</span><span class="catalog-role">Koordinator</span></li>
                         <li class="catalog-item"><span class="catalog-name">Məmmədzadə Röya</span><span class="catalog-role">Koordinator</span></li>
                     </ul>
                 </div>
                 <div class="catalog-card">
-                    <div class="catalog-header"><i class="fa-solid fa-palette"></i> Dizayn Departamenti</div>
+                    <div class="catalog-header"><i class="fa-solid fa-palette" style="color:var(--stk-gold);"></i> Dizayn Departamenti</div>
                     <ul class="catalog-list">
                         <li class="catalog-item"><span class="catalog-name">Həmidzadə Pərvanə</span><span class="catalog-role">Koordinator</span></li>
                         <li class="catalog-item"><span class="catalog-name">Kərimova Mətanət</span><span class="catalog-role">Koordinator</span></li>
@@ -190,12 +262,44 @@
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 
     <footer>
-        <div style="font-weight: 700; font-size: 1rem; margin-bottom: 5px;">Eco Start-up Club</div>
-        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.8);">Sənaye və Texnologiya Kolleci</p>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="https://i.postimg.cc/59KBvbxD/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+                <div>
+                    <h4 style="color: #ffffff; font-size: 1.05rem;">Eco Start-up Club</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Sənaye və Texnologiya Kolleci</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; font-size: 1.2rem;">
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="color: var(--stk-gold);"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" style="color: var(--stk-solid-envelope); color:var(--stk-gold);"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
         <div class="footer-bottom"><p>&copy; 2026 Sənaye və Texnologiya Kolleci - Eco Start-up Club. Bütün hüquqlar qorunur.</p></div>
     </footer>
+
+    <script>
+        // Mobil Hamburger Menyu
+        document.getElementById('hamburger').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Qaranlıq / Aydınlıq Rejimi Keçidi
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-theme')) {
+                icon.className = "fa-solid fa-sun";
+            } else {
+                icon.className = "fa-solid fa-moon";
+            }
+        });
+    </script>
 </body>
 </html>
