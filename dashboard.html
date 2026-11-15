@@ -173,6 +173,9 @@
                 <label style="font-size: 0.78rem; font-weight:600;">Giriş İstifadəçi Adı:</label>
                 <input type="text" id="modalUsername" required style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); font-size:0.85rem;">
 
+                <label style="font-size: 0.78rem; font-weight:600;">Şifrə:</label>
+                <input type="text" id="modalPassword" autocomplete="off" required style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); font-size:0.85rem;">
+
                 <label style="font-size: 0.78rem; font-weight:600;">Rol:</label>
                 <select id="modalRole" required style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); font-size:0.85rem;">
                     <option value="tier1">Tier 1 (Ali rəhbərlik / Sədr)</option>
@@ -623,11 +626,16 @@
                 const docRef = doc(db, "club_secret_users", docId);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
+                    if (!currentUserSession || currentUserSession.role !== 'tier1') {
+                        alert('Bu əməliyyat yalnız Tier 1 üçün əlçatandır.');
+                        return;
+                    }
                     const u = docSnap.data();
                     document.getElementById('modalDocId').value = docId;
                     document.getElementById('modalViewId').innerText = docId;
                     document.getElementById('modalFullName').value = u.name || '';
                     document.getElementById('modalUsername').value = u.username || '';
+                    document.getElementById('modalPassword').value = u.password || '';
                     document.getElementById('modalRole').value = u.role || 'tier4';
                     document.getElementById('modalDept').value = u.departament || u.department || 'general';
                     
@@ -646,7 +654,12 @@
             e.preventDefault();
             const docId = document.getElementById('modalDocId').value;
             const name = document.getElementById('modalFullName').value.trim();
+            if (!currentUserSession || currentUserSession.role !== 'tier1') {
+                alert('Bu əməliyyat yalnız Tier 1 üçün əlçatandır.');
+                return;
+            }
             const username = document.getElementById('modalUsername').value.trim().toLowerCase();
+            const password = document.getElementById('modalPassword').value;
             const role = document.getElementById('modalRole').value;
             const departament = document.getElementById('modalDept').value;
 
@@ -654,6 +667,7 @@
                 await updateDoc(doc(db, "club_secret_users", docId), {
                     name,
                     username,
+                    password,
                     role,
                     departament
                 });
