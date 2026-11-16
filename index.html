@@ -49,6 +49,9 @@
         .lang-select option { background: var(--stk-navy-light); color: #fff; }
 
         .nav-menu { display: flex; align-items: center; gap: 20px; }
+        .nav-actions { display: flex; align-items: center; gap: 9px; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .hero-actions .btn { width: auto; }
         .nav-links { display: flex; gap: 18px; list-style: none; }
         .nav-links a { text-decoration: none; color: #ffffff; font-weight: 600; font-size: 0.9rem; padding: 6px 10px; border-radius: 6px; }
         .nav-links a.active, .nav-links a:hover { color: var(--stk-gold); background: rgba(255,255,255,0.08); }
@@ -100,8 +103,10 @@
             .nav-menu.active { display: flex; }
             .nav-links { flex-direction: column; width: 100%; gap: 12px; }
             .nav-links a { display: block; width: 100%; }
-            .nav-actions { width: 100%; }
-            .btn { width: 100%; justify-content: center; }
+            .nav-actions { width: 100%; display: flex; flex-direction: column; align-items: stretch; }
+            .nav-actions .btn { width: 100%; justify-content: center; }
+            .hero-actions { width: 100%; max-width: 420px; margin: 0 auto; flex-direction: column; align-items: stretch; }
+            .hero-actions .btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -138,7 +143,8 @@
                     <li><a href="#team" data-key="navBoard">İdarə Heyəti</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> <span data-key="btnLogin">Giriş</span></a>
+                    <a href="login.html" class="btn btn-gold"><i class="fa-solid fa-right-to-bracket"></i> <span data-key="btnLogin">Giriş et</span></a>
+                    <a href="https://forms.gle/BkFw5jtzrYy5ZSZj6" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fa-solid fa-user-plus"></i> <span data-key="btnRegister">Qeydiyyatdan keç</span></a>
                 </div>
             </div>
         </div>
@@ -147,9 +153,10 @@
     <section class="page-header">
         <h1><span data-key="heroTitlePre">Gələcəyi Ekoloji İnnovasiyalarla Qururuq:</span> <span>Eco Start-up</span></h1>
         <p data-key="heroDesc">Sənaye və Texnologiya Kollecinin ekoloji təşəbbüslər, yaşıl texnologiyalar və tələbə startapları platformasına xoş gəldiniz.</p>
-        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <div class="hero-actions">
             <a href="activities.html" class="btn btn-gold"><i class="fa-solid fa-calendar-days"></i> <span data-key="btnActivities">Fəaliyyətlərimizə Bax</span></a>
-            <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-gauge"></i> <span data-key="btnDashboard">İdarə Paneli</span></a>
+            <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket"></i> <span data-key="btnDashboard">Giriş et</span></a>
+            <a href="https://forms.gle/BkFw5jtzrYy5ZSZj6" target="_blank" rel="noopener noreferrer" class="btn btn-gold"><i class="fa-solid fa-user-plus"></i> <span data-key="btnRegister">Qeydiyyatdan keç</span></a>
         </div>
     </section>
 
@@ -271,11 +278,12 @@
                 navAbout: "Haqqımızda",
                 navActivities: "Fəaliyyətlər",
                 navBoard: "İdarə Heyəti",
-                btnLogin: "Giriş",
+                btnLogin: "Giriş et",
+                btnRegister: "Qeydiyyatdan keç",
                 heroTitlePre: "Gələcəyi Ekoloji İnnovasiyalarla Qururuq:",
                 heroDesc: "Sənaye və Texnologiya Kollecinin ekoloji təşəbbüslər, yaşıl texnologiyalar və tələbə startapları platformasına xoş gəldiniz.",
                 btnActivities: "Fəaliyyətlərimizə Bax",
-                btnDashboard: "İdarə Paneli",
+                btnDashboard: "Giriş et",
                 secDirections: "Bizim İstiqamətlər",
                 dirStartupTitle: "Startup və Layihələr",
                 dirStartupDesc: "Tələbələrin innovativ ekoloji ideyalarını real startap layihələrinə çevirmək üçün mentorluq və inkubasiya dəstəyi.",
@@ -305,11 +313,12 @@
                 navAbout: "About Us",
                 navActivities: "Activities",
                 navBoard: "Board",
-                btnLogin: "Login",
+                btnLogin: "Log in",
+                btnRegister: "Register",
                 heroTitlePre: "Building the Future with Eco Innovations:",
                 heroDesc: "Welcome to the official platform for ecological initiatives, green technologies, and student start-ups at the College of Industry and Technology.",
                 btnActivities: "View Activities",
-                btnDashboard: "Dashboard",
+                btnDashboard: "Log in",
                 secDirections: "Our Directions",
                 dirStartupTitle: "Startup & Projects",
                 dirStartupDesc: "Mentorship and incubation support to turn students' innovative eco ideas into real start-up projects.",
