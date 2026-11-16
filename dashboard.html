@@ -357,6 +357,24 @@
                         <textarea id="actDesc" placeholder="Ətraflı məlumat..." required style="min-height:100px;"></textarea>
 
                         <div style="margin-bottom: 10px;">
+                            <label style="font-size:0.8rem; font-weight:600;">Link sayı:</label>
+                            <select id="actLinkCountSelect" onchange="generateActivityLinkInputs()" style="width:100%; margin-top:4px;">
+                                <option value="0">Link yoxdur</option>
+                                <option value="1">1 Link</option>
+                                <option value="2">2 Link</option>
+                                <option value="3">3 Link</option>
+                                <option value="4">4 Link</option>
+                                <option value="5">5 Link</option>
+                                <option value="6">6 Link</option>
+                                <option value="7">7 Link</option>
+                                <option value="8">8 Link</option>
+                                <option value="9">9 Link</option>
+                                <option value="10">10 Link</option>
+                            </select>
+                        </div>
+                        <div id="activityLinksContainer" style="display:grid; gap:8px; margin-bottom:14px;"></div>
+
+                        <div style="margin-bottom: 10px;">
                             <label style="font-size:0.8rem; font-weight:600;">Şəkil Sayı (1 - 20):</label>
                             <select id="imgCountSelect" onchange="generateImageInputs()" style="width:100%; margin-top:4px;">
                                 <option value="1">1 Şəkil</option>
@@ -539,6 +557,20 @@
             }
         };
 
+        window.generateActivityLinkInputs = function() {
+            const count = parseInt(document.getElementById('actLinkCountSelect').value, 10) || 0;
+            const container = document.getElementById('activityLinksContainer');
+            container.innerHTML = '';
+            for (let i = 1; i <= count; i++) {
+                container.insertAdjacentHTML('beforeend', `
+                    <div style="display:grid; gap:6px; padding:10px; border:1px solid var(--border-color); border-radius:8px;">
+                        <input type="text" class="act-link-label" placeholder="${i}. Linkin adı/qısa məlumatı" required>
+                        <input type="url" class="act-link-url" placeholder="https://example.com" required>
+                    </div>
+                `);
+            }
+        };
+
         window.publishActivity = async function(e) {
             e.preventDefault();
             const dept = document.getElementById('actDepartament').value;
@@ -552,6 +584,13 @@
                 if (inp.value.trim() !== '') images.push(inp.value.trim());
             });
 
+            const linkLabels = document.querySelectorAll('.act-link-label');
+            const linkUrls = document.querySelectorAll('.act-link-url');
+            const links = Array.from(linkLabels).map((input, index) => ({
+                label: input.value.trim(),
+                url: linkUrls[index].value.trim()
+            })).filter(link => link.label && link.url);
+
             try {
                 btn.disabled = true;
                 btn.innerText = "Yüklənir...";
@@ -560,6 +599,7 @@
                     description,
                     departament: dept,
                     images,
+                    links,
                     date: new Date().toLocaleDateString('az-AZ'),
                     author: currentUserSession.name,
                     createdAt: Date.now()
@@ -567,6 +607,10 @@
 
                 document.getElementById('actTitle').value = '';
                 document.getElementById('actDesc').value = '';
+                document.getElementById('actLinkCountSelect').value = '0';
+                document.getElementById('activityLinksContainer').innerHTML = '';
+                document.getElementById('imgCountSelect').value = '1';
+                generateImageInputs();
                 alert("Fəaliyyət uğurla saytda paylaşıldı!");
                 renderDashboardActivities();
             } catch (err) {

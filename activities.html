@@ -218,6 +218,21 @@
             const modalBody = document.getElementById('modalBody');
             const deptName = deptMap[item.departament] || "Ümumi Tədbir";
 
+            let linksHTML = '';
+            if (item.links && item.links.length > 0) {
+                linksHTML = `
+                    <h4 style="margin-top:22px; font-size:0.95rem; font-weight:700;">Faydalı linklər</h4>
+                    <div style="display:grid; gap:9px; margin-top:10px;">
+                        ${item.links.map(link => `
+                            <a href="${link.url}" target="_blank" rel="noopener noreferrer" style="display:block; padding:11px 14px; border:1px solid var(--border-color); border-radius:9px; color:var(--stk-gold); text-decoration:none; overflow-wrap:anywhere;">
+                                <span style="font-weight:700;">${link.label}</span>
+                                <span style="display:block; margin-top:3px; font-size:0.8rem; color:var(--text-light);">${link.url}</span>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
             let imagesHTML = '';
             if (item.images && item.images.length > 0) {
                 imagesHTML = `
@@ -237,6 +252,7 @@
                 <h2 style="font-size:1.35rem; margin:6px 0 10px; color:var(--text-color); font-weight:800;">${item.title}</h2>
                 <div style="font-size:0.8rem; color:var(--text-light); margin-bottom:15px; font-weight:500;"><i class="fa-regular fa-calendar"></i> Tarix: ${item.date}</div>
                 <div style="font-size:0.92rem; line-height:1.65; color:var(--text-color); white-space:pre-line;">${item.description}</div>
+                ${linksHTML}
                 ${imagesHTML}
             `;
 
