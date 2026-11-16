@@ -342,7 +342,8 @@
             <div id="activitiesTab" class="tab-content">
                 <div class="dash-card writer-only">
                     <div class="dash-card-header"><span><i class="fa-solid fa-plus-circle" style="color: var(--stk-gold);"></i> Yeni Fəaliyyət / Tədbir Əlavə Et</span></div>
-                    <form class="post-form" onsubmit="publishActivity(event)">
+                    <form class="post-form" id="activityForm" onsubmit="publishActivity(event)">
+                        <input type="hidden" id="editingActivityId" value="">
                         <label style="font-size:0.8rem; font-weight:600;">Departament Seçin:</label>
                         <select id="actDepartament" required>
                             <option value="general">Ümumi Tədbir (Bütün Klub)</option>
@@ -354,6 +355,7 @@
                         </select>
 
                         <input type="text" id="actTitle" placeholder="Fəaliyyətin/Tədbirin başlığı" required>
+                        <input type="text" id="actDate" placeholder="Tarix (məs: 17.11.2026)" required>
                         <textarea id="actDesc" placeholder="Ətraflı məlumat..." required style="min-height:100px;"></textarea>
 
                         <div style="margin-bottom: 10px;">
@@ -404,7 +406,10 @@
                             <input type="url" class="act-img-url" placeholder="1-ci şəkil linki (Postimages və s.)" required>
                         </div>
 
-                        <button type="submit" class="btn btn-gold" id="btnSubmitAct" style="width:100%; justify-content:center; margin-top:10px;"><i class="fa-solid fa-paper-plane"></i> Saytda Paylaş</button>
+                        <div style="display:flex; gap:8px; margin-top:10px;">
+                            <button type="submit" class="btn btn-gold" id="btnSubmitAct" style="flex:1; justify-content:center;"><i class="fa-solid fa-paper-plane"></i> Saytda Paylaş</button>
+                            <button type="button" class="btn btn-outline" id="cancelEditAct" onclick="cancelActivityEdit()" style="display:none;">Ləğv et</button>
+                        </div>
                     </form>
                 </div>
 
@@ -475,6 +480,7 @@
         const db = getFirestore(app);
 
         let currentUserSession = null;
+        document.getElementById('actDate').value = new Date().toLocaleDateString('az-AZ');
         let unsubscribeChat = null;
         let currentRoomMessages = [];
 
@@ -576,49 +582,85 @@
             const dept = document.getElementById('actDepartament').value;
             const title = document.getElementById('actTitle').value.trim();
             const description = document.getElementById('actDesc').value.trim();
+            const date = document.getElementById('actDate').value.trim();
+            const editingId = document.getElementById('editingActivityId').value;
             const btn = document.getElementById('btnSubmitAct');
 
-            const imgInputs = document.querySelectorAll('.act-img-url');
-            const images = [];
-            imgInputs.forEach(inp => {
-                if (inp.value.trim() !== '') images.push(inp.value.trim());
-            });
-
+            const images = Array.from(document.querySelectorAll('.act-img-url'))
+                .map(inp => inp.value.trim()).filter(Boolean);
             const linkLabels = document.querySelectorAll('.act-link-label');
             const linkUrls = document.querySelectorAll('.act-link-url');
             const links = Array.from(linkLabels).map((input, index) => ({
-                label: input.value.trim(),
-                url: linkUrls[index].value.trim()
+                label: input.value.trim(), url: linkUrls[index]?.value.trim() || ''
             })).filter(link => link.label && link.url);
 
             try {
                 btn.disabled = true;
-                btn.innerText = "Yüklənir...";
-                await addDoc(collection(db, "activities"), {
-                    title,
-                    description,
-                    departament: dept,
-                    images,
-                    links,
-                    date: new Date().toLocaleDateString('az-AZ'),
-                    author: currentUserSession.name,
-                    createdAt: Date.now()
-                });
-
-                document.getElementById('actTitle').value = '';
-                document.getElementById('actDesc').value = '';
-                document.getElementById('actLinkCountSelect').value = '0';
-                document.getElementById('activityLinksContainer').innerHTML = '';
-                document.getElementById('imgCountSelect').value = '1';
-                generateImageInputs();
-                alert("Fəaliyyət uğurla saytda paylaşıldı!");
+                btn.innerText = editingId ? 'Yadda saxlanılır...' : 'Yüklənir...';
+                const activityData = { title, description, departament: dept, images, links, date };
+                if (editingId) {
+                    await updateDoc(doc(db, 'activities', editingId), activityData);
+                    alert('Fəaliyyət uğurla yeniləndi!');
+                } else {
+                    await addDoc(collection(db, 'activities'), {
+                        ...activityData,
+                        author: currentUserSession.name,
+                        createdAt: Date.now()
+                    });
+                    alert('Fəaliyyət uğurla saytda paylaşıldı!');
+                }
+                cancelActivityEdit();
                 renderDashboardActivities();
             } catch (err) {
-                alert("Xəta baş verdi: " + err.message);
+                alert('Xəta baş verdi: ' + err.message);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Saytda Paylaş';
             }
+        };
+
+        window.editActivity = async function(id) {
+            try {
+                if (!currentUserSession || currentUserSession.role === 'tier4') {
+                    alert('Bu əməliyyat üçün icazəniz yoxdur.');
+                    return;
+                }
+                const snap = await getDoc(doc(db, 'activities', id));
+                if (!snap.exists()) { alert('Fəaliyyət tapılmadı.'); return; }
+                const item = snap.data();
+                document.getElementById('editingActivityId').value = id;
+                document.getElementById('actDepartament').value = item.departament || 'general';
+                document.getElementById('actTitle').value = item.title || '';
+                document.getElementById('actDesc').value = item.description || '';
+                document.getElementById('actDate').value = item.date || '';
+
+                const links = Array.isArray(item.links) ? item.links : [];
+                document.getElementById('actLinkCountSelect').value = String(links.length);
+                generateActivityLinkInputs();
+                document.querySelectorAll('.act-link-label').forEach((el, i) => el.value = links[i]?.label || '');
+                document.querySelectorAll('.act-link-url').forEach((el, i) => el.value = links[i]?.url || '');
+
+                const images = Array.isArray(item.images) ? item.images : [];
+                document.getElementById('imgCountSelect').value = String(Math.max(1, images.length));
+                generateImageInputs();
+                document.querySelectorAll('.act-img-url').forEach((el, i) => el.value = images[i] || '');
+
+                document.getElementById('btnSubmitAct').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Dəyişiklikləri Yadda Saxla';
+                document.getElementById('cancelEditAct').style.display = 'inline-flex';
+                document.querySelector('#activitiesTab .dash-card.writer-only').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (err) { alert('Fəaliyyət açıla bilmədi: ' + err.message); }
+        };
+
+        window.cancelActivityEdit = function() {
+            document.getElementById('activityForm').reset();
+            document.getElementById('editingActivityId').value = '';
+            document.getElementById('actDate').value = new Date().toLocaleDateString('az-AZ');
+            document.getElementById('actLinkCountSelect').value = '0';
+            document.getElementById('activityLinksContainer').innerHTML = '';
+            document.getElementById('imgCountSelect').value = '1';
+            generateImageInputs();
+            document.getElementById('btnSubmitAct').innerHTML = '<i class="fa-solid fa-paper-plane"></i> Saytda Paylaş';
+            document.getElementById('cancelEditAct').style.display = 'none';
         };
 
         window.renderDashboardActivities = async function() {
@@ -643,7 +685,10 @@
                                 <strong>${item.title}</strong> <span style="font-size:0.7rem; color:var(--stk-gold);">[${item.departament.toUpperCase()}]</span><br>
                                 <span style="font-size:0.7rem; color:var(--text-light);">${item.date} - ${item.images ? item.images.length : 0} şəkil</span>
                             </div>
-                            <button onclick="deleteActivity('${id}')" class="btn btn-outline" style="padding:2px 6px; color:#e53935; border-color:#e53935; font-size:0.7rem;"><i class="fa-solid fa-trash"></i> Sil</button>
+                            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                                <button onclick="editActivity('${id}')" class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem;"><i class="fa-solid fa-pen"></i> Redaktə et</button>
+                                <button onclick="deleteActivity('${id}')" class="btn btn-outline" style="padding:2px 6px; color:#e53935; border-color:#e53935; font-size:0.7rem;"><i class="fa-solid fa-trash"></i> Sil</button>
+                            </div>
                         </div>
                     `;
                 });
