@@ -65,3 +65,12 @@ Giriş zamanı sistem daxil edilən məlumatları həmin təhlükəsiz kolleksiy
 * [x] **Xüsusi Təhlükəsiz Giriş Paneli:** `club_secret_users` kolleksiyası əsasında rol əsaslı yoxlama sistemi. *(Tamamlandı)*
 * [ ] **Onlayn Üzvlük Müraciət Forması:** Sayt üzərindən kluba qoşulmaq istəyənlər üçün qeydiyyat paneli.
 * [ ] **Layihə İzləmə Sistemi (Kanban Taxtası):** Eko-start-up ideyalarının mərhələlərini izləmək üçün daxili modul.
+
+
+## 6. Texniki audit qeydi (17.11.2026)
+
+- İctimai fəaliyyət kartlarında Firestore-dan gələn mətnlər HTML-ə daxil edilməzdən əvvəl escape edilir; fəaliyyət şəkilləri gecikdirilmiş yüklənir.
+- İstifadəçi redaktə pəncərəsi artıq mövcud şifrəni oxuyub göstərmir; şifrə sahəsi yalnız yeni şifrə təyin etmək üçündür.
+- Mobil toxunma sahələri, kiçik ekranlarda forma ölçüləri, modal sürüşdürməsi, klaviatura fokus görünüşü və azaldılmış animasiya seçimi yaxşılaşdırılıb.
+- **Vacib təhlükəsizlik məhdudiyyəti:** bu versiyanın giriş mexanizmi hələ də Firestore-da açıq mətn şifrə müqayisəsi və `localStorage` sessiyası istifadə edir. Rol yoxlamalarının bir hissəsi brauzer JavaScript-indədir. Buna görə bu dəyişikliklər təhlükəsiz autentifikasiya və server-tərəfli icazə nəzarətini əvəz etmir. Firebase Authentication-ə miqrasiya və Firestore Security Rules tətbiqi tamamlanana qədər sistemi həssas və ya məxfi məlumatlar üçün təhlükəsiz hesab etmək olmaz.
+- Firebase Console-da mövcud Security Rules bu arxivdən yoxlanıla bilməz və bu arxiv onları avtomatik yayımlamır.

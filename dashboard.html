@@ -2,6 +2,10 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İdarə Paneli | Eco Start-up Club</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -127,7 +131,134 @@
         .footer-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .footer-brand { display: flex; align-items: center; gap: 8px; }
         .footer-bottom { max-width: 1400px; margin: 10px auto 0; text-align: center; font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); }
+    
+/* ECO START-UP CLUB — unified visual refresh */
+:root {
+  --stk-navy:#102b46; --stk-navy-light:#173b59; --stk-gold:#e7b84b;
+  --eco-green:#168b68; --eco-green-dark:#106b52;
+  --bg-color:#f4f7f5; --card-bg:#ffffff; --text-color:#172b36;
+  --text-light:#60727b; --border-color:#dce7e1;
+  --shadow-sm:0 5px 18px rgba(16,43,70,.055);
+  --shadow-md:0 14px 36px rgba(16,43,70,.10);
+}
+body.dark-theme {
+  --stk-navy:#071725; --stk-navy-light:#0d2638; --bg-color:#0b171d;
+  --card-bg:#12232b; --text-color:#edf5f1; --text-light:#a9bbb5;
+  --border-color:#263d43; --role-bg:#192e35;
+  --shadow-sm:0 5px 18px rgba(0,0,0,.18); --shadow-md:0 14px 36px rgba(0,0,0,.28);
+}
+html { scroll-behavior:smooth; }
+body { letter-spacing:.005em; }
+button, a, input, select, textarea { -webkit-tap-highlight-color:transparent; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:3px solid rgba(22,139,104,.42); outline-offset:3px; }
+.top-bar { background:#0b2032; border-bottom:1px solid rgba(231,184,75,.25); }
+header { background:linear-gradient(110deg,#102b46 0%,#173b59 65%,#155844 100%); border-bottom:3px solid var(--eco-green); box-shadow:0 8px 24px rgba(9,31,46,.16); }
+.nav-container { min-height:72px; }
+.brand-logo-group { gap:12px; }
+.brand-logo-group img,.logo-img { filter:drop-shadow(0 2px 5px rgba(0,0,0,.16)); }
+.brand-title { letter-spacing:.035em; }
+.nav-links a { border-radius:9px; transition:background .2s ease,color .2s ease,transform .2s ease; }
+.nav-links a:hover,.nav-links a.active { color:#fff!important; background:rgba(255,255,255,.13)!important; }
+.nav-links a:hover { transform:translateY(-1px); }
+.lang-select { border-radius:9px!important; }
+.theme-toggle-btn { background:var(--stk-gold)!important; box-shadow:0 4px 12px rgba(231,184,75,.2); }
+.btn { border-radius:10px; transition:transform .2s ease,box-shadow .2s ease,background .2s ease; }
+.btn-gold { background:linear-gradient(135deg,#f0c96e,#dfad3f)!important; color:#102b46!important; box-shadow:0 7px 18px rgba(231,184,75,.2)!important; }
+.btn-gold:hover { transform:translateY(-2px); box-shadow:0 10px 22px rgba(231,184,75,.27)!important; }
+.btn-outline { border-radius:10px; }
+.page-header,.hero-section { background-color:#102b46; background-image:linear-gradient(115deg,rgba(8,31,49,.94),rgba(15,86,66,.82)); border-bottom:0!important; position:relative; overflow:hidden; }
+.page-header:after,.hero-section:after { content:""; position:absolute; width:340px;height:340px;border:1px solid rgba(255,255,255,.09);border-radius:50%;right:-110px;top:-170px;box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 75px rgba(255,255,255,.02);pointer-events:none; }
+.page-header h1,.hero-section h1 { line-height:1.12; letter-spacing:-.035em; }
+.section-container,.container { max-width:1240px; }
+.section-header { margin-bottom:38px; }
+.section-title { letter-spacing:-.025em; }
+.feature-card,.about-card,.values-section,.catalog-card,.activity-card,.login-card,.dash-card,.user-welcome-card,.modal-card {
+  border-radius:17px!important; border:1px solid var(--border-color)!important; box-shadow:var(--shadow-sm)!important;
+}
+.feature-card,.about-card,.catalog-card,.values-section { padding:27px!important; }
+.feature-card,.about-card { transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease; }
+.feature-card:hover,.about-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md)!important; border-color:rgba(22,139,104,.35)!important; }
+.feature-card:before,.about-card:before { width:4px!important; background:linear-gradient(180deg,var(--eco-green),#8bc8a9)!important; }
+.feature-card h3,.about-card h3,.catalog-header,.values-title { color:var(--eco-green-dark)!important; }
+body.dark-theme .feature-card h3,body.dark-theme .about-card h3,body.dark-theme .catalog-header,body.dark-theme .values-title { color:#82c9a9!important; }
+.catalog-header { border-bottom-color:var(--eco-green)!important; }
+.catalog-role { color:var(--eco-green-dark)!important; }
+body.dark-theme .catalog-role { color:#a7dfc2!important; }
+footer { background:linear-gradient(110deg,#0b2032,#123d3a)!important; border-top:3px solid var(--eco-green)!important; }
+.footer-container { gap:22px; }
+footer a { transition:opacity .2s ease,transform .2s ease; }
+footer a:hover { opacity:.78; transform:translateY(-2px); }
+/* Dashboard styling */
+.sidebar { border-right:1px solid var(--border-color); box-shadow:12px 0 30px rgba(9,31,46,.08); }
+.sidebar-item { border-radius:10px; transition:background .2s ease,color .2s ease,transform .2s ease; }
+.sidebar-item:hover { color:var(--eco-green)!important; transform:translateX(2px); }
+.sidebar-item.active { background:rgba(22,139,104,.13)!important; color:var(--eco-green-dark)!important; border:1px solid rgba(22,139,104,.2)!important; box-shadow:none!important; }
+body.dark-theme .sidebar-item.active { color:#91d7b8!important; background:rgba(22,139,104,.2)!important; }
+.user-welcome-card { padding:20px 23px!important; }
+.dash-card { padding:20px!important; }
+.dash-card-header { border-bottom:1px solid var(--border-color)!important; color:var(--eco-green-dark)!important; padding-bottom:13px!important; }
+body.dark-theme .dash-card-header { color:#91d7b8!important; }
+.post-form textarea,.post-form input,.post-form select,.chat-input-area input,.input-box input { border-radius:10px!important; }
+.post-form textarea:focus,.post-form input:focus,.post-form select:focus,.chat-input-area input:focus { border-color:var(--eco-green)!important; box-shadow:0 0 0 3px rgba(22,139,104,.12); }
+.announcement-box { border-left-color:var(--eco-green)!important; border-radius:10px!important; }
+.modal-overlay { backdrop-filter:blur(7px); }
+.modal-card { box-shadow:0 24px 70px rgba(0,0,0,.24)!important; }
+/* Login */
+.login-page-wrapper { background:radial-gradient(circle at 15% 20%,rgba(22,139,104,.09),transparent 30%),radial-gradient(circle at 85% 85%,rgba(231,184,75,.10),transparent 28%); }
+.login-card { max-width:460px!important; padding:40px 36px!important; }
+.login-icon { background:rgba(22,139,104,.12)!important; color:var(--eco-green)!important; border-radius:17px!important; }
+.input-box input { min-height:46px; }
+/* Activities */
+.activity-card { transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease!important; }
+.activity-card:hover { transform:translateY(-5px)!important; box-shadow:var(--shadow-md)!important; border-color:rgba(22,139,104,.35)!important; }
+.activity-dept { color:var(--eco-green)!important; }
+.filter-btn { border-radius:10px!important; }
+.filter-btn.active { background:var(--eco-green)!important; border-color:var(--eco-green)!important; color:#fff!important; }
+.modal-content { border:1px solid var(--border-color); border-radius:20px!important; box-shadow:0 24px 70px rgba(0,0,0,.28)!important; }
+.gallery-img-wrapper { border-radius:12px!important; }
+@media (max-width:992px) {
+ .nav-menu { background:var(--stk-navy-light)!important; border-bottom:3px solid var(--eco-green)!important; }
+ .nav-links a { padding:11px 13px!important; }
+ .section-container,.container { padding-left:18px!important;padding-right:18px!important; }
+}
+@media (max-width:600px) {
+ .top-bar { font-size:.72rem!important; }
+ .nav-container { min-height:64px;padding:10px 15px!important; }
+ .brand-title { font-size:.92rem!important; }
+ .page-header { padding:58px 18px!important; }
+ .page-header h1 { font-size:clamp(1.7rem,7vw,2.25rem)!important; }
+ .hero-section { padding:42px 17px 34px!important; }
+ .hero-section h1 { font-size:clamp(1.55rem,7vw,2rem)!important; }
+ .section-container,.container { margin-top:30px!important; }
+ .feature-card,.about-card,.catalog-card,.values-section { padding:21px!important; }
+ .login-card { padding:30px 22px!important; }
+ .footer-container { flex-direction:column;align-items:flex-start!important; }
+ .user-welcome-card { align-items:flex-start!important;gap:12px;flex-direction:column; }
+}
+@media (prefers-reduced-motion:reduce) {
+ *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; }
+}
+
     </style>
+
+    <style id="eco-audit-responsive-performance">
+      html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+      img { max-width: 100%; }
+      button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+      button, input, select, textarea { touch-action: manipulation; }
+      :focus-visible { outline: 3px solid #16a36a; outline-offset: 3px; }
+      @media (max-width: 768px) {
+        body { overflow-x: hidden; }
+        input, select, textarea { font-size: 16px !important; }
+        .container, .section-container, .main-content-area { width: 100%; max-width: 100%; }
+        .modal-overlay { align-items: flex-start; overflow-y: auto; padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+        .modal-card { max-height: calc(100dvh - 20px); overflow-y: auto; }
+        .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(min(120px, 42vw), 1fr)); }
+        .chat-box-container { min-height: 340px; height: min(62dvh, 520px); }
+      }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    </style>
+
 </head>
 <body>
 
@@ -173,8 +304,8 @@
                 <label style="font-size: 0.78rem; font-weight:600;">Giriş İstifadəçi Adı:</label>
                 <input type="text" id="modalUsername" required style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); font-size:0.85rem;">
 
-                <label style="font-size: 0.78rem; font-weight:600;">Şifrə:</label>
-                <input type="text" id="modalPassword" autocomplete="off" required style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); font-size:0.85rem;">
+                <label style="font-size: 0.78rem; font-weight:600;">Yeni şifrə (dəyişməyəcəksə boş saxlayın):</label>
+                <input type="password" id="modalPassword" autocomplete="new-password" style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); font-size:0.85rem;">
 
                 <label style="font-size: 0.78rem; font-weight:600;">Rol:</label>
                 <select id="modalRole" required style="width:100%; padding:8px; margin-bottom:8px; border-radius:6px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); font-size:0.85rem;">
@@ -479,6 +610,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        const escapeHTML = (value = '') => String(value).replace(/[&<>\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));
         let currentUserSession = null;
         document.getElementById('actDate').value = new Date().toLocaleDateString('az-AZ');
         let unsubscribeChat = null;
@@ -521,9 +653,9 @@
             else if (departament === 'd') deptName = "Dizayn";
 
             if (role === 'tier1' || role === 'tier2') {
-                return `${name} <span style="font-weight:400; opacity:0.8; font-size:0.62rem;">[${roleTitle}]</span>`;
+                return `${escapeHTML(name)} <span style="font-weight:400; opacity:0.8; font-size:0.62rem;">[${escapeHTML(roleTitle)}]</span>`;
             } else {
-                return `${name} <span style="font-weight:400; opacity:0.8; font-size:0.62rem;">[${deptName ? deptName + " - " : ""}${roleTitle}]</span>`;
+                return `${escapeHTML(name)} <span style="font-weight:400; opacity:0.8; font-size:0.62rem;">[${deptName ? deptName + " - " : ""}${escapeHTML(roleTitle)}]</span>`;
             }
         }
 
@@ -533,7 +665,7 @@
                 window.location.replace('login.html');
             } else {
                 currentUserSession = JSON.parse(sessionData);
-                document.getElementById('displayUserName').innerText = `Xoş gəldiniz, ${currentUserSession.name}!`;
+                document.getElementById('displayUserName').innerText = `Xoş gəldiniz, ${escapeHTML(currentUserSession.name)}!`;
                 const roleBadge = document.getElementById('displayUserRole');
                 roleBadge.innerText = currentUserSession.roleDisplayName;
                 roleBadge.className = `role-badge ${currentUserSession.role}`;
@@ -682,18 +814,18 @@
                     container.innerHTML += `
                         <div style="background:var(--bg-color); padding:10px; border-radius:6px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-size:0.82rem;">
                             <div>
-                                <strong>${item.title}</strong> <span style="font-size:0.7rem; color:var(--stk-gold);">[${item.departament.toUpperCase()}]</span><br>
-                                <span style="font-size:0.7rem; color:var(--text-light);">${item.date} - ${item.images ? item.images.length : 0} şəkil</span>
+                                <strong>${escapeHTML(item.title || "")}</strong> <span style="font-size:0.7rem; color:var(--stk-gold);">[${escapeHTML((item.departament || "").toUpperCase())}]</span><br>
+                                <span style="font-size:0.7rem; color:var(--text-light);">${escapeHTML(item.date || "")} - ${item.images ? item.images.length : 0} şəkil</span>
                             </div>
                             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                                <button onclick="editActivity('${id}')" class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem;"><i class="fa-solid fa-pen"></i> Redaktə et</button>
-                                <button onclick="deleteActivity('${id}')" class="btn btn-outline" style="padding:2px 6px; color:#e53935; border-color:#e53935; font-size:0.7rem;"><i class="fa-solid fa-trash"></i> Sil</button>
+                                <button onclick="editActivity('${escapeHTML(id)}')" class="btn btn-outline" style="padding:2px 6px; font-size:0.7rem;"><i class="fa-solid fa-pen"></i> Redaktə et</button>
+                                <button onclick="deleteActivity('${escapeHTML(id)}')" class="btn btn-outline" style="padding:2px 6px; color:#e53935; border-color:#e53935; font-size:0.7rem;"><i class="fa-solid fa-trash"></i> Sil</button>
                             </div>
                         </div>
                     `;
                 });
             } catch (err) {
-                container.innerHTML = `<p style="color:#e53935; font-size:0.8rem;">Xəta: ${err.message}</p>`;
+                container.innerHTML = `<p style="color:#e53935; font-size:0.8rem;">Xəta: ${escapeHTML(err.message || "Naməlum xəta")}</p>`;
             }
         };
 
@@ -724,7 +856,7 @@
                     document.getElementById('modalViewId').innerText = docId;
                     document.getElementById('modalFullName').value = u.name || '';
                     document.getElementById('modalUsername').value = u.username || '';
-                    document.getElementById('modalPassword').value = u.password || '';
+                    document.getElementById('modalPassword').value = ''; // Mövcud şifrə heç vaxt ekranda göstərilmir.
                     document.getElementById('modalRole').value = u.role || 'tier4';
                     document.getElementById('modalDept').value = u.departament || u.department || 'general';
                     
@@ -753,13 +885,9 @@
             const departament = document.getElementById('modalDept').value;
 
             try {
-                await updateDoc(doc(db, "club_secret_users", docId), {
-                    name,
-                    username,
-                    password,
-                    role,
-                    departament
-                });
+                const updates = { name, username, role, departament };
+                if (password) updates.password = password;
+                await updateDoc(doc(db, "club_secret_users", docId), updates);
                 alert("İstifadəçi məlumatları yeniləndi!");
                 closeUserModal();
                 renderSystemUsers();
@@ -835,7 +963,7 @@
             }
 
             if (!canRead) {
-                messagesContainer.innerHTML = `<p style="font-size:0.82rem; color:#e53935; text-align:center; margin-top:30px;"><i class="fa-solid fa-lock"></i> ${accessErrorMsg}</p>`;
+                messagesContainer.innerHTML = `<p style="font-size:0.82rem; color:#e53935; text-align:center; margin-top:30px;"><i class="fa-solid fa-lock"></i> ${escapeHTML(accessErrorMsg)}</p>`;
                 chatInput.disabled = true;
                 chatInput.placeholder = "Giriş qadağandır.";
                 btnSend.disabled = true;
@@ -879,25 +1007,25 @@
 
                     const canManageMsg = isMe || canManageRoomChat;
                     const showCheckbox = canManageRoomChat;
-                    const safeText = m.text ? m.text.replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
+                    const safeText = escapeHTML(m.text || '');
                     const authorFormatted = formatUserBadge(m.senderName, m.senderRole, m.senderDepartament || m.senderDepartment);
 
                     messagesContainer.innerHTML += `
-                        <div class="chat-bubble ${bubbleClass}" id="msg-${m.id}">
+                        <div class="chat-bubble ${bubbleClass}" id="msg-${escapeHTML(m.id)}">
                             <div class="msg-header">
                                 <div style="display: flex; align-items: center; gap: 5px; min-width:0; overflow:hidden;">
-                                    ${showCheckbox ? `<input type="checkbox" class="msg-checkbox" value="${m.id}" onchange="updateSelectedCount()">` : ''}
+                                    ${showCheckbox ? `<input type="checkbox" class="msg-checkbox" value="${escapeHTML(m.id)}" onchange="updateSelectedCount()">` : ''}
                                     ${!isMe ? `<span class="msg-author" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${authorFormatted}</span>` : ''}
                                 </div>
                                 ${canManageMsg ? `
                                     <div class="msg-tools">
-                                        ${isMe ? `<button onclick="editChatMessage('${m.id}', '${safeText}')" title="Redaktə et"><i class="fa-solid fa-pen"></i></button>` : ''}
-                                        <button onclick="deleteChatMessage('${m.id}')" title="Sil"><i class="fa-solid fa-trash"></i></button>
+                                        ${isMe ? `<button onclick="editChatMessage('${escapeHTML(m.id)}', '${safeText}')" title="Redaktə et"><i class="fa-solid fa-pen"></i></button>` : ''}
+                                        <button onclick="deleteChatMessage('${escapeHTML(m.id)}')" title="Sil"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 ` : ''}
                             </div>
-                            <div style="word-break: break-word;">${m.text}</div>
-                            <span class="msg-time">${timeStr}</span>
+                            <div style="word-break: break-word;">${escapeHTML(m.text || "")}</div>
+                            <span class="msg-time">${escapeHTML(timeStr)}</span>
                         </div>
                     `;
                 });
@@ -1056,17 +1184,17 @@
                     const userDept = u.departament || u.department || 'general';
 
                     container.innerHTML += `
-                        <div style="background:var(--bg-color); padding:8px 10px; border-radius:6px; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; cursor:pointer;" onclick="openUserModal('${docId}')" title="Detallara bax / Redaktə et">
+                        <div style="background:var(--bg-color); padding:8px 10px; border-radius:6px; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; cursor:pointer;" onclick="openUserModal('${escapeHTML(docId)}')" title="Detallara bax / Redaktə et">
                             <div>
-                                <strong>${u.name}</strong> <span style="color:var(--text-light); font-size:0.7rem;">(ID: ${docId})</span><br>
-                                <span style="font-size:0.65rem; color:var(--stk-gold);">[${u.role.toUpperCase()} - ${userDept.toUpperCase()}]</span>
+                                <strong>${escapeHTML(u.name || "")}</strong> <span style="color:var(--text-light); font-size:0.7rem;">(ID: ${docId})</span><br>
+                                <span style="font-size:0.65rem; color:var(--stk-gold);">[${escapeHTML((u.role || "").toUpperCase())} - ${escapeHTML(userDept.toUpperCase())}]</span>
                             </div>
                             <span style="font-size:0.75rem; color:var(--text-light);"><i class="fa-solid fa-chevron-right"></i></span>
                         </div>
                     `;
                 });
             } catch (err) {
-                container.innerHTML = `<p style="color:#e53935; font-size:0.78rem;">Xəta: ${err.message}</p>`;
+                container.innerHTML = `<p style="color:#e53935; font-size:0.78rem;">Xəta: ${escapeHTML(err.message || "Naməlum xəta")}</p>`;
             }
         };
 
@@ -1107,14 +1235,14 @@
 
                     container.innerHTML += `
                         <div class="announcement-box">
-                            <h4>${ann.title} <span style="font-size:0.65rem; background:var(--role-bg); padding:2px 5px; border-radius:4px;">${ann.department.toUpperCase()}</span></h4>
-                            <p>${ann.body}</p>
+                            <h4>${escapeHTML(ann.title || "")} <span style="font-size:0.65rem; background:var(--role-bg); padding:2px 5px; border-radius:4px;">${escapeHTML((ann.department || "").toUpperCase())}</span></h4>
+                            <p>${escapeHTML(ann.body || "")}</p>
                             <div class="meta">
-                                <span><i class="fa-regular fa-user"></i> ${authorFormatted} (${ann.date})</span>
+                                <span><i class="fa-regular fa-user"></i> ${authorFormatted} (${escapeHTML(ann.date || "")})</span>
                                 ${canModify ? `
                                     <div style="display: flex; gap: 5px;">
-                                        <button onclick="editAnnouncement('${ann.docId}', '${safeTitle}', '${safeBody}')" class="btn btn-outline" style="padding: 2px 5px; font-size: 0.65rem; color: var(--stk-gold); border-color: var(--stk-gold);">Redaktə</button>
-                                        <button onclick="deleteAnnouncement('${ann.docId}')" class="btn btn-outline" style="padding: 2px 5px; font-size: 0.65rem; color: #e53935; border-color: #e53935;">Sil</button>
+                                        <button onclick="editAnnouncement('${escapeHTML(ann.docId)}', '${safeTitle}', '${safeBody}')" class="btn btn-outline" style="padding: 2px 5px; font-size: 0.65rem; color: var(--stk-gold); border-color: var(--stk-gold);">Redaktə</button>
+                                        <button onclick="deleteAnnouncement('${escapeHTML(ann.docId)}')" class="btn btn-outline" style="padding: 2px 5px; font-size: 0.65rem; color: #e53935; border-color: #e53935;">Sil</button>
                                     </div>
                                 ` : ''}
                             </div>
@@ -1122,7 +1250,7 @@
                     `;
                 });
             } catch (err) {
-                container.innerHTML = `<p style="color:#e53935; font-size:0.8rem;">Xəta: ${err.message}</p>`;
+                container.innerHTML = `<p style="color:#e53935; font-size:0.8rem;">Xəta: ${escapeHTML(err.message || "Naməlum xəta")}</p>`;
             }
         };
 
@@ -1224,15 +1352,15 @@
 
                     listContainer.innerHTML += `
                         <li style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding: 4px 0;">
-                            <a href="${file.url}" target="_blank" style="color: var(--text-color); text-decoration: none; font-weight: 500;">
-                                <i class="fa-solid fa-file-pdf" style="color: #e53935; margin-right: 5px;"></i> ${file.name} <span style="font-size:0.65rem; color:var(--stk-gold);">[${file.department.toUpperCase()}]</span>
+                            <a href="${escapeHTML(file.url)}" rel="noopener noreferrer" target="_blank" style="color: var(--text-color); text-decoration: none; font-weight: 500;">
+                                <i class="fa-solid fa-file-pdf" style="color: #e53935; margin-right: 5px;"></i> ${escapeHTML(file.name || "")} <span style="font-size:0.65rem; color:var(--stk-gold);">[${file.department.toUpperCase()}]</span>
                             </a>
-                            ${canDelete ? `<button onclick="deleteArchive('${file.docId}')" style="background:transparent; border:none; color:#e53935; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-trash"></i></button>` : ''}
+                            ${canDelete ? `<button onclick="deleteArchive('${escapeHTML(file.docId)}')" style="background:transparent; border:none; color:#e53935; cursor:pointer; font-size:0.75rem;"><i class="fa-solid fa-trash"></i></button>` : ''}
                         </li>
                     `;
                 });
             } catch (err) {
-                listContainer.innerHTML = `<li style="color:#e53935; font-size:0.8rem;">Xəta: ${err.message}</li>`;
+                listContainer.innerHTML = `<li style="color:#e53935; font-size:0.8rem;">Xəta: ${escapeHTML(err.message || "Naməlum xəta")}</li>`;
             }
         };
 
